@@ -1,0 +1,34 @@
+﻿@model EcomProofOfConcept.Models.LoginViewModel
+@{
+    ViewData["Title"] = "Sign In";
+}
+
+<br /><br />
+<form method="post" asp-controller="SignIn">
+    <table>
+        <tr>
+            <td>Email:</td>
+            <td>
+                <input type="text" name="email" asp-for="Email" autocomplete="off" /><br />
+            </td>
+        </tr>
+        <tr class="extraheight"><td></td><td><span asp-validation-for="Email" class="errortext"></span></td></tr>
+        <tr>
+            <td>Password:</td>
+            <td>
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })<br />
+            </td>
+        </tr>
+        <tr class="extraheight"><td></td><td><span asp-validation-for="Password" class="errortext"></span></td></tr>
+    </table>
+    <input type="submit" value="Done" />
+</form>
+<br />
+<div class="errortext">
+    @{
+        if (ViewData["InvalidCredentials"] != null)
+        {
+            @Html.Raw("Invalid credentials were entered.");
+        }
+    }
+</div>

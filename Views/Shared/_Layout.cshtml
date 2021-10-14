@@ -1,0 +1,52 @@
+﻿@using Microsoft.AspNetCore.Http;
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <div class="maincontent">
+        <center>
+            <header>
+                <div class="navbar">
+                    |&nbsp; <a class="navlink" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    @{
+                        if (Context.Session.GetString("Name") == null)
+                        {
+                            @Html.Raw("| &nbsp");
+                            <a class="navlink" asp-area="" asp-controller="SignUp" asp-action="Index">Sign up</a>
+                            @Html.Raw("| &nbsp");
+                            <a class="navlink" asp-area="" asp-controller="SignIn" asp-action="Index">Sign in</a>
+                        }
+                        else
+                        {
+                            @Html.Raw("| &nbsp");
+                            <a class="navlink" asp-area="" asp-controller="Profile" asp-action="RedirToCurrent">Your Account</a>
+                            @Html.Raw("| &nbsp");
+                            <a class="navlink" asp-area="" asp-controller="Sell" asp-action="Index">Sell an Item</a>
+                            @Html.Raw("| &nbsp");
+                            <a class="navlink" asp-area="" asp-controller="SignIn" asp-action="Leave">Sign out</a>
+                        }
+                    }
+                    &nbsp;|
+                </div>
+            </header>
+            <main role="main">
+                @RenderBody()
+            </main>
+        </center>
+    </div>
+
+    <footer>
+        <div class="bottomtext">
+            &copy; 2021 - EcomProofOfConcept
+        </div>
+    </footer>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

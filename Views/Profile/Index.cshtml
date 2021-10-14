@@ -1,0 +1,36 @@
+﻿@using Microsoft.AspNetCore.Http;
+
+@if (ViewData["MemberSince"] != null)
+{
+    ViewData["Title"] = ViewData["Username"] + "'s profile";
+    <h2>@ViewData["Username"]</h2>
+    <span class= "subtext">@Html.Raw("Member since " + ViewData["MemberSince"])</span>
+    <br /><br /><br />
+    @Html.Raw("Email: " + ViewData["Email"]);
+    <br />
+    @Html.Raw("Buyer rating: " + ViewData["BuyerRating"]);
+    <br />
+    @Html.Raw("Seller rating: " + ViewData["SellerRating"]);
+    <br /><br /><br />
+    @if ((string)ViewData["Username"] == Context.Session.GetString("Name"))
+    {
+        @Html.Raw("<h4>Items that you are listing for sale</h4>");
+    }
+    else
+    {
+        @Html.Raw("<h4>Items that this user is selling</h4>");
+    }
+    @foreach(KeyValuePair<string, long> listing in (Dictionary<string, long>) ViewData["Listings"])
+    {
+        @Html.Raw("<a href = '" + "/item/" + listing.Value + "'>" + listing.Key + "</a><br />");
+    }
+    if (((Dictionary<string, long>)ViewData["Listings"]).Count == 0)
+    { 
+        @Html.Raw("<p class = 'subtext'>(There are none)</p>")
+    }
+}
+else
+{
+    ViewData["Title"] = "User not found.";
+    <h3 class="errortext">No such user exists</h3>
+}
