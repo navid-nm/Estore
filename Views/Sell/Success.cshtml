@@ -1,7 +1,0 @@
-﻿@using Microsoft.AspNetCore.Http;
-
-@{
-    ViewData["Title"] = "Listing successfully made.";
-}
-
-@Html.Raw("<h2>Success, you can see your listing at the <a href='/user/" + Context.Session.GetString("Name") + "'>listing</a> page</h2>")
