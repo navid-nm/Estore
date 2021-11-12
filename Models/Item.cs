@@ -21,7 +21,28 @@ namespace AuctionSystemPOC.Models
         [Required]
         public string Condition { get; set; }
 
+        public string Username { get; set; }
+
         private readonly ItemDB idb;
 
+        public Item()
+        {
+            idb = new ItemDB();
+        }
+
+        public Tuple<string, string, float, string, string, bool> GetInfo(long id)
+        {
+            return idb.GetItemInfoFromID(id);
+        }
+
+        public void IncrementViews(long id)
+        {
+            idb.IncrementViews(id);
+        }
+
+        public int Commit()
+        {
+            return idb.AddItem(this);
+        }
     }
 }

@@ -23,34 +23,38 @@ namespace AuctionSystemPOC.DataAccessLayers
                     + "views INTEGER NOT NULL,"
                     + "datelisted DATETIME NOT NULL,"
                     + "conclusiondate DATETIME NOT NULL,"
-                    + "concluded BOOLEAN NOT NULL,"
-                    + "FOREIGN KEY (userid) REFERENCES Users(id)"
+                    + "concluded BOOLEAN NOT NULL"
                 + ");"
             );
         }
 
-        public void AddItem(Item item, string username)
+        public int AddItem(Item item)
         {
             var msc = db.GetConnection();
-            string ctext = "INSERT INTO ecompoc.items"
-                + " (name, description, price, itemcondition, username, userid, views, datelisted, concluded)"
+            string ctext = "INSERT INTO auctionsystempoc.items"
+                + " (name, description, price, itemcondition, username, views, datelisted, conclusiondate, concluded)"
                 + " VALUES (@nm, @desc, @price, @cond, @uname, 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP "
-                + "+ INTERVAL 1 HOUR, false)";
+                + "+ INTERVAL 1 HOUR, false); SELECT LAST_INSERT_ID();";
             MySqlCommand rcom = db.GetCommandWithArgs(msc, ctext, new Dictionary<string, string>()
             {
                 { "nm", item.Name },
                 { "desc", item.Description },
                 { "price", Math.Round(item.Price, 2).ToString() },
                 { "cond", item.Condition },
-                { "uname", username },
+                { "uname", item.Username },
             });
-            db.RunComWithConn(rcom, msc);
+            msc.Open();
+            MySqlDataReader reader = rcom.ExecuteReader();
+            reader.Read();
+            int id = reader.GetInt32("LAST_INSERT_ID()");
+            msc.Close();
+            return id;
         }
 
         public Tuple<string, string, float, string, string, bool> GetItemInfoFromID(long id)
         {
             string qtext = "SELECT name, description, price, itemcondition, username, concluded"
-                + " FROM ecompoc.items"
+                + " FROM auctionsystempoc.items"
                 + " WHERE id = @id";
             using (var msc = db.GetConnection())
             {
@@ -71,7 +75,7 @@ namespace AuctionSystemPOC.DataAccessLayers
 
         public void IncrementViews(long id)
         {
-            string ctext = "UPDATE ecompoc.items SET views = views + 1 WHERE id = @id";
+            string ctext = "UPDATE auctionsystempoc.items SET views = views + 1 WHERE id = @id";
             using (var msc = db.GetConnection())
             {
                 var rcom = db.GetCommand(msc, ctext);
@@ -83,7 +87,7 @@ namespace AuctionSystemPOC.DataAccessLayers
 
         public void Conclude(long id)
         {
-            string ctext = "UPDATE ecompoc.items SET concluded = true WHERE id = @id";
+            string ctext = "UPDATE auctionsystempoc.items SET concluded = true WHERE id = @id";
             var msc = db.GetConnection();
             var rcom = db.GetCommand(msc, ctext);
             rcom.Parameters.AddWithValue("@id", id);

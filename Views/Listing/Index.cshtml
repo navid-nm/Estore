@@ -1,0 +1,23 @@
+﻿@using Microsoft.AspNetCore.Http;
+@{
+    ViewData["Title"] = "Listing";
+}
+
+@{
+    if (ViewData["Name"] == null)
+    {
+        <span class="errortext">
+            @Html.Raw("No such item exists");
+        </span>
+    }
+    else
+    {
+        <div class="text-center">
+            <h1 class="display-4">@ViewData["Name"]</h1>
+            <h4>Price: @ViewData["Username"]</h4>
+            <br /><b>Condition:</b> @ViewData["Condition"]
+            <br /><b>Description:</b> <i>@ViewData["Description"]</i>
+            <br /><b>Seller:</b> @ViewData["Username"]
+        </div>
+    }
+}

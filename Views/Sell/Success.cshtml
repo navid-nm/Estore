@@ -1,0 +1,6 @@
+﻿@using Microsoft.AspNetCore.Http;
+@{
+    ViewData["Title"] = "Listing successfully made.";
+}
+
+@Html.Raw("<h2>Success, you can see your listing <a href='/listing/" + ViewData["ID"] + "'>here</a></h2>")

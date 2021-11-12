@@ -6,9 +6,25 @@ namespace AuctionSystemPOC.Controllers
 {
     public class SellController : Controller
     {
+        [HttpGet]
         public IActionResult Index()
         {
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult Index(Item item)
+        {
+            if (ModelState.IsValid)
+            {
+                item.Username = HttpContext.Session.GetString("Name");
+                ViewData["ID"] = item.Commit();
+                return View("Success");
+            }
+            else
+            {
+                return View(item);
+            }
         }
     }
 }
