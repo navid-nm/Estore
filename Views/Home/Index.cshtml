@@ -1,8 +1,11 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Http;
+@{
     ViewData["Title"] = "Home Page";
+    string homemsg = "Welcome";
+    if (Context.Session.GetString("Name") != null) homemsg += ", " + Context.Session.GetString("Name"); 
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
+    <h1 class="display-4">@homemsg</h1>
     <p>Landing page.</p>
 </div>

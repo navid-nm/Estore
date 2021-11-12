@@ -1,7 +1,6 @@
 ﻿using AuctionSystemPOC.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
+using Microsoft.AspNetCore.Http;
 
 namespace AuctionSystemPOC.Controllers
 {
@@ -10,6 +9,19 @@ namespace AuctionSystemPOC.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            ViewData["Tried"] = false;
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Index(string username)
+        {
+            ViewData["Tried"] = true;
+            if (username.Length > 2)
+            {
+                HttpContext.Session.SetString("Name", username);
+                return Redirect("/");
+            }
             return View();
         }
     }

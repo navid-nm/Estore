@@ -24,6 +24,7 @@ namespace AuctionSystemPOC
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddSession();
             services.AddRouting(options => options.LowercaseUrls = true);
         }
 
@@ -43,6 +44,7 @@ namespace AuctionSystemPOC
             app.UseStaticFiles();
             app.UseRouting();
             app.UseAuthorization();
+            app.UseSession();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
