@@ -45,9 +45,9 @@ namespace AuctionSystemPOC.Models
             return idb.GetAllItems();
         }
 
-        public void AddBid (long id, string uname, decimal newprice)
+        public void AddBid(Bid bid)
         {
-            idb.AddBid(id, uname, newprice);
+            idb.AddBid(bid);
         }
 
         public void IncrementViews(long id)

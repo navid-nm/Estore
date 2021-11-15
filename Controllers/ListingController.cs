@@ -48,7 +48,7 @@ namespace AuctionSystemPOC.Controllers
                 }
                 else
                 {
-                    item.AddBid(idl, HttpContext.Session.GetString("Name"), amount);
+                    item.AddBid(new Bid { ID = idl, Username = seller, Amount = amount });
                 }
             }
             if (pass)

@@ -130,7 +130,8 @@ namespace AuctionSystemPOC.DataAccessLayers
         /// <param name="id">ID of the item</param>
         /// <param name="uname">Username of the bidder</param>
         /// <param name="newprice">New price of the item</param>
-        public void AddBid(long id, string uname, decimal newprice)
+        /// long id, string uname, decimal newprice
+        public void AddBid(Bid bid)
         {
             string ctext = "UPDATE auctionsystempoc.items SET currentprice = @price WHERE id = @id"
                 + "; INSERT INTO auctionsystempoc.bids (amount, datemade, username) VALUES (@amount,"
@@ -139,10 +140,10 @@ namespace AuctionSystemPOC.DataAccessLayers
             {
                 MySqlCommand com = db.GetCommandWithArgs(msc, ctext, new Dictionary<string, string>
                 {
-                    { "price", newprice.ToString() },
-                    { "id", id.ToString() },
-                    { "amount", newprice.ToString() },
-                    { "uname", uname }
+                    { "price", bid.Amount.ToString() },
+                    { "id", bid.ID.ToString() },
+                    { "amount", bid.Amount.ToString() },
+                    { "uname", bid.Username }
                 });
                 msc.Open();
                 com.ExecuteNonQuery();
@@ -150,7 +151,7 @@ namespace AuctionSystemPOC.DataAccessLayers
                 var bidcom = db.GetCommandWithArgs(msc, hasinsert, new Dictionary<string, string>
                 {
                     { "bidid", bdb.GetLastBidID().ToString() },
-                    { "id", id.ToString() }
+                    { "id", bid.ID.ToString() }
                 });
                 bidcom.ExecuteNonQuery();
             }
