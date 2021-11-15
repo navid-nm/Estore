@@ -127,10 +127,7 @@ namespace AuctionSystemPOC.DataAccessLayers
         /// <summary>
         /// Add a bid to an item
         /// </summary>
-        /// <param name="id">ID of the item</param>
-        /// <param name="uname">Username of the bidder</param>
-        /// <param name="newprice">New price of the item</param>
-        /// long id, string uname, decimal newprice
+        /// <param name="bid">The bid to add</param>
         public void AddBid(Bid bid)
         {
             string ctext = "UPDATE auctionsystempoc.items SET currentprice = @price WHERE id = @id"
