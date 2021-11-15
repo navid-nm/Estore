@@ -3,7 +3,7 @@
 }
 
 @{
-    if (ViewData["Name"] == null && !(bool)ViewData["BidPlaceAttempt"])
+    if (ViewData["Name"] == null)
     {
         <span class="errortext">
             @Html.Raw("No such item exists")
@@ -21,18 +21,20 @@
             <br /><br /><b>Condition:</b> @ViewData["Condition"]
             <br /><b>Description:</b> <i>@ViewData["Description"]</i>
             <br /><b>Seller:</b> @ViewData["Username"]
-        </div>
-        if (ViewData["BidPlaceAttempt"] != null)
-        { 
-            if (ViewData["Error"] != null)
-            {
-                <p class="errortext">@Html.Raw(ViewData["Error"])</p>
-            }
-            else
-            {
-                <p>Successful bid.</p>
+            <br />
+        @{ 
+            if (ViewData["BidPlaceAttempt"] != null)
+            { 
+                if (ViewData["Error"] != null)
+                {
+                    <p class="errortext">@Html.Raw(ViewData["Error"])</p>
+                }
+                else
+                {
+                    <p>Successful bid.</p>
+                }
             }
         }
-
+        </div>
     }
 }
