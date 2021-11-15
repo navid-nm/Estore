@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Collections.Generic;
 using MySqlConnector;
 using AuctionSystemPOC.Models;
@@ -44,8 +43,6 @@ namespace AuctionSystemPOC.DataAccessLayers
                 { "cond", item.Condition },
                 { "uname", item.Username },
             });
-            Debug.WriteLine("PRICE, " + item.Price.ToString());
-            Debug.WriteLine("ROUNDED PRICE, " + Math.Round(item.Price, 2).ToString());
             msc.Open();
             MySqlDataReader reader = rcom.ExecuteReader();
             reader.Read();
@@ -71,7 +68,6 @@ namespace AuctionSystemPOC.DataAccessLayers
                     reader.GetString("name"), reader.GetString("description"), reader.GetDecimal("price"),
                     reader.GetString("itemcondition"), reader.GetString("username"), reader.GetBoolean("concluded")
                 );
-                Debug.WriteLine(reader.GetDecimal("price"));
                 reader.Close();
                 return info;
             }
