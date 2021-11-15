@@ -9,6 +9,7 @@ namespace AuctionSystemPOC.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            if (HttpContext.Session.GetString("Name") == null) return Redirect("/");
             return View();
         }
 

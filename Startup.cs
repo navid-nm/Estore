@@ -49,7 +49,7 @@ namespace AuctionSystemPOC
                 endpoints.MapControllerRoute(
                     name: "listing",
                     pattern: "listing/{id}",
-                    defaults: new { controller = "Listing", action = "GetListing" }
+                    defaults: new { controller = "Listing", action = "Index" }
                 );
             });
         }

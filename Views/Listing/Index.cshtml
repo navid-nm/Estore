@@ -1,23 +1,38 @@
-﻿@using Microsoft.AspNetCore.Http;
-@{
+﻿@{
     ViewData["Title"] = "Listing";
 }
 
 @{
-    if (ViewData["Name"] == null)
+    if (ViewData["Name"] == null && !(bool)ViewData["BidPlaceAttempt"])
     {
         <span class="errortext">
-            @Html.Raw("No such item exists");
+            @Html.Raw("No such item exists")
         </span>
     }
     else
     {
         <div class="text-center">
             <h1 class="display-4">@ViewData["Name"]</h1>
-            <h4>Price: £@ViewData["Price"]</h4>
-            <br /><b>Condition:</b> @ViewData["Condition"]
+            <br /><h4>Price: £@ViewData["Price"]</h4>
+            <form method="post" asp-controller="Listing">
+                <input type="text" class="form-control-sm" name="amount" placeholder="Bid amount" maxlength=10 size="16" />
+                <input type="submit" value="Submit bid" />
+            </form>
+            <br /><br /><b>Condition:</b> @ViewData["Condition"]
             <br /><b>Description:</b> <i>@ViewData["Description"]</i>
             <br /><b>Seller:</b> @ViewData["Username"]
         </div>
+        if (ViewData["BidPlaceAttempt"] != null)
+        { 
+            if (ViewData["Error"] != null)
+            {
+                <p class="errortext">@Html.Raw(ViewData["Error"])</p>
+            }
+            else
+            {
+                <p>Successful bid.</p>
+            }
+        }
+
     }
 }

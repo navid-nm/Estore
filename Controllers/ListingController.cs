@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Linq;
+using System.Net.Http;
 using System.Collections.Generic;
 using AuctionSystemPOC.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 
 namespace AuctionSystemPOC.Controllers
 {
@@ -15,8 +17,9 @@ namespace AuctionSystemPOC.Controllers
             item = new Item();
         }
 
-        public IActionResult GetListing(string id)
+        public IActionResult Index(string id, decimal amount)
         {
+            decimal curprice = 0;
             if (id.All(char.IsDigit))
             {
                 long idl = Int64.Parse(id);
@@ -31,11 +34,21 @@ namespace AuctionSystemPOC.Controllers
                     ViewData["Condition"] = info.Item4;
                     ViewData["Username"] = info.Item5;
                     ViewData["Concluded"] = info.Item6;
+                    curprice = info.Item3;
                 }
+            }
+            if (HttpContext.Request.Method == HttpMethod.Post.Method)
+            {
+                ViewData["BidPlaceAttempt"] = true;
+                if (HttpContext.Session.GetString("Name") == null)
+                    ViewData["Error"] = "Sign in to place a bid.";
+                else if (amount < curprice)
+                    ViewData["Error"] = "This bid is lower than the current bid.";
             }
             return View("Index");
         }
 
+        [HttpGet]
         public IActionResult All()
         {
             List<Item> items = item.GetAll();
