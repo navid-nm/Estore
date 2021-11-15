@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Collections.Generic;
 using AuctionSystemPOC.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,7 +20,7 @@ namespace AuctionSystemPOC.Controllers
             if (id.All(char.IsDigit))
             {
                 long idl = Int64.Parse(id);
-                Tuple<string, string, float, string, string, bool> info = item.GetInfo(idl);
+                Tuple<string, string, decimal, string, string, bool> info = item.GetInfo(idl);
                 if (info != null)
                 {
                     item.IncrementViews(idl);
@@ -33,6 +34,13 @@ namespace AuctionSystemPOC.Controllers
                 }
             }
             return View("Index");
+        }
+
+        public IActionResult All()
+        {
+            List<Item> items = item.GetAll();
+            if (items != null) ViewData["Items"] = items;
+            return View("All");
         }
     }
 }

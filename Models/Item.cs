@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using AuctionSystemPOC.DataAccessLayers;
 
@@ -16,12 +17,16 @@ namespace AuctionSystemPOC.Models
 
         [Required(ErrorMessage = "Listing should have a starting price")]
         [Range(0.01, Double.PositiveInfinity)]
-        public float Price { get; set; }
+        public decimal Price { get; set; }
 
         [Required]
         public string Condition { get; set; }
 
         public string Username { get; set; }
+
+        public bool Concluded { get; set; }
+
+        public long ID { get; set; }
 
         private readonly ItemDB idb;
 
@@ -30,9 +35,14 @@ namespace AuctionSystemPOC.Models
             idb = new ItemDB();
         }
 
-        public Tuple<string, string, float, string, string, bool> GetInfo(long id)
+        public Tuple<string, string, decimal, string, string, bool> GetInfo(long id)
         {
             return idb.GetItemInfoFromID(id);
+        }
+
+        public List<Item> GetAll()
+        {
+            return idb.GetAllItems();
         }
 
         public void IncrementViews(long id)

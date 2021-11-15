@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Collections.Generic;
 using MySqlConnector;
 using AuctionSystemPOC.Models;
@@ -17,7 +18,7 @@ namespace AuctionSystemPOC.DataAccessLayers
                     + "id INTEGER AUTO_INCREMENT PRIMARY KEY,"
                     + "name TEXT NOT NULL,"
                     + "description TEXT NOT NULL,"
-                    + "price DECIMAL NOT NULL,"
+                    + "price DECIMAL(9, 2) NOT NULL,"
                     + "itemcondition TEXT NOT NULL,"
                     + "username TEXT NOT NULL,"
                     + "views INTEGER NOT NULL,"
@@ -43,6 +44,8 @@ namespace AuctionSystemPOC.DataAccessLayers
                 { "cond", item.Condition },
                 { "uname", item.Username },
             });
+            Debug.WriteLine("PRICE, " + item.Price.ToString());
+            Debug.WriteLine("ROUNDED PRICE, " + Math.Round(item.Price, 2).ToString());
             msc.Open();
             MySqlDataReader reader = rcom.ExecuteReader();
             reader.Read();
@@ -51,7 +54,7 @@ namespace AuctionSystemPOC.DataAccessLayers
             return id;
         }
 
-        public Tuple<string, string, float, string, string, bool> GetItemInfoFromID(long id)
+        public Tuple<string, string, decimal, string, string, bool> GetItemInfoFromID(long id)
         {
             string qtext = "SELECT name, description, price, itemcondition, username, concluded"
                 + " FROM auctionsystempoc.items"
@@ -65,12 +68,45 @@ namespace AuctionSystemPOC.DataAccessLayers
                 if (!reader.HasRows) return null;
                 reader.Read();
                 var info = Tuple.Create(
-                    reader.GetString("name"), reader.GetString("description"), (float)reader.GetFloat("price"),
+                    reader.GetString("name"), reader.GetString("description"), reader.GetDecimal("price"),
                     reader.GetString("itemcondition"), reader.GetString("username"), reader.GetBoolean("concluded")
                 );
+                Debug.WriteLine(reader.GetDecimal("price"));
                 reader.Close();
                 return info;
             }
+        }
+
+        public List<Item> GetAllItems()
+        {
+            string qtext = "SELECT id, name, description, price, itemcondition, username, concluded"
+                + " FROM auctionsystempoc.items";
+            var items = new List<Item>();
+            using (var msc = db.GetConnection())
+            {
+                var rcom = db.GetCommand(msc, qtext);
+                msc.Open();
+                var reader = rcom.ExecuteReader();
+                if (!reader.HasRows) return null;
+                else
+                {
+                    while (reader.Read())
+                    {
+                        Item itm = new Item
+                        {
+                            ID = reader.GetInt64("id"),
+                            Name = reader.GetString("name"),
+                            Description = reader.GetString("description"),
+                            Price = reader.GetDecimal("price"),
+                            Condition = reader.GetString("itemcondition"),
+                            Username = reader.GetString("username"),
+                            Concluded = reader.GetBoolean("concluded")
+                        };
+                        items.Add(itm);
+                    }
+                }
+            }
+            return items;
         }
 
         public void IncrementViews(long id)

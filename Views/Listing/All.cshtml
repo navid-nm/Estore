@@ -1,0 +1,33 @@
+﻿@using Microsoft.AspNetCore.Http;
+@{
+    ViewData["Title"] = "Listing";
+    string fcol = "black";
+}
+
+@{
+    if (ViewData["Items"] == null)
+    {
+        <span class="errortext">
+            @Html.Raw("No items are currently listed.")
+        </span>
+    }
+    else
+    {
+        foreach (Item item in (List<Item>) ViewData["Items"])
+        {
+            if (item.Concluded)
+            {
+                fcol = "grey";
+                @Html.Raw("(This listing has concluded)");
+            }
+            <font color="@fcol">
+            <div class="text-center">
+                <b class=".h4"><a href="/listing/@item.ID">@item.Name</a></b>
+                <br /><b>Price: £@item.Price</b>
+                <br /><b>Condition:</b> @item.Condition
+            </div>
+            </font>
+            <br /><br />
+        }
+    }
+}
