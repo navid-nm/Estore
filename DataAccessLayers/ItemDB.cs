@@ -137,8 +137,6 @@ namespace AuctionSystemPOC.DataAccessLayers
             {
                 MySqlCommand com = db.GetCommandWithArgs(msc, ctext, new Dictionary<string, string>
                 {
-                    { "price", bid.Amount.ToString() },
-                    { "id", bid.ID.ToString() },
                     { "amount", bid.Amount.ToString() },
                     { "uname", bid.Username }
                 });
