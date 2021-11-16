@@ -14,14 +14,14 @@
         <div class="text-center">
             <h1 class="display-4">@ViewData["Name"]</h1>
             <br /><h4>Price: £@ViewData["Price"]</h4>
-            <form method="post" asp-controller="Listing">
+            <form method="post" asp-controller="Listing" onsubmit="joinbidders()">
                 <input type="text" class="form-control-sm" name="amount" placeholder="Bid amount" maxlength=10 size="16" />
                 <input type="submit" value="Submit bid" />
             </form>
             <br /><br /><b>Condition:</b> @ViewData["Condition"]
             <br /><b>Description:</b> <i>@ViewData["Description"]</i>
             <br /><b>Seller:</b> @ViewData["Username"]
-            <br />
+            <br /><br />
         @{ 
             if (ViewData["BidPlaceAttempt"] != null)
             { 
@@ -36,5 +36,6 @@
             }
         }
         </div>
+        <font color="white"><p id="itemid">@ViewData["ID"]</p></font>
     }
 }

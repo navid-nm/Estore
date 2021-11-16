@@ -3,6 +3,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using AuctionSystemPOC.Hubs;
+using System.Threading.Tasks;
+using System.Net.WebSockets;
+using System.Threading;
+using System.Text;
 
 namespace AuctionSystemPOC
 {
@@ -18,6 +23,7 @@ namespace AuctionSystemPOC
         //Use to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSignalR();
             services.AddControllersWithViews();
             services.AddSession();
             services.AddRouting(options => options.LowercaseUrls = true);
@@ -42,6 +48,7 @@ namespace AuctionSystemPOC
             app.UseSession();
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHub<BidNotification>("/bidnotifications");
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}"
