@@ -6,9 +6,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - AuctionSystemPOC</title>
+    
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/lib/notyf/notyf.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+
+    
 </head>
 <body>
     <header>
@@ -44,7 +47,6 @@
                                 </li>
                             }
                         }
-
                     </ul>
                 </div>
             </div>
@@ -52,6 +54,11 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
+            <script src="~/lib/jquery/dist/jquery.min.js"></script>
+            <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="~/lib/signalr/signalr.js"></script>
+            <script src="~/lib/notyf/notyf.min.js"></script>
+            <script src="~/js/notifications.js"></script>
             @RenderBody()
         </main>
     </div>
@@ -66,11 +73,8 @@
             <!--delete end-->
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/lib/signalr/signalr.js"></script>
-    <script src="~/lib/notyf/notyf.min.js"></script>
-    <script src="~/js/notifications.js"></script>
+
+    
     @RenderSection("Scripts", required: false)
 </body>
 </html>

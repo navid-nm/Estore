@@ -24,17 +24,4 @@ conn.on("ReceiveOutbidNotification", function () {
         '<br><a href ="test.com">Placeholder link</a>');
 });
 
-conn.start().then(function () {
-    itemid = "2"
-    conn.invoke("JoinBiddersGroup", itemid).catch(function (err) {
-        return console.error(err.toString());
-    });
-    //Then notify everyone else in the group that they have been outbid
-    conn.invoke("NotifyOutbid", itemid)
-})
-
-function joinbidders() {
-    //Add the bidder to the group
-    var itemid = document.getElementById("itemid").innerHTML;
-    console.log(itemid)
-}
+conn.start()

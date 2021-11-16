@@ -14,9 +14,9 @@
         <div class="text-center">
             <h1 class="display-4">@ViewData["Name"]</h1>
             <br /><h4>Price: £@ViewData["Price"]</h4>
-            <form method="post" asp-controller="Listing" onsubmit="joinbidders()">
+            <form method="post" asp-controller="Listing" id="listform">
                 <input type="text" class="form-control-sm" name="amount" placeholder="Bid amount" maxlength=10 size="16" />
-                <input type="submit" value="Submit bid" />
+                <input type="submit" value="Submit bid" id="bidbutton"/>
             </form>
             <br /><br /><b>Condition:</b> @ViewData["Condition"]
             <br /><b>Description:</b> <i>@ViewData["Description"]</i>
@@ -37,5 +37,13 @@
         }
         </div>
         <font color="white"><p id="itemid">@ViewData["ID"]</p></font>
+        <script>
+            document.getElementById("bidbutton").addEventListener("click", function (event) {
+                conn.invoke("NotifyOutbid", "2")
+                event.preventDefault()
+                setTimeout(function () { }, 1000)
+                document.getElementById("listform").submit()
+            });
+        </script>
     }
 }
