@@ -5,7 +5,7 @@
 document.getElementById("bidbutton").addEventListener("click", function (event) {
     event.preventDefault()
     if (document.getElementById("sellername").innerHTML != document.getElementById("sname").innerHTML
-        && document.getElementById("amount").value >= document.getElementById("price").innerHTML) {
+        && document.getElementById("amount").value > document.getElementById("price").innerHTML) {
         conn.invoke("NotifyOutbid", document.getElementById("itemid").innerHTML)
     }
     setTimeout(function () { }, 1000)
