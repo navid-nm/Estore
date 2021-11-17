@@ -9,17 +9,15 @@ namespace AuctionSystemPOC.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            ViewData["Tried"] = false;
             return View();
         }
 
         [HttpPost]
-        public IActionResult Index(string username)
+        public IActionResult Index(SignInViewModel svm)
         {
-            ViewData["Tried"] = true;
-            if (username.Length > 2)
+            if (ModelState.IsValid)
             {
-                HttpContext.Session.SetString("Name", username);
+                HttpContext.Session.SetString("Name", svm.Username);
                 return Redirect("/");
             }
             return View();

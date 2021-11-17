@@ -1,20 +1,14 @@
-﻿@{
+﻿@model AuctionSystemPOC.Models.SignInViewModel
+@{
     ViewData["Title"] = "Sign in";
 }
 
 <div class="text-center">
     <h1 class="display-4">Choose username</h1>
     <form method="post" asp-controller="SignIn">
-        <input type="text" name="Username" />
+        <input type="text" asp-for="Username" name="Username" />
         <input type="submit" value="Done" />
     </form>
     <br />
-    <font color="red">
-        @{
-            if ((bool)ViewData["Tried"])
-            {
-                @Html.Raw("Name must be above or equal to 3 characters.");
-            }
-        }
-    </font>
+    <span class="errortext" asp-validation-for="Username"></span>
 </div>
