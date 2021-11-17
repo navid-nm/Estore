@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using AuctionSystemPOC.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
-using System.Diagnostics;
 
 namespace AuctionSystemPOC.Controllers
 {
@@ -20,8 +19,6 @@ namespace AuctionSystemPOC.Controllers
 
         public IActionResult Index(string id, decimal amount)
         {
-            HttpContext.Session.SetString("ValidBid", "No");
-
             decimal curprice = 0;
             long idl = 0;
             bool pass = false;
@@ -48,7 +45,6 @@ namespace AuctionSystemPOC.Controllers
                 else
                 {
                     item.AddBid(new Bid { ID = idl, Username = sessionname, Amount = amount });
-                    HttpContext.Session.SetString("ValidBid", "Yes");
                 }
             }
             if (pass)

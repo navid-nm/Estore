@@ -2,8 +2,6 @@
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.SignalR;
-using Microsoft.AspNetCore.Http;
-using System.Diagnostics;
 using AuctionSystemPOC.DataAccessLayers;
 
 namespace AuctionSystemPOC.Hubs
@@ -29,8 +27,7 @@ namespace AuctionSystemPOC.Hubs
                 }
                 bidders_str += bidders[bidind] + sep;
             }
-            await Clients.Others.SendAsync("GiveNotifAllowance", bidders_str);
-            await Clients.Others.SendAsync("ReceiveOutbidNotification");
+            await Clients.Others.SendAsync("ReceiveOutbidNotification", bidders_str);
         }
     }
 }
