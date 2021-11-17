@@ -47,9 +47,9 @@ namespace AuctionSystemPOC.DataAccessLayers
             return id;
         }
 
-        public Tuple<string, string, decimal, string, string, bool> GetItemInfoFromID(long id)
+        public Tuple<string, string, List<decimal>, string, string, bool, List<Bid>> GetItemInfoFromID(long id)
         {
-            string qtext = "SELECT name, description, currentprice, itemcondition, username, concluded"
+            string qtext = "SELECT name, description, startingprice, currentprice, itemcondition, username, concluded"
                 + " FROM auctionsystempoc.items"
                 + " WHERE id = @id";
             using (var msc = db.GetConnection())
@@ -61,8 +61,10 @@ namespace AuctionSystemPOC.DataAccessLayers
                 if (!reader.HasRows) return null;
                 reader.Read();
                 var info = Tuple.Create(
-                    reader.GetString("name"), reader.GetString("description"), reader.GetDecimal("currentprice"),
-                    reader.GetString("itemcondition"), reader.GetString("username"), reader.GetBoolean("concluded")
+                    reader.GetString("name"), reader.GetString("description"),
+                    new List<decimal> { reader.GetDecimal("startingprice"), reader.GetDecimal("currentprice") },
+                    reader.GetString("itemcondition"), reader.GetString("username"), 
+                    reader.GetBoolean("concluded"), GetBids(id)
                 );
                 reader.Close();
                 return info;

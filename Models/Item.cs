@@ -35,7 +35,7 @@ namespace AuctionSystemPOC.Models
             idb = new ItemDB();
         }
 
-        public Tuple<string, string, decimal, string, string, bool> GetInfo(long id)
+        public Tuple<string, string, List<decimal>, string, string, bool, List<Bid>> GetInfo(long id)
         {
             return idb.GetItemInfoFromID(id);
         }

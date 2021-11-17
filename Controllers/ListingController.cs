@@ -36,7 +36,7 @@ namespace AuctionSystemPOC.Controllers
                 // 2 GetInfo calls are required
                 // For obtaining price and seller username prior to and following validation
                 var preget = item.GetInfo(idl);
-                curprice = preget.Item3;
+                curprice = preget.Item3[1];
 
                 string seller = preget.Item5;
                 string sessionname = HttpContext.Session.GetString("Name");
@@ -44,10 +44,7 @@ namespace AuctionSystemPOC.Controllers
                 ViewData["BidPlaceAttempt"] = true;
                 if (sessionname == null) ViewData["Error"] = "Sign in to place a bid.";
                 else if (amount <= curprice) ViewData["Error"] = "Your bid must be higher than the current bid.";
-                else if (sessionname == seller)
-                {
-                    ViewData["Error"] = "You cannot bid on your own item.";
-                }
+                else if (sessionname == seller) ViewData["Error"] = "You cannot bid on your own item.";
                 else
                 {
                     item.AddBid(new Bid { ID = idl, Username = sessionname, Amount = amount });
@@ -56,17 +53,19 @@ namespace AuctionSystemPOC.Controllers
             }
             if (pass)
             {
-                Tuple<string, string, decimal, string, string, bool> info = item.GetInfo(idl);
+                Tuple<string, string, List<decimal>, string, string, bool, List<Bid>> info = item.GetInfo(idl);
                 if (info != null)
                 {
                     item.IncrementViews(idl);
                     ViewData["ID"] = id;
                     ViewData["Name"] = info.Item1;
                     ViewData["Description"] = info.Item2;
-                    ViewData["Price"] = info.Item3;
+                    ViewData["StartingPrice"] = info.Item3[0];
+                    ViewData["CurrentPrice"] = info.Item3[1];
                     ViewData["Condition"] = info.Item4;
                     ViewData["Username"] = info.Item5;
                     ViewData["Concluded"] = info.Item6;
+                    ViewData["Bids"] = info.Item7;
                 }
             }
             return View("Index");

@@ -28,7 +28,7 @@ namespace AuctionSystemPOC.DataAccessLayers
                     bid = new Bid
                     {
                         ID = id,
-                        Amount = reader.GetInt16("amount"),
+                        Amount = reader.GetDecimal("amount"),
                         DateMade = reader.GetDateTime("datemade"),
                         Username = reader.GetString("username")
                     };
