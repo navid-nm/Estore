@@ -19,9 +19,10 @@ let notif = new Notyf({
     ]
 });
 
-conn.on("ReceiveOutbidNotification", function (names) {
+conn.on("ReceiveOutbidNotification", function (names, itemid, itemname) {
     if (names.split(",").includes(curname)) {
-        notif.error('You have been outbid<br><a href ="test.com">Placeholder link</a>');
+        notif.error('You have been outbid on the following item:<br><a href ="/listing/' + itemid + '">' +
+            itemname + '</a>');
     }
 });
 

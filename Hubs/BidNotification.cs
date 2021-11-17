@@ -17,8 +17,9 @@ namespace AuctionSystemPOC.Hubs
 
         public async Task NotifyOutbid(string itemid)
         {
-            List<string> bidders = idb.GetBidders(Int64.Parse(itemid));
-            string bidders_str = "", sep = ",";
+            long idaslong = Int64.Parse(itemid);
+            List<string> bidders = idb.GetBidders(idaslong);
+            string bidders_str = "", sep = ",", itemname = idb.GetItemInfoFromID(idaslong).Item1;
             for (int bidind = 0; bidind < bidders.Count; bidind++)
             {
                 if (bidind == bidders.Count - 1)
@@ -27,7 +28,7 @@ namespace AuctionSystemPOC.Hubs
                 }
                 bidders_str += bidders[bidind] + sep;
             }
-            await Clients.Others.SendAsync("ReceiveOutbidNotification", bidders_str);
+            await Clients.Others.SendAsync("ReceiveOutbidNotification", bidders_str, itemid, itemname);
         }
     }
 }
