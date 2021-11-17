@@ -17,13 +17,14 @@ namespace AuctionSystemPOC.DataAccessLayers
             Bid bid = null;
             using (var msc = db.GetConnection())
             {
-                string qtext = "SELECT (amount, datemade, username) FROM actionsystempoc.bids WHERE id = @id";
+                string qtext = "SELECT * FROM auctionsystempoc.bids WHERE id = @id";
                 var qcom = db.GetCommand(msc, qtext);
                 qcom.Parameters.AddWithValue("@id", id);
                 msc.Open();
                 var reader = qcom.ExecuteReader();
                 if (reader.HasRows)
                 {
+                    reader.Read();
                     bid = new Bid
                     {
                         ID = id,

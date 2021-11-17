@@ -39,7 +39,7 @@
         <font color="white"><p id="itemid">@ViewData["ID"]</p></font>
         <script>
             document.getElementById("bidbutton").addEventListener("click", function (event) {
-                conn.invoke("NotifyOutbid", "2")
+                conn.invoke("NotifyOutbid", document.getElementById("itemid").innerHTML)
                 event.preventDefault()
                 setTimeout(function () { }, 1000)
                 document.getElementById("listform").submit()

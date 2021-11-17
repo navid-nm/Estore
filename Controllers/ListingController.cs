@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using AuctionSystemPOC.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
+using System.Diagnostics;
 
 namespace AuctionSystemPOC.Controllers
 {
@@ -49,7 +50,7 @@ namespace AuctionSystemPOC.Controllers
                 }
                 else
                 {
-                    item.AddBid(new Bid { ID = idl, Username = seller, Amount = amount });
+                    item.AddBid(new Bid { ID = idl, Username = sessionname, Amount = amount });
                     HttpContext.Session.SetString("ValidBid", "Yes");
                 }
             }

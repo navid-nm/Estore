@@ -116,12 +116,28 @@ namespace AuctionSystemPOC.DataAccessLayers
                 qcom.Parameters.AddWithValue("@id", id);
                 msc.Open();
                 var reader = qcom.ExecuteReader();
-                while (reader.HasRows)
+                while (reader.Read())
                 {
                     bids.Add(bdb.GetBidByID(reader.GetInt64("bidid")));
                 }
             }
             return bids;
+        }
+
+        /// <summary>
+        /// Retrieve usernames of bidders
+        /// </summary>
+        /// <param name="id">ID of the item</param>
+        /// <returns>List of usernames</returns>
+        public List<string> GetBidders(long id)
+        {
+            var outlist = new List<string>();
+            var bids = GetBids(id);
+            foreach (Bid bid in bids)
+            {
+                outlist.Add(bid.Username);
+            }
+            return outlist;
         }
 
         /// <summary>
