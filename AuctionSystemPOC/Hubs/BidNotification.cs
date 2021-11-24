@@ -8,7 +8,7 @@ namespace AuctionSystemPOC.Hubs
 {
     public class BidNotification : Hub
     {
-        private ItemDB idb;
+        private readonly ItemDB idb;
 
         public BidNotification()
         {

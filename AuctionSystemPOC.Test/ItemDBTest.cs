@@ -100,6 +100,43 @@ namespace AuctionSystemPOC.Test
             Assert.AreEqual(idb.GetBids(2).Count, 1);
         }
 
+        /*
+         * Test 7
+         * To pass, the method ConcludeExpiredItems should set the "concluded" field to true for all auctions that
+         * have passed their expiry date.
+         */
+        [Test, Order(10)]
+        public void ConcludeExpiredItemsTest()
+        {
+            var db = new Database();
+            var res = new List<string>();
+
+            using (var conn = db.GetConnection())
+            {
+                /*
+                 * Adding an item to the items table that expired an hour ago (hence: timestamp - interval 1 hour)
+                 * As ItemDB cannot add auctions that have already expired, this must be done with raw SQL in the test.
+                 */
+                var command = db.GetCommand(conn,
+                    "INSERT INTO auctionsystempoc.items (name, description, startingprice, currentprice,"
+                    + "itemcondition, views, username, datelisted, conclusiondate, concluded) "
+                    + "VALUES('ExpiryTestItem', 'Testing', 1.00, 1.00, 'New', 0, 'Testuser', "
+                    + "CURRENT_TIMESTAMP, CURRENT_TIMESTAMP - INTERVAL 1 HOUR, 0)");
+                conn.Open();
+                command.ExecuteNonQuery();
+                idb.ConcludeExpiredItems();
+
+                //The name of the item "ExpiryTestItem" should be among the results of the query below.
+                command = db.GetCommand(conn, "SELECT name FROM auctionsystempoc.items WHERE concluded = 1");
+                var reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    res.Add(reader.GetString("name"));
+                }
+            }
+            Assert.True(res.Contains("ExpiryTestItem"));
+        }
+
         public static List<TestCaseData> AddItemTestCases
         {
             get

@@ -49,8 +49,6 @@ namespace AuctionSystemPOC.Controllers
             }
             if (HttpContext.Request.Method == HttpMethod.Post.Method)
             {
-                // 2 GetInfo calls are required
-                // For obtaining price and seller username prior to and following validation
                 var preget = item.GetInfo(idl);
                 curprice = preget.Item3[1];
 

@@ -172,6 +172,15 @@ namespace AuctionSystemPOC.DataAccessLayers
             }
         }
 
+        public void ConcludeExpiredItems()
+        {
+            string ctext = "UPDATE auctionsystempoc.items SET concluded = 1 "
+                + "WHERE conclusiondate < CURRENT_TIMESTAMP";
+            var conn = db.GetConnection();
+            var rcom = db.GetCommand(conn, ctext);
+            db.RunComWithConn(rcom, conn);
+        }
+
         public void IncrementViews(long id)
         {
             string ctext = "UPDATE auctionsystempoc.items SET views = views + 1 WHERE id = @id";

@@ -15,16 +15,22 @@
     {
         foreach (Item item in (List<Item>) ViewData["Items"])
         {
+            fcol = "#000000";
             if (item.Concluded)
             {
                 fcol = "grey";
-                @Html.Raw("(This listing has concluded)");
             }
             <font color="@fcol">
             <div class="text-center">
                 <b class=".h4"><a href="/listing/@item.ID">@item.Name</a></b>
                 <br /><b>Price: £@item.Price</b>
                 <br /><b>Condition:</b> @item.Condition
+                @{ 
+                    if (item.Concluded)
+                    {
+                        <center>@Html.Raw("(This auction has concluded)")</center> 
+                    }
+                 }
             </div>
             </font>
             <br /><br />
