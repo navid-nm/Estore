@@ -23,7 +23,7 @@ namespace AuctionSystemPOC.Test
          * Test 1
          * To pass, the GetBidByID should return a bid object given its ID in the table.
          */
-        [TestCaseSource("GetBidByIDTestCases"), Order(8)]
+        [TestCaseSource("GetBidByIDTestCases"), Order(7)]
         public Bid GetBidByIDTest(long id)
         {
             return bdb.GetBidByID(id);
@@ -34,7 +34,7 @@ namespace AuctionSystemPOC.Test
          * Should return the ID of the last bid that was placed.
          * This method will be run after a bid is added via the item model.
          */
-        [Test, Order(9)]
+        [Test, Order(8)]
         public void GetLastBidID()
         {
             Assert.AreEqual(bdb.GetLastBidID(), 0);

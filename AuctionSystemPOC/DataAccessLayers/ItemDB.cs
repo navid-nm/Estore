@@ -192,14 +192,5 @@ namespace AuctionSystemPOC.DataAccessLayers
                 rcom.ExecuteNonQuery();
             }
         }
-
-        public void Conclude(long id)
-        {
-            string ctext = "UPDATE auctionsystempoc.items SET concluded = true WHERE id = @id";
-            var msc = db.GetConnection();
-            var rcom = db.GetCommand(msc, ctext);
-            rcom.Parameters.AddWithValue("@id", id);
-            db.RunComWithConn(rcom, msc);
-        }
     }
 }

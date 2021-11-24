@@ -67,22 +67,10 @@ namespace AuctionSystemPOC.Test
 
         /*
          * Test 4
-         * To pass, Conclude() should set the value of "concluded" in the table to true.
-         * (Indicating the listing has ended)
-         */
-        [Test, Order(4)]
-        public void ConcludeItemTest()
-        {
-            idb.Conclude(1);
-            Assert.True(idb.GetItemInfoFromID(1).Item6);
-        }
-
-        /*
-         * Test 5
          * AddBid should add a bid to an item.
          * This will be stored in the item as an object of type List<Bid>.
          */
-        [Test, Order(5)]
+        [Test, Order(4)]
         public void AddBidTest()
         {
             idb.AddBid(new Bid { ID = 2, Amount = 49.99M, Username = "Testuser" });
@@ -91,10 +79,10 @@ namespace AuctionSystemPOC.Test
         }
 
         /*
-         * Test 6
+         * Test 5
          * To pass, GetBids should return a list of bids for an item.
          */
-        [Test, Order(6)]
+        [Test, Order(5)]
         public void GetBidsTest()
         {
             Assert.AreEqual(idb.GetBids(2).Count, 1);
@@ -105,7 +93,7 @@ namespace AuctionSystemPOC.Test
          * To pass, the method ConcludeExpiredItems should set the "concluded" field to true for all auctions that
          * have passed their expiry date.
          */
-        [Test, Order(10)]
+        [Test, Order(9)]
         public void ConcludeExpiredItemsTest()
         {
             var db = new Database();
