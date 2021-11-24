@@ -94,6 +94,10 @@ body {
     color: gray;
 }
 
+.mostrecentbid {
+    color: #7f1818;
+}
+
 .signupformtable {
     table-layout: fixed;
     width: 25%;

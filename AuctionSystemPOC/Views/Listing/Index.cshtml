@@ -65,7 +65,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <table>
+                        <table width="100%">
                             <tr>
                                 <th>Date Made</th>
                                 <th>User</th>
@@ -83,19 +83,23 @@
                                 </td>
                             </tr>
                             @{
+                                int ind = 1;
+                                string displayclass = "";
                                 foreach (Bid bid in bidlist)
                                 {
-                                    <tr>
-                                        <td>
-                                            @bid.DateMade &nbsp; &nbsp;
+                                    if (ind == bidlist.Count) displayclass = "mostrecentbid";
+                                    <tr class="@displayclass">
+                                        <td width="45%">
+                                            @bid.DateMade
                                         </td>
-                                        <td>
+                                        <td width="35%">
                                             @bid.Username &nbsp; &nbsp;
                                         </td>
                                         <td>
                                             £@{@Html.Raw((decimal)bid.Amount);}
                                         </td>
                                     </tr>
+                                    ind++;
                                 }
                             }
                         </table>
