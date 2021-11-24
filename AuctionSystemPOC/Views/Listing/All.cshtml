@@ -1,10 +1,5 @@
-﻿@using Microsoft.AspNetCore.Http;
-@{
-    ViewData["Title"] = "Listing";
-    string fcol = "black";
-}
-
-@{
+﻿@{
+    ViewData["Title"] = "Listings";
     if (ViewData["Items"] == null)
     {
         <span class="errortext">
@@ -13,13 +8,12 @@
     }
     else
     {
+        string fcol;
         foreach (Item item in (List<Item>) ViewData["Items"])
         {
             fcol = "#000000";
-            if (item.Concluded)
-            {
-                fcol = "grey";
-            }
+            if (item.Concluded) fcol = "grey";
+
             <font color="@fcol">
             <div class="text-center">
                 <b class=".h4"><a href="/listing/@item.ID">@item.Name</a></b>

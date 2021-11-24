@@ -1,6 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Http;
+
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
     string homemsg = "Welcome";
     if (Context.Session.GetString("Name") != null) homemsg += ", " + Context.Session.GetString("Name"); 
 }

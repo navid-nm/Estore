@@ -1,17 +1,16 @@
 ﻿@model AuctionSystemPOC.Models.Bid
-@{
-    ViewData["Title"] = "Listing";
-}
 
 @{
     if (ViewData["Name"] == null)
     {
         <span class="errortext">
+            @{ViewData["Title"] = "Error";}
             @Html.Raw("No such item exists")
         </span>
     }
     else
     {
+        ViewData["Title"] = ViewData["Name"];
         var bidlist = (List<Bid>)ViewData["Bids"];
         var ptext = "Price";
         if ((bool)ViewData["Concluded"] && bidlist.Count > 0) ptext = "Sold for";
@@ -26,7 +25,7 @@
                 if (!(bool) ViewData["Concluded"]) 
                 {
                     <form method="post" asp-controller="Listing" id="listform">
-                        <input type="text" name="amount" id="amount" placeholder="Bid amount" asp-for="Amount" maxlength=9 size="10" />
+                        <input type="text" name="amount" id="amount" placeholder="Bid amount" asp-for="Amount" maxlength=9 size=10 />
                         <input type="submit" value="Submit bid" id="bidbutton" />
                     </form><br />
                 }
