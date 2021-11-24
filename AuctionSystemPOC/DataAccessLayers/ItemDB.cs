@@ -23,6 +23,11 @@ namespace AuctionSystemPOC.DataAccessLayers
             db.RunUpdateFromText(sqlc);
         }
 
+        /// <summary>
+        /// Add an item to persistent storage.
+        /// </summary>
+        /// <param name="item">The item to add</param>
+        /// <returns>ID of the item that was added</returns>
         public int AddItem(Item item)
         {
             var msc = db.GetConnection();
@@ -47,6 +52,11 @@ namespace AuctionSystemPOC.DataAccessLayers
             return id;
         }
 
+        /// <summary>
+        /// Get field data for a specified item.
+        /// </summary>
+        /// <param name="id">The ID of the item</param>
+        /// <returns>A tuple containing the corresponding data</returns>
         public Tuple<string, string, List<decimal>, string, string, bool, List<Bid>> GetItemInfoFromID(long id)
         {
             string qtext = "SELECT name, description, startingprice, currentprice, itemcondition, username, concluded"
@@ -71,6 +81,10 @@ namespace AuctionSystemPOC.DataAccessLayers
             }
         }
 
+        /// <summary>
+        /// Retrieve a list of all items stored in the table "items".
+        /// </summary>
+        /// <returns>List of Item objects</returns>
         public List<Item> GetAllItems()
         {
             string qtext = "SELECT id, name, description, currentprice, itemcondition, username, concluded"
@@ -104,9 +118,9 @@ namespace AuctionSystemPOC.DataAccessLayers
         }
 
         /// <summary>
-        /// Retrieve bids for an item
+        /// Retrieve bids for an item.
         /// </summary>
-        /// <returns>A list of bids</returns>
+        /// <returns>List of bids corresponding to given item ID</returns>
         /// <param name="id">ID of the item</param>
         public List<Bid> GetBids(long id)
         {
@@ -127,10 +141,10 @@ namespace AuctionSystemPOC.DataAccessLayers
         }
 
         /// <summary>
-        /// Retrieve usernames of bidders
+        /// Retrieve usernames of bidders.
         /// </summary>
         /// <param name="id">ID of the item</param>
-        /// <returns>List of usernames</returns>
+        /// <returns>List of usernames that belong to bidders on the item</returns>
         public List<string> GetBidders(long id)
         {
             var outlist = new List<string>();
@@ -143,7 +157,7 @@ namespace AuctionSystemPOC.DataAccessLayers
         }
 
         /// <summary>
-        /// Add a bid to an item
+        /// Add a bid to an item.
         /// </summary>
         /// <param name="bid">The bid to add</param>
         public void AddBid(Bid bid)
@@ -172,6 +186,9 @@ namespace AuctionSystemPOC.DataAccessLayers
             }
         }
 
+        /// <summary>
+        /// End all auctions that have passed their time limit.
+        /// </summary>
         public void ConcludeExpiredItems()
         {
             string ctext = "UPDATE auctionsystempoc.items SET concluded = 1 "
@@ -181,6 +198,10 @@ namespace AuctionSystemPOC.DataAccessLayers
             db.RunComWithConn(rcom, conn);
         }
 
+        /// <summary>
+        /// Increment the number of views for an item in persistent storage.
+        /// </summary>
+        /// <param name="id">ID of the item</param>
         public void IncrementViews(long id)
         {
             string ctext = "UPDATE auctionsystempoc.items SET views = views + 1 WHERE id = @id";

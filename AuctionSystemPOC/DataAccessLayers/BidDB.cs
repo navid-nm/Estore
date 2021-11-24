@@ -12,6 +12,11 @@ namespace AuctionSystemPOC.DataAccessLayers
             db = new Database();
         }
 
+        /// <summary>
+        /// Retrieve a bid object by its ID in the table "bids".
+        /// </summary>
+        /// <param name="id">ID of the bid</param>
+        /// <returns>Bid object corresponding to given ID</returns>
         public Bid GetBidByID(long id)
         {
             Bid bid = null;
@@ -37,6 +42,10 @@ namespace AuctionSystemPOC.DataAccessLayers
             return bid;
         }
 
+        /// <summary>
+        /// Get the ID of the last added bid.
+        /// </summary>
+        /// <returns>ID of last bid</returns>
         public long GetLastBidID()
         {
             string ctext = "SELECT id FROM auctionsystempoc.bids WHERE id = (SELECT MAX(id) FROM auctionsystempoc.bids)";
