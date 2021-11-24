@@ -31,7 +31,7 @@
                 <br /><b>Seller:</b> <span id="sellername">@ViewData["Username"]</span>
                 <br /><br />
 
-                <span class="errortext" asp-validation-for="Amount"></span>
+                <span class="errortext" asp-validation-for="Amount"></span><br />
                 @{
                     if (ViewData["BidPlaceAttempt"] != null && !(bool)ViewData["IgnoreControllerValidation"])
                     {

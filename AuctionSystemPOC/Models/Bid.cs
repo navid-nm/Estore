@@ -8,7 +8,7 @@ namespace AuctionSystemPOC.Models
         public long ID { get; set; }
 
         [Required]
-        [Range(0.01, 999999998.99, ErrorMessage = "Invalid price")]
+        [Range(0, 99999998.99, ErrorMessage = "Invalid price")]
         public decimal Amount { get; set; }
         
         public DateTime DateMade { get; set; }
