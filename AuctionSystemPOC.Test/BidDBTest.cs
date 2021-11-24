@@ -32,7 +32,7 @@ namespace AuctionSystemPOC.Test
         /* 
          * Test 2
          * Should return the ID of the last bid that was placed.
-         * This method will be run after an bid is added via the item model.
+         * This method will be run after a bid is added via the item model.
          */
         [Test, Order(9)]
         public void GetLastBidID()

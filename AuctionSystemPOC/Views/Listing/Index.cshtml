@@ -12,103 +12,102 @@
     }
     else
     {
-        if (!(bool) ViewData["Concluded"])
-        {
-            var bidlist = (List<Bid>)ViewData["Bids"];
+        var bidlist = (List<Bid>)ViewData["Bids"];
+        var ptext = "Price";
+        if ((bool)ViewData["Concluded"] && bidlist.Count > 0) ptext = "Sold for";
 
-            <div class="text-center">
-                <h1 class="display-4">@ViewData["Name"]</h1>
-                <br /><h4>Price: £<span id="price">@ViewData["CurrentPrice"]</span></h4>
-                <a href="#" data-toggle="modal" data-target="#bidmodal">
-                    [@bidlist.Count bids]
-                </a><br /><br />
-                <form method="post" asp-controller="Listing" id="listform">
-                    <input type="text" name="amount" id="amount" placeholder="Bid amount" asp-for="Amount" maxlength=9 size="10" />
-                    <input type="submit" value="Submit bid" id="bidbutton" />
-                </form>
-                <br /><br /><b>Condition:</b> @ViewData["Condition"]
-                <br /><b>Description:</b> <i>@ViewData["Description"]</i>
-                <br /><b>Seller:</b> <span id="sellername">@ViewData["Username"]</span>
-                <br /><br />
+        <div class="text-center">
+            <h1 class="display-4">@ViewData["Name"]</h1>
+            <br /><h4>@ptext: £<span id="price">@ViewData["CurrentPrice"]</span></h4>
+            <a href="#" data-toggle="modal" data-target="#bidmodal">
+                [@bidlist.Count bids]
+            </a><br /><br />
+            @{
+                if (!(bool) ViewData["Concluded"]) 
+                {
+                    <form method="post" asp-controller="Listing" id="listform">
+                        <input type="text" name="amount" id="amount" placeholder="Bid amount" asp-for="Amount" maxlength=9 size="10" />
+                        <input type="submit" value="Submit bid" id="bidbutton" />
+                    </form><br />
+                }
+                else
+                {
+                    <span class="subtext"><b>This auction has closed.</b></span><br />
+                }
+             }
+            <br /><b>Condition:</b> @ViewData["Condition"]
+            <br /><b>Description:</b> <i>@ViewData["Description"]</i>
+            <br /><b>Seller:</b> <span id="sellername">@ViewData["Username"]</span>
+            <br /><br />
 
-                <span class="errortext" asp-validation-for="Amount"></span><br />
-                @{
-                    if (ViewData["BidPlaceAttempt"] != null && !(bool)ViewData["IgnoreControllerValidation"])
+            <span class="errortext" asp-validation-for="Amount"></span><br />
+            @{
+                if (ViewData["BidPlaceAttempt"] != null && !(bool)ViewData["IgnoreControllerValidation"])
+                {
+                    if (ViewData["Error"] != null)
                     {
-                        if (ViewData["Error"] != null)
-                        {
-                            <span class="errortext">@Html.Raw(ViewData["Error"])</span>
-                        }
-                        else
-                        {
-                            <p>Successful bid.</p>
-                        }
+                        <span class="errortext">@Html.Raw(ViewData["Error"])</span>
+                    }
+                    else
+                    {
+                        <p>Successful bid.</p>
                     }
                 }
-            </div>
+            }
+        </div>
 
-            <div class="modal fade" id="bidmodal" tabindex="-1" role="dialog" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h3 class="modal-title">Bids for item "@ViewData["Name"]"</h3>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <table>
-                                <tr>
-                                    <th>Date Made</th>
-                                    <th>User</th>
-                                    <th>Amount</th>
-                                </tr>
-                                <tr class="subtext">
-                                    <td>
-                                        <br /><i>(Starting price)</i>
-                                    </td>
-                                    <td>
-                                        <br /><i>@ViewData["Username"]</i><br />
-                                    </td>
-                                    <td>
-                                        <br /><i>£@ViewData["StartingPrice"]</i><br />
-                                    </td>
-                                </tr>
-                                @{
-                                    foreach (Bid bid in bidlist)
-                                    {
-                                        <tr>
-                                            <td>
-                                                @bid.DateMade &nbsp; &nbsp;
-                                            </td>
-                                            <td>
-                                                @bid.Username &nbsp; &nbsp;
-                                            </td>
-                                            <td>
-                                                £@{@Html.Raw((decimal)bid.Amount);}
-                                            </td>
-                                        </tr>
-                                    }
+        <div class="modal fade" id="bidmodal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">Bids for item "@ViewData["Name"]"</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <table>
+                            <tr>
+                                <th>Date Made</th>
+                                <th>User</th>
+                                <th>Amount</th>
+                            </tr>
+                            <tr class="subtext">
+                                <td>
+                                    <br /><i>(Starting price)</i>
+                                </td>
+                                <td>
+                                    <br /><i>@ViewData["Username"]</i><br />
+                                </td>
+                                <td>
+                                    <br /><i>£@ViewData["StartingPrice"]</i><br />
+                                </td>
+                            </tr>
+                            @{
+                                foreach (Bid bid in bidlist)
+                                {
+                                    <tr>
+                                        <td>
+                                            @bid.DateMade &nbsp; &nbsp;
+                                        </td>
+                                        <td>
+                                            @bid.Username &nbsp; &nbsp;
+                                        </td>
+                                        <td>
+                                            £@{@Html.Raw((decimal)bid.Amount);}
+                                        </td>
+                                    </tr>
                                 }
-                            </table>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        </div>
+                            }
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
+        </div>
         }
-        else
-        {
-            <center>
-                <h2 class = "subtext">
-                    The auction for the item "@ViewData["Name"]" has concluded.
-                </h2>
-            </center>
-        }
-
         <font color="white"><p id="itemid">@ViewData["ID"]</p></font>
         <script src="~/js/listingcheck.js"></script>
     }
-}
