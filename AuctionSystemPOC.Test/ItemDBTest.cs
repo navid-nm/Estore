@@ -89,7 +89,7 @@ namespace AuctionSystemPOC.Test
         }
 
         /*
-         * Test 7
+         * Test 6
          * To pass, the method ConcludeExpiredItems should set the "concluded" field to true for all auctions that
          * have passed their expiry date.
          */
