@@ -13,11 +13,10 @@ namespace AuctionSystemPOC.BackgroundServices
 
         public Task StartAsync(CancellationToken ct)
         {
-            timer = new Timer(op =>
-            {
-                new ItemDB().ConcludeExpiredItems();
-            },
-            null, TimeSpan.Zero, TimeSpan.FromSeconds(5));
+            timer = new Timer(op => { new ItemDB().ConcludeExpiredItems(); },
+                null, 
+                TimeSpan.Zero, 
+                TimeSpan.FromSeconds(4));
             return Task.CompletedTask;
         }
 
