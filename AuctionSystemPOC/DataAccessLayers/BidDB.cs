@@ -16,7 +16,7 @@ namespace AuctionSystemPOC.DataAccessLayers
         }
 
         /// <summary>
-        /// Retrieve a bid object by its ID in the table "bids".
+        /// Retrieve a bid object by its ID in the bids table.
         /// </summary>
         /// <param name="id">ID of the bid</param>
         /// <returns>Bid object corresponding to given ID</returns>

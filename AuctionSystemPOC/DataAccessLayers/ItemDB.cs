@@ -89,7 +89,7 @@ namespace AuctionSystemPOC.DataAccessLayers
         }
 
         /// <summary>
-        /// Retrieve a list of all items stored in the table "items".
+        /// Retrieve a list of all items stored in the items table.
         /// </summary>
         /// <returns>List of Item objects</returns>
         public List<Item> GetAllItems()
