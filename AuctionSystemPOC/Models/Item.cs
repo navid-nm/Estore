@@ -6,6 +6,9 @@ using AuctionSystemPOC.DataAccessLayers;
 
 namespace AuctionSystemPOC.Models
 {
+    /// <summary>
+    /// Represents an item listed for auction by a user.
+    /// </summary>
     public class Item
     {
         [Required(ErrorMessage = "Listing should have a name")]

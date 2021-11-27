@@ -3,6 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace AuctionSystemPOC.Models
 {
+    /// <summary>
+    /// Represents a bid for an item by a user.
+    /// </summary>
     public class Bid
     {
         public long ID { get; set; }

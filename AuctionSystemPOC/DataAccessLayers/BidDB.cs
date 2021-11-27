@@ -3,6 +3,9 @@ using AuctionSystemPOC.Models;
 
 namespace AuctionSystemPOC.DataAccessLayers
 {
+    /// <summary>
+    /// Abstracts database access for bids.
+    /// </summary>
     public class BidDB
     {
         private readonly Database db;

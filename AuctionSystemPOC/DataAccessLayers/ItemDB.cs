@@ -6,6 +6,9 @@ using AuctionSystemPOC.Models;
 
 namespace AuctionSystemPOC.DataAccessLayers
 {
+    /// <summary>
+    /// Abstracts database access for items.
+    /// </summary>
     public class ItemDB
     {
         private readonly Database db;
