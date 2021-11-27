@@ -10,18 +10,18 @@
      datelisted DATETIME NOT NULL,
      conclusiondate DATETIME NOT NULL,
      concluded BOOLEAN NOT NULL
- );
+);
 
- CREATE TABLE IF NOT EXISTS Bids (
-     id INTEGER AUTO_INCREMENT PRIMARY KEY,
-     amount DECIMAL(9, 2) NOT NULL,
-     datemade DATETIME NOT NULL,
-     username TEXT NOT NULL
- );
+CREATE TABLE IF NOT EXISTS Bids (
+    id INTEGER AUTO_INCREMENT PRIMARY KEY,
+    amount DECIMAL(9, 2) NOT NULL,
+    datemade DATETIME NOT NULL,
+    username TEXT NOT NULL
+);
 
- CREATE TABLE IF NOT EXISTS ItemHasBids (
-     itemid INTEGER,
-     bidid INTEGER,
-     FOREIGN KEY (itemid) REFERENCES Items(id),
-     FOREIGN KEY (bidid) REFERENCES Bids(id)
- );
+CREATE TABLE IF NOT EXISTS ItemHasBids (
+    itemid INTEGER,
+    bidid INTEGER,
+    FOREIGN KEY (itemid) REFERENCES Items(id),
+    FOREIGN KEY (bidid) REFERENCES Bids(id)
+);
