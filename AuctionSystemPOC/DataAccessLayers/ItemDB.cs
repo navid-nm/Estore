@@ -169,14 +169,13 @@ namespace AuctionSystemPOC.DataAccessLayers
         /// <param name="bid">The bid to add</param>
         public void AddBid(Bid bid)
         {
-            string ctext = "UPDATE auctionsystempoc.items SET currentprice = @price WHERE id = @id"
+            string ctext = "UPDATE auctionsystempoc.items SET currentprice = @amount WHERE id = @id"
                 + "; INSERT INTO auctionsystempoc.bids (amount, datemade, username) VALUES (@amount,"
                 + " CURRENT_TIMESTAMP, @uname);";
             using (var msc = db.GetConnection())
             {
                 MySqlCommand com = db.GetCommandWithArgs(msc, ctext, new Dictionary<string, string>
                 {
-                    { "price", bid.Amount.ToString() },
                     { "id", bid.ID.ToString() },
                     { "amount", bid.Amount.ToString() },
                     { "uname", bid.Username }
