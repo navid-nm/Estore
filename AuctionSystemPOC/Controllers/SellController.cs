@@ -22,10 +22,7 @@ namespace AuctionSystemPOC.Controllers
                 ViewData["ID"] = item.Commit();
                 return View("Success");
             }
-            else
-            {
-                return View(item);
-            }
+            return View(item);
         }
     }
 }
