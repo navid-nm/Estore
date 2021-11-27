@@ -53,10 +53,10 @@ namespace AuctionSystemPOC.DataAccessLayers
         }
 
         /// <summary>
-        /// Get field data for a specified item.
+        /// Get item object from ID in the items table.
         /// </summary>
         /// <param name="id">The ID of the item</param>
-        /// <returns>A tuple containing the corresponding data</returns>
+        /// <returns>Item corresponding to the given ID</returns>
         public Item GetItemFromID(long id)
         {
             string qtext = "SELECT name, description, startingprice, currentprice, itemcondition, username, concluded"
