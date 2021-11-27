@@ -19,20 +19,14 @@ namespace AuctionSystemPOC.Controllers
 
         public void SetListingViewData(long idl)
         {
-            Tuple<string, string, List<decimal>, string, string, bool, List<Bid>> info = item.GetInfo(idl);
-            if (info != null)
+            Item newitem = item.Get(idl);
+            if (item != null)
             {
-                item.IncrementViews(idl);
-                ViewData["ID"] = idl.ToString();
-                ViewData["Name"] = info.Item1;
-                ViewData["Description"] = info.Item2;
-                ViewData["StartingPrice"] = info.Item3[0];
-                ViewData["CurrentPrice"] = info.Item3[1];
-                ViewData["Condition"] = info.Item4;
-                ViewData["Username"] = info.Item5;
-                ViewData["Concluded"] = info.Item6;
-                ViewData["Bids"] = info.Item7;
+                //ViewBag is used for the item to avoid having to repeatedly cast to Item in the view
+                newitem.ID = idl;
+                ViewBag.ThisItem = newitem;
                 ViewData["IgnoreControllerValidation"] = false;
+                item.IncrementViews(idl);
             }
         }
 
@@ -49,10 +43,10 @@ namespace AuctionSystemPOC.Controllers
             }
             if (HttpContext.Request.Method == HttpMethod.Post.Method)
             {
-                var preget = item.GetInfo(idl);
-                curprice = preget.Item3[1];
+                var preget = item.Get(idl);
+                curprice = preget.Price;
 
-                string seller = preget.Item5;
+                string seller = preget.Username;
                 string sessionname = HttpContext.Session.GetString("Name");
 
                 ViewData["BidPlaceAttempt"] = true;

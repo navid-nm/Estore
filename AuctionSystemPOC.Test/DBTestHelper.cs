@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using AuctionSystemPOC.DataAccessLayers;
 using System.IO;
+using System;
 
 namespace AuctionSystemPOC.Test
 {
@@ -17,8 +18,13 @@ namespace AuctionSystemPOC.Test
         [OneTimeSetUp]
         public void RunBeforeAll()
         {
-            var execlocation = Path.GetDirectoryName(typeof(DBTestHelper).Assembly.Location);
-            Directory.SetCurrentDirectory(execlocation);
+            string root = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..\\..\\..\\"));
+            if (!Directory.Exists("DataAccessLayers")) Directory.CreateDirectory("DataAccessLayers");
+            File.Copy(
+                root + @"../AuctionSystemPOC/DataAccessLayers/ItemsAndBids.sql",
+                root + @"bin/Debug/netcoreapp3.1/DataAccessLayers/ItemsAndBids.sql",
+                true
+            );
             DropAll();
         }
         

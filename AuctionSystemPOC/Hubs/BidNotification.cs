@@ -19,7 +19,7 @@ namespace AuctionSystemPOC.Hubs
         {
             long idaslong = Int64.Parse(itemid);
             List<string> bidders = idb.GetBidders(idaslong);
-            string bidders_str = "", sep = ",", itemname = idb.GetItemInfoFromID(idaslong).Item1;
+            string bidders_str = "", sep = ",", itemname = idb.GetItemFromID(idaslong).Name;
             for (int bidind = 0; bidind < bidders.Count; bidind++)
             {
                 if (bidind == bidders.Count - 1)

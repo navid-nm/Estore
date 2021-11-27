@@ -2,7 +2,6 @@ using NUnit.Framework;
 using AuctionSystemPOC.DataAccessLayers;
 using AuctionSystemPOC.Models;
 using System.Collections.Generic;
-using System;
 
 namespace AuctionSystemPOC.Test
 {
@@ -14,11 +13,11 @@ namespace AuctionSystemPOC.Test
         public static List<Item> testingitems = new List<Item>
         {
             new Item {
-                Name = "Test", Description = "TestDesc", Price = 0.01M, Condition = "Used",
+                Name = "Test", Description = "TestDesc", Price = 0.01M, StartingPrice = 0.01M, Condition = "Used",
                 Username = "Testuser1"
             },
             new Item {
-                Name = "Test2", Description = "TestDesc2", Price = 499.99M, Condition = "New",
+                Name = "Test2", Description = "TestDesc2", Price = 499.99M, StartingPrice = 499.99M, Condition = "New",
                 Username = "Testuser2"
             }
         };
@@ -26,7 +25,7 @@ namespace AuctionSystemPOC.Test
         [SetUp]
         public void Setup()
         {
-            idb = new ItemDB();
+            if (idb == null) idb = new ItemDB();
         }
 
         /*
@@ -42,13 +41,13 @@ namespace AuctionSystemPOC.Test
 
         /*
          * Test 2
-         * Needs to return a tuple containing the stored information for a given item.
-         * (i.e. Checking if GetItemInfoFromID returns the correct data for the items added in test 1)
+         * Needs to return an Item object containing the stored information for a given item.
+         * (i.e. Checking if GetItemFromID returns the correct data for the items added to database in test 1)
          */
         [TestCaseSource("GetInfoTestCases"), Order(2)]
-        public Tuple<string, string, List<decimal>, string, string, bool, List<Bid>> GetInfoTest(long id)
+        public Item GetItemTest(long id)
         {
-            return idb.GetItemInfoFromID(id);
+            return idb.GetItemFromID(id);
         }
 
         /*
@@ -74,8 +73,7 @@ namespace AuctionSystemPOC.Test
         public void AddBidTest()
         {
             idb.AddBid(new Bid { ID = 2, Amount = 49.99M, Username = "Testuser" });
-            Assert.AreEqual(idb.GetItemInfoFromID(2).Item7.Count, 1);
-            //Note: Item7 in the GetItemInfo tuple is the list of bids.
+            Assert.AreEqual(idb.GetItemFromID(2).Bids.Count, 1);
         }
 
         /*
@@ -145,11 +143,13 @@ namespace AuctionSystemPOC.Test
                 testcases.Clear();
                 for (int i = 0; i < testingitems.Count; i++)
                 {
-                    testcases.Add(new TestCaseData((long) i + 1).Returns(Tuple.Create(
-                        testingitems[i].Name, testingitems[i].Description,
-                        new List<decimal> { testingitems[i].Price, testingitems[i].Price }, testingitems[i].Condition,
-                        testingitems[i].Username, false, new List<Bid>()
-                    )));
+                    testcases.Add(new TestCaseData((long)i + 1).Returns(new Item
+                    {
+                        Name = testingitems[i].Name, Description = testingitems[i].Description,
+                        Price = testingitems[i].Price, StartingPrice = testingitems[i].StartingPrice,
+                        Condition = testingitems[i].Condition, Username = testingitems[i].Username,
+                        Concluded = false, Bids = testingitems[i].Bids
+                    }));
                 }
                 return testcases;
             }

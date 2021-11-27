@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using AuctionSystemPOC.DataAccessLayers;
@@ -28,6 +29,10 @@ namespace AuctionSystemPOC.Models
 
         public long ID { get; set; }
 
+        public decimal StartingPrice { get; set; }
+
+        public List<Bid> Bids { get; set; }
+
         private readonly ItemDB idb;
 
         public Item()
@@ -35,9 +40,9 @@ namespace AuctionSystemPOC.Models
             idb = new ItemDB();
         }
 
-        public Tuple<string, string, List<decimal>, string, string, bool, List<Bid>> GetInfo(long id)
+        public Item Get(long id)
         {
-            return idb.GetItemInfoFromID(id);
+            return idb.GetItemFromID(id);
         }
 
         public List<Item> GetAll()
@@ -58,6 +63,17 @@ namespace AuctionSystemPOC.Models
         public int Commit()
         {
             return idb.AddItem(this);
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj.GetHashCode() == GetHashCode();
+        }
+
+        public override int GetHashCode()
+        {
+            string cstr = Username + Name;
+            return Convert.ToInt32(Price) + Int32.Parse(new string(cstr.Where(Char.IsDigit).ToArray()));
         }
     }
 }

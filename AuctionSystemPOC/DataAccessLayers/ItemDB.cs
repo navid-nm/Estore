@@ -35,7 +35,7 @@ namespace AuctionSystemPOC.DataAccessLayers
                 + " (name, description, startingprice, currentprice, itemcondition, username, views, datelisted, "
                 + "conclusiondate, concluded)"
                 + " VALUES (@nm, @desc, @price, @price, @cond, @uname, 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP "
-                + "+ INTERVAL 1 HOUR, false); SELECT LAST_INSERT_ID();";
+                + "+ INTERVAL 2 HOUR, false); SELECT LAST_INSERT_ID();";
             MySqlCommand rcom = db.GetCommandWithArgs(msc, ctext, new Dictionary<string, string>()
             {
                 { "nm", item.Name },
@@ -57,11 +57,12 @@ namespace AuctionSystemPOC.DataAccessLayers
         /// </summary>
         /// <param name="id">The ID of the item</param>
         /// <returns>A tuple containing the corresponding data</returns>
-        public Tuple<string, string, List<decimal>, string, string, bool, List<Bid>> GetItemInfoFromID(long id)
+        public Item GetItemFromID(long id)
         {
             string qtext = "SELECT name, description, startingprice, currentprice, itemcondition, username, concluded"
                 + " FROM auctionsystempoc.items"
                 + " WHERE id = @id";
+            Item item = null;
             using (var msc = db.GetConnection())
             {
                 MySqlCommand rcom = db.GetCommand(msc, qtext);
@@ -70,15 +71,18 @@ namespace AuctionSystemPOC.DataAccessLayers
                 MySqlDataReader reader = rcom.ExecuteReader();
                 if (!reader.HasRows) return null;
                 reader.Read();
-                var info = Tuple.Create(
-                    reader.GetString("name"), reader.GetString("description"),
-                    new List<decimal> { reader.GetDecimal("startingprice"), reader.GetDecimal("currentprice") },
-                    reader.GetString("itemcondition"), reader.GetString("username"), 
-                    reader.GetBoolean("concluded"), GetBids(id)
-                );
+                item = new Item
+                {
+                    Name = reader.GetString("name"), Description = reader.GetString("description"),
+                    StartingPrice = reader.GetDecimal("startingprice"), Price = reader.GetDecimal("currentprice"),
+                    Condition = reader.GetString("itemcondition"),
+                    Username = reader.GetString("username"),
+                    Concluded = reader.GetBoolean("concluded"),
+                    Bids = GetBids(id)
+                };
                 reader.Close();
-                return info;
             }
+            return item;
         }
 
         /// <summary>
