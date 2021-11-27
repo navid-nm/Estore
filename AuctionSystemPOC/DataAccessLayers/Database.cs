@@ -4,7 +4,7 @@ using MySqlConnector;
 namespace AuctionSystemPOC.DataAccessLayers
 {
     /// <summary>
-    /// Provides ease-of-use methods for database operations and stores the connection string.
+    /// Provides ease-of-use methods for database operations.
     /// </summary>
     public class Database
     {

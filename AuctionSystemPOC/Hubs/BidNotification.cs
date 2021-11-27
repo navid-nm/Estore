@@ -23,9 +23,7 @@ namespace AuctionSystemPOC.Hubs
             for (int bidind = 0; bidind < bidders.Count; bidind++)
             {
                 if (bidind == bidders.Count - 1)
-                {
                     sep = "";
-                }
                 bidders_str += bidders[bidind] + sep;
             }
             await Clients.Others.SendAsync("ReceiveOutbidNotification", bidders_str, itemid, itemname);
