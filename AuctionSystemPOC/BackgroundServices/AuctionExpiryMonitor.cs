@@ -3,7 +3,6 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using AuctionSystemPOC.DataAccessLayers;
-using System.Diagnostics;
 
 namespace AuctionSystemPOC.BackgroundServices
 {
