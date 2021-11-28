@@ -76,6 +76,7 @@ namespace AuctionSystemPOC.DataAccessLayers
                 reader.Read();
                 item = new Item
                 {
+                    ID = id, 
                     Name = reader.GetString("name"), Description = reader.GetString("description"),
                     StartingPrice = reader.GetDecimal("startingprice"), Price = reader.GetDecimal("currentprice"),
                     Condition = reader.GetString("itemcondition"),

@@ -23,7 +23,6 @@ namespace AuctionSystemPOC.Controllers
             if (item != null)
             {
                 //ViewBag is used for the item to avoid having to repeatedly cast to Item in the view
-                newitem.ID = idl;
                 ViewBag.ThisItem = newitem;
                 ViewData["IgnoreControllerValidation"] = false;
                 item.IncrementViews(idl);
