@@ -17,7 +17,7 @@ namespace AuctionSystemPOC.Controllers
             item = new Item();
         }
 
-        public void SetListingViewData(long idl)
+        private void SetListingViewData(long idl)
         {
             Item newitem = item.Get(idl);
             if (item != null)
