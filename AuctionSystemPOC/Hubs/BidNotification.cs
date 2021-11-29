@@ -6,6 +6,9 @@ using AuctionSystemPOC.DataAccessLayers;
 
 namespace AuctionSystemPOC.Hubs
 {
+    /// <summary>
+    /// For sending and receiving notifications regarding bids.
+    /// </summary>
     public class BidNotification : Hub
     {
         private readonly ItemDB idb;

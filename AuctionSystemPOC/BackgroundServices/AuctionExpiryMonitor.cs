@@ -6,6 +6,9 @@ using AuctionSystemPOC.DataAccessLayers;
 
 namespace AuctionSystemPOC.BackgroundServices
 {
+    /// <summary>
+    /// Checks for and concludes auctions that have passed their end date.
+    /// </summary>
     public class AuctionExpiryMonitor : IHostedService
     {
         private Timer timer;
