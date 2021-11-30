@@ -33,13 +33,13 @@ namespace AuctionSystemPOC.DataAccessLayers
         /// <returns>ID of the item that was added</returns>
         public int AddItem(Item item)
         {
-            var msc = db.GetConnection();
-            string ctext = "INSERT INTO auctionsystempoc.items"
-                + " (name, description, startingprice, currentprice, itemcondition, username, views, datelisted, "
-                + "conclusiondate, concluded)"
-                + " VALUES (@nm, @desc, @price, @price, @cond, @uname, 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP "
-                + "+ INTERVAL 2 HOUR, false); SELECT LAST_INSERT_ID() AS last;";
-            MySqlCommand rcom = db.GetCommandWithArgs(msc, ctext, new Dictionary<string, string>()
+            using var conn = db.GetConnection();
+            string ctext = "INSERT INTO auctionsystempoc.items "
+                + "(name, description, startingprice, currentprice, itemcondition, username, views, datelisted, "
+                + "conclusiondate, concluded) "
+                + "VALUES (@nm, @desc, @price, @price, @cond, @uname, 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP + "
+                + "INTERVAL 2 HOUR, false); SELECT LAST_INSERT_ID() AS last;";
+            MySqlCommand rcom = db.GetCommandWithArgs(conn, ctext, new Dictionary<string, string>()
             {
                 { "nm", item.Name },
                 { "desc", item.Description },
@@ -47,12 +47,10 @@ namespace AuctionSystemPOC.DataAccessLayers
                 { "cond", item.Condition },
                 { "uname", item.Username },
             });
-            msc.Open();
-            MySqlDataReader reader = rcom.ExecuteReader();
+            conn.Open();
+            using var reader = rcom.ExecuteReader();
             reader.Read();
-            int id = reader.GetInt32("last");
-            msc.Close();
-            return id;
+            return reader.GetInt32("last");
         }
 
         /// <summary>
