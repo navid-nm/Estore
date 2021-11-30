@@ -57,7 +57,6 @@ namespace AuctionSystemPOC.DataAccessLayers
         /// Get item object from ID in the items table.
         /// </summary>
         /// <param name="id">The ID of the item</param>
-        /// <param name="incbids">Whether the bid query should be executed</param>
         /// <returns>Item corresponding to the given ID</returns>
         public Item GetItemFromID(long id)
         {
