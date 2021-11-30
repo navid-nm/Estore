@@ -183,10 +183,8 @@ namespace AuctionSystemPOC.DataAccessLayers
         /// </summary>
         public void ConcludeExpiredItems()
         {
-            string ctext = "UPDATE auctionsystempoc.items SET concluded = 1 WHERE conclusiondate < CURRENT_TIMESTAMP";
-            var conn = db.GetConnection();
-            var rcom = db.GetCommand(conn, ctext);
-            db.RunComWithConn(rcom, conn);
+            db.RunUpdateFromText("UPDATE auctionsystempoc.items SET concluded = 1 "
+                + "WHERE conclusiondate < CURRENT_TIMESTAMP");
         }
 
         /// <summary>

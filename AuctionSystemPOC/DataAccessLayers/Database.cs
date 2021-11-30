@@ -40,16 +40,10 @@ namespace AuctionSystemPOC.DataAccessLayers
 
         public void RunUpdateFromText(string comtext)
         {
-            var aconn = GetConnection();
-            var com = GetCommand(aconn, comtext);
-            RunComWithConn(com, aconn);
-        }
-
-        public void RunComWithConn(MySqlCommand com, MySqlConnection aconn)
-        {
+            using var aconn = GetConnection();
             aconn.Open();
+            var com = GetCommand(aconn, comtext);
             com.ExecuteNonQuery();
-            aconn.Close();
         }
     }
 }
