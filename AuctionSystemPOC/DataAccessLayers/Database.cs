@@ -12,7 +12,7 @@ namespace AuctionSystemPOC.DataAccessLayers
 
         public Database()
         {
-            this.conn = "Server=localhost;"
+            conn = "Server=localhost;"
                 + "User ID=admin;"
                 + "Password=password;"
                 + "Database=auctionsystempoc";
