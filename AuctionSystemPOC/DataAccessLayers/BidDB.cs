@@ -29,7 +29,7 @@ namespace AuctionSystemPOC.DataAccessLayers
                 var qcom = db.GetCommand(msc, qtext);
                 qcom.Parameters.AddWithValue("@id", id);
                 msc.Open();
-                var reader = qcom.ExecuteReader();
+                using var reader = qcom.ExecuteReader();
                 if (reader.HasRows)
                 {
                     reader.Read();

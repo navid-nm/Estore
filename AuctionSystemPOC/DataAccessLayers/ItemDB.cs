@@ -59,6 +59,7 @@ namespace AuctionSystemPOC.DataAccessLayers
         /// Get item object from ID in the items table.
         /// </summary>
         /// <param name="id">The ID of the item</param>
+        /// <param name="incbids">Whether the bid query should be executed</param>
         /// <returns>Item corresponding to the given ID</returns>
         public Item GetItemFromID(long id)
         {
@@ -71,20 +72,21 @@ namespace AuctionSystemPOC.DataAccessLayers
                 MySqlCommand rcom = db.GetCommand(msc, qtext);
                 rcom.Parameters.AddWithValue("@id", id);
                 msc.Open();
-                MySqlDataReader reader = rcom.ExecuteReader();
+                using var reader = rcom.ExecuteReader();
                 if (!reader.HasRows) return null;
                 reader.Read();
                 item = new Item
                 {
-                    ID = id, 
-                    Name = reader.GetString("name"), Description = reader.GetString("description"),
-                    StartingPrice = reader.GetDecimal("startingprice"), Price = reader.GetDecimal("currentprice"),
+                    ID = id,
+                    Name = reader.GetString("name"),
+                    Description = reader.GetString("description"),
+                    StartingPrice = reader.GetDecimal("startingprice"),
+                    Price = reader.GetDecimal("currentprice"),
                     Condition = reader.GetString("itemcondition"),
                     Username = reader.GetString("username"),
                     Concluded = reader.GetBoolean("concluded"),
                     Bids = GetBids(id)
                 };
-                reader.Close();
             }
             return item;
         }
@@ -95,33 +97,19 @@ namespace AuctionSystemPOC.DataAccessLayers
         /// <returns>List of Item objects</returns>
         public List<Item> GetAllItems()
         {
-            string qtext = "SELECT id, name, description, currentprice, itemcondition, username, concluded"
-                + " FROM auctionsystempoc.items";
+            string qtext = "SELECT MAX(id) AS id FROM auctionsystempoc.items";
+            long maxid = 1;
             var items = new List<Item>();
             using (var msc = db.GetConnection())
             {
                 var rcom = db.GetCommand(msc, qtext);
                 msc.Open();
-                var reader = rcom.ExecuteReader();
+                using var reader = rcom.ExecuteReader();
                 if (!reader.HasRows) return null;
-                else
-                {
-                    while (reader.Read())
-                    {
-                        Item itm = new Item
-                        {
-                            ID = reader.GetInt64("id"),
-                            Name = reader.GetString("name"),
-                            Description = reader.GetString("description"),
-                            Price = reader.GetDecimal("currentprice"),
-                            Condition = reader.GetString("itemcondition"),
-                            Username = reader.GetString("username"),
-                            Concluded = reader.GetBoolean("concluded")
-                        };
-                        items.Add(itm);
-                    }
-                }
+                reader.Read();
+                maxid = reader.GetInt64("id");
             }
+            for (long i = 1; i <= maxid; i++) items.Add(GetItemFromID(i));
             return items;
         }
 
@@ -139,7 +127,7 @@ namespace AuctionSystemPOC.DataAccessLayers
                 var qcom = db.GetCommand(msc, qtext);
                 qcom.Parameters.AddWithValue("@id", id);
                 msc.Open();
-                var reader = qcom.ExecuteReader();
+                using var reader = qcom.ExecuteReader();
                 while (reader.Read())
                 {
                     bids.Add(bdb.GetBidByID(reader.GetInt64("bidid")));
