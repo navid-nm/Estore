@@ -38,7 +38,7 @@ namespace AuctionSystemPOC.DataAccessLayers
                 + " (name, description, startingprice, currentprice, itemcondition, username, views, datelisted, "
                 + "conclusiondate, concluded)"
                 + " VALUES (@nm, @desc, @price, @price, @cond, @uname, 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP "
-                + "+ INTERVAL 2 HOUR, false); SELECT LAST_INSERT_ID();";
+                + "+ INTERVAL 2 HOUR, false); SELECT LAST_INSERT_ID() AS last;";
             MySqlCommand rcom = db.GetCommandWithArgs(msc, ctext, new Dictionary<string, string>()
             {
                 { "nm", item.Name },
@@ -50,7 +50,7 @@ namespace AuctionSystemPOC.DataAccessLayers
             msc.Open();
             MySqlDataReader reader = rcom.ExecuteReader();
             reader.Read();
-            int id = reader.GetInt32("LAST_INSERT_ID()");
+            int id = reader.GetInt32("last");
             msc.Close();
             return id;
         }
@@ -186,8 +186,7 @@ namespace AuctionSystemPOC.DataAccessLayers
         /// </summary>
         public void ConcludeExpiredItems()
         {
-            string ctext = "UPDATE auctionsystempoc.items SET concluded = 1 "
-                + "WHERE conclusiondate < CURRENT_TIMESTAMP";
+            string ctext = "UPDATE auctionsystempoc.items SET concluded = 1 WHERE conclusiondate < CURRENT_TIMESTAMP";
             var conn = db.GetConnection();
             var rcom = db.GetCommand(conn, ctext);
             db.RunComWithConn(rcom, conn);
