@@ -57,7 +57,7 @@ namespace AuctionSystemPOC.DataAccessLayers
             {
                 MySqlCommand com = db.GetCommand(msc, ctext);
                 msc.Open();
-                MySqlDataReader reader = com.ExecuteReader();
+                using var reader = com.ExecuteReader();
                 if (reader.HasRows)
                 {
                     reader.Read();
