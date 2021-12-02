@@ -23,11 +23,11 @@ namespace AuctionSystemPOC.Hubs
             long idaslong = Int64.Parse(itemid);
             List<string> bidders = idb.GetBidders(idaslong);
             string bidders_str = "", sep = ",", itemname = idb.GetItemFromID(idaslong).Name;
-            for (int bidind = 0; bidind < bidders.Count; bidind++)
+            for (int i = 0; i < bidders.Count; i++)
             {
-                if (bidind == bidders.Count - 1)
+                if (i == bidders.Count - 1)
                     sep = "";
-                bidders_str += bidders[bidind] + sep;
+                bidders_str += bidders[i] + sep;
             }
             await Clients.Others.SendAsync("ReceiveOutbidNotification", bidders_str, itemid, itemname);
         }
