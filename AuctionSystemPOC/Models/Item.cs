@@ -20,7 +20,7 @@ namespace AuctionSystemPOC.Models
         public string Description { get; set; }
 
         [Required(ErrorMessage = "Listing should have a starting price")]
-        [Range(0.01, Double.PositiveInfinity)]
+        [Range(0.01, 99999998.99, ErrorMessage = "Invalid price")]
         public decimal Price { get; set; }
 
         [Required]
