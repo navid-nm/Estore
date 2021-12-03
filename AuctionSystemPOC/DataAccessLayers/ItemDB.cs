@@ -102,8 +102,9 @@ namespace AuctionSystemPOC.DataAccessLayers
                 var rcom = db.GetCommand(msc, qtext);
                 msc.Open();
                 using var reader = rcom.ExecuteReader();
-                if (!reader.HasRows) return null;
                 reader.Read();
+                if (!reader.HasRows) return null;
+                if (reader.GetValue(0).GetType() == typeof(DBNull)) return null;
                 maxid = reader.GetInt64("id");
             }
             for (long i = 1; i <= maxid; i++) items.Add(GetItemFromID(i));
