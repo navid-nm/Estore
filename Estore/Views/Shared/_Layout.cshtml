@@ -1,0 +1,91 @@
+﻿@{ 
+    string title = ViewData["Title"] as string;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" class="form-control-lg col-10" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - eStore</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/dropzone/dist/dropzone.min.css" />
+    <link rel="stylesheet" href="~/lib/animate/animate.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <!-- <body style="background-color: #f8f8f8"> for changing bgcolor of non-navbar elems-->
+    <header>
+        <nav class="navbar navbar-expand navbar-toggleable-sm navbar-light navbar-cust border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <ul class="nav navbar-nav navbar-left">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Storefronts" asp-action="Index">Storefronts</a>
+                        </li>
+                        @{
+                            if (title != "Home")
+                            {
+                                @Html.Raw("<li class='nav-item'><a class='nav-link text-dark' href='/'>Home</a></li>")
+                            }
+                        }
+                    </ul>
+                </div>
+                <ul class="nav navbar-nav navbar-right pl-1">
+                    @if (User.Identity.Name != null)
+                    {
+                        <li class='nav-item'>
+                            <a class='btn btn-info' href='/sell'>Sell an item</a>
+                        </li>
+                        <li class='nav-item pl-2'>
+                            <a class='btn btn-outline-info' href='/my/dashboard'>Dashboard</a>
+                        </li>
+                        <li class="dropdown pl-2">
+                            <a class="dropdown-toggle btn-outline-primary btn btn-outline-dark"
+                               data-toggle="dropdown" href="#">
+                                My Account (@User.Identity.Name)<span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-lg-right w-100">
+                                <li><a class='dropdown-item-text' href='/my/profile'>Profile</a></li>
+                                <li><a class='dropdown-item-text' href='/my/messages'>Messages</a></li>
+                                <li><a class='dropdown-item-text' href='/my/account'>Settings</a></li>
+                                <li><a class='dropdown-item-text' href='/signout'>Sign out</a></li>
+                            </ul>
+                        </li>
+                    }
+                    else
+                    {
+                        if (title != "Register")
+                        {
+                            <li class='nav-item'>
+                                <a class='btn btn-reg' href='/register'>Register</a>
+                            </li>
+                        }
+                        if (title != "Sign in")
+                        {
+                            <li class='nav-item pl-3'>
+                                <a class='btn btn-outline-secondary' href='/signin'>Sign in</a>
+                            </li>
+                            <!--Formerly btn-signin-->
+                        }
+                    }
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2021 - eStore
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

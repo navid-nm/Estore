@@ -1,0 +1,47 @@
+﻿@model Estore.Models.Item
+
+
+@{
+    ViewData["Title"] = "List an item";
+}
+
+<center>
+    <br /><br />
+    <h2 class="display-5">&nbsp;List an item</h2>
+</center>
+<br /><br />
+
+<div class="row justify-content-center align-items-center">
+    <form class="w-50 align-content-center" method="post" asp-controller="Sell">
+        <div class="form-group">
+            <label for="username">Listing title:</label>
+            <input type="text" class="form-control" id="name" name="Name"
+                   asp-for="Name" placeholder="The name of the item you are selling">
+            <span asp-validation-for="Name"></span>
+        </div>
+        <div>
+            <label>Item pictures:</label>
+            <div class="dropzone" action="/sell/uploadimage" id="my-dropzone"></div>
+        </div>
+        <div class="form-group pt-3">
+            <label for="email">Description:</label>
+            <textarea class="form-control" rows="7" placeholder="A description of the item"
+                      asp-for="Description" name="Description" id="description" style="resize:none"></textarea>
+            <span asp-validation-for="Description"></span>
+        </div>
+        <div class="form-group">
+            <label for="condition">Condition:</label>
+            <select class="form-control" asp-for="Quality" name="Quality"
+                    asp-items="@Html.GetEnumSelectList<Condition>()"></select>
+            <span asp-validation-for="Quality"></span>
+        </div>
+        <input type="submit" class="btn btn-outline-primary" value="Done" />
+    </form>
+</div>
+
+<script src="~/lib/dropzone/dist/dropzone.min.js"></script>
+<script>
+    Dropzone.options.myDropzone = {
+        acceptedFiles: 'image/*'
+    };
+</script>

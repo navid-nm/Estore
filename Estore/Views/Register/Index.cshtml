@@ -1,0 +1,52 @@
+﻿@model Estore.Models.User
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+<center>
+    <br /><br />
+    <h2 class="display-5">&nbsp;Create an account</h2>
+</center>
+<br />
+<br />
+
+<div class="row justify-content-center align-items-center">
+    <form class="w-50 align-content-center" method="post" asp-controller="Register">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="username" name="Username" asp-for="Username" placeholder="Johndoe99">
+            <span asp-validation-for="Username"></span>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="firstname">First name</label>
+                <input type="text" class="form-control" id="firstname" name="FirstName" asp-for="FirstName" placeholder="John">
+                <span asp-validation-for="FirstName"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="surname">Surname</label>
+                <input type="text" class="form-control" id="surname" name="Surname" asp-for="Surname" placeholder="Doe">
+                <span asp-validation-for="Surname"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" class="form-control" asp-for="Email" name="Email" id="email" placeholder="yourname@example.com">
+            <span asp-validation-for="Email"></span>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" asp-for="Password" name="Password" id="password" placeholder="Password">
+            <span asp-validation-for="Password"></span>
+        </div>
+        <input type="submit" class="btn btn-outline-primary" value="Register" />
+    </form>
+</div>
+
+
+@section scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/regvalidation.js"></script>
+}

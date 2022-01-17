@@ -1,0 +1,55 @@
+﻿@{
+    string title = "Not found";
+    if (ViewBag.ThisItem != null)
+    {
+        title = ((Item) ViewBag.ThisItem).Name;
+    }
+    ViewData["Title"] = title;
+}
+
+<!--Search widget-->
+<div class="nonbscontainer">
+    <div class="row pt-2 pl-2">
+        <div class="form-inline pl-3 col-xl-11">
+            <select name="Categories" id="Categories" class="form-control col-sm-auto">
+                <option value="All">All Categories</option>
+                <option value="Misc">Misc</option>
+            </select>
+            &nbsp;
+            <input type="search" id="search" class="form-control col-sm-8" placeholder="Search term(s)" />
+            &nbsp;
+            <button type="button" class="btn btn-outline-primary">
+                Search
+            </button>
+        </div>
+    </div>
+
+    @if (ViewBag.ThisItem == null)
+    {
+        <center>
+            <div class="dz-error animate__animated animate__fadeInUp pt-5">
+                <h2>404 - Not found</h2>
+                <h5 class="text-muted">No such item exists.</h5>
+            </div>
+        </center>
+    }
+    else
+    {
+        Item item = (Item)ViewBag.ThisItem;
+        <br /><br />
+        <div class="container">
+            <h3>@item.Name</h3>
+            <p>
+                Description: @item.Description <br />
+                Condition: @item.GetConditionDisplayName(item.Quality)<br /><br />
+                Images: <br />
+                @foreach (string url in item.ImageUrls)
+                {
+                    var newurl = url.Substring(url.IndexOf("img"));
+                    <img src="~/@newurl" />
+                }
+            </p>
+        </div>
+        <br /><br />
+    }
+</div>
