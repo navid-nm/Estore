@@ -16,6 +16,13 @@ a.navbar-brand {
     word-break: break-all;
 }
 
+
+.container-cust {
+    max-width: 100%  !important;
+    margin-left: 0px !important;
+    min-width: 900px !important;
+}
+
 .navbar-cust {
     color: lightgrey !important;
 }
