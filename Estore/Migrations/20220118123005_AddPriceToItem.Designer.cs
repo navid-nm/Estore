@@ -3,14 +3,16 @@ using Estore.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Estore.Migrations
 {
     [DbContext(typeof(EstoreDbContext))]
-    partial class EstoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220118123005_AddPriceToItem")]
+    partial class AddPriceToItem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

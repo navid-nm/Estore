@@ -24,6 +24,10 @@ namespace Estore.Models
         [Required, MinLength(3), MaxLength(100)]
         public string Name { get; set; }
 
+        [Required, Range(0.01, 7000000000, ErrorMessage = "Minimum price is 0.01")]
+        [Column(TypeName = "decimal(18, 2)")]
+        public decimal Price { get; set; }
+
         [Required]
         public Condition Quality { get; set; }
 
