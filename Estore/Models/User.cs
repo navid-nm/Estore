@@ -22,7 +22,7 @@ namespace Estore.Models
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        [Required, EmailAddress, Display(Name = "email")]
+        [Required, EmailAddress, Display(Name = "email"), StringLength(254)]
         public string Email { get; set; }
 
         public List<Item> Items { get; set; }
