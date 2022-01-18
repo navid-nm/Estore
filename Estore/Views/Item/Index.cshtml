@@ -5,25 +5,10 @@
         title = ((Item) ViewBag.ThisItem).Name;
     }
     ViewData["Title"] = title;
+    ViewData["ShowSearchInNavbar"] = true;
 }
 
-<!--Search widget-->
 <div class="nonbscontainer">
-    <div class="row pt-2 pl-2">
-        <div class="form-inline pl-3 col-xl-11">
-            <select name="Categories" id="Categories" class="form-control col-sm-auto">
-                <option value="All">All Categories</option>
-                <option value="Misc">Misc</option>
-            </select>
-            &nbsp;
-            <input type="search" id="search" class="form-control col-sm-8" placeholder="Search term(s)" />
-            &nbsp;
-            <button type="button" class="btn btn-outline-primary">
-                Search
-            </button>
-        </div>
-    </div>
-
     @if (ViewBag.ThisItem == null)
     {
         <center>

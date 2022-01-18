@@ -1,5 +1,6 @@
 ﻿@{ 
     string title = ViewData["Title"] as string;
+    if (!ViewData.ContainsKey("ShowSearchInNavbar")) ViewData["ShowSearchInNavbar"] = false;
 }
 
 <!DOCTYPE html>
@@ -14,20 +15,32 @@
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
-    <!-- <body style="background-color: #f8f8f8"> for changing bgcolor of non-navbar elems-->
     <header>
         <nav class="navbar navbar-expand navbar-toggleable-sm navbar-light navbar-cust border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <div class="navbar-header">
+                <div class="navbar-header flex-fill">
                     <ul class="nav navbar-nav navbar-left">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="Storefronts" asp-action="Index">Storefronts</a>
                         </li>
-                        @{
-                            if (title != "Home")
-                            {
-                                @Html.Raw("<li class='nav-item'><a class='nav-link text-dark' href='/'>Home</a></li>")
-                            }
+                        @if (title != "Home")
+                        {
+                            <li class='nav-item'><a class='nav-link text-dark' href='/'>Home</a></li>
+                        }
+                        @if ((bool) ViewData["ShowSearchInNavbar"])
+                        {
+                            <li class="form-inline justify-content-md-center flex-fill offset-1 pr-2">
+                                <select name="Categories" id="Categories" class="form-control col-sm-auto">
+                                    <option value="All">All Categories</option>
+                                    <option value="Misc">Misc</option>
+                                </select>
+                                &nbsp;
+                                <input type="search" id="search" class="form-control flex-fill" placeholder="Search" />
+                                &nbsp;
+                                <button type="button" class="btn btn-outline-primary">
+                                    Go
+                                </button>
+                            </li>
                         }
                     </ul>
                 </div>
