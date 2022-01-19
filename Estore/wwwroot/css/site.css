@@ -72,6 +72,22 @@ a.navbar-brand {
 }
 /* Sign in button END */
 
+/* Sell button */
+.btn-sell {
+    color: #fff;
+    background-color: rgb(57 174 95); 
+    border-color: rgb(57 174 95);
+}
+.btn-sell:hover {
+    color: #fff;
+    background-color: rgb(42 211 51); 
+    border-color: rgb(42 211 51);
+}
+.btn-sell:focus, .btn-sell.focus {
+    box-shadow: 0 0 0 .2rem rgba(0,90,90,0.5);
+}
+/* Sell button END */
+
 .btn-primary {
     color: #fff;
     background-color: #1b6ec2;
@@ -107,11 +123,9 @@ html {
 .border-bottom {
   border-bottom: 1px solid #e5e5e5;
 }
-
 .box-shadow {
   box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
-
 button.accept-policy {
   font-size: 1rem;
   line-height: inherit;
@@ -121,10 +135,10 @@ html {
   position: relative;
   min-height: 100%;
 }
-
 body {
   margin-bottom: 60px;
 }
+
 .footer {
   position: absolute;
   bottom: 0;
