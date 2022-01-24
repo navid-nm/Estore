@@ -28,10 +28,17 @@
                 Description: @item.Description <br />
                 Condition: @item.GetConditionDisplayName(item.Quality)<br /><br />
                 Images: <br />
-                @foreach (string url in item.ImageUrls)
+                @if (item.ImageUrls != null)
                 {
-                    var newurl = url.Substring(url.IndexOf("img"));
-                    <img src="~/@newurl" />
+                    foreach (string url in item.ImageUrls)
+                    {
+                        var newurl = url.Substring(url.IndexOf("img"));
+                        <img src="~/@newurl" />
+                    }
+                }
+                else
+                {
+                    <span>(Generic image placeholder)</span>
                 }
             </p>
         </div>
