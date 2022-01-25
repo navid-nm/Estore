@@ -2,11 +2,13 @@
     string title = "Not found";
     if (ViewBag.ThisItem != null)
     {
-        title = ((Item) ViewBag.ThisItem).Name;
+        title = ((Item)ViewBag.ThisItem).Name;
     }
     ViewData["Title"] = title;
     ViewData["ShowSearchInNavbar"] = true;
 }
+
+<link rel="stylesheet" href="~/lib/viewer/viewer.min.css" />
 
 <div class="nonbscontainer">
     @if (ViewBag.ThisItem == null)
@@ -22,26 +24,50 @@
     {
         Item item = (Item)ViewBag.ThisItem;
         <br /><br />
-        <div class="container">
-            <h3>@item.Name</h3>
-            <p>
-                Description: @item.Description <br />
-                Condition: @item.GetConditionDisplayName(item.Quality)<br /><br />
-                Images: <br />
-                @if (item.ImageUrls != null)
-                {
-                    foreach (string url in item.ImageUrls)
-                    {
-                        var newurl = url.Substring(url.IndexOf("img"));
-                        <img src="~/@newurl" />
-                    }
-                }
-                else
-                {
-                    <span>(Generic image placeholder)</span>
-                }
-            </p>
-        </div>
+              <div class="container">
+                  <h3>@item.Name</h3>
+                  <br />
+                  <div class="row pl-3">
+                      <p>
+                          <div class="col-md-4" style="height: 400px !important">
+                              @if (item.ImageUrls != null)
+                              {
+                                  <ul id="images">
+                                      <li style="list-style-type: none;">
+                                          @foreach (string url in item.ImageUrls)
+                                          {
+                                              var newurl = url.Substring(url.IndexOf("img"));
+                                              <img src="~/@newurl" style="height: 400px !important; display: none;" />
+                                          }
+                                      </li>
+                                  </ul>
+                              }
+                              else
+                              {
+                                  <span>(Generic image placeholder)</span>
+                              }
+                          </div>
+                          <div class="col-md-6">
+                              Description: @item.Description <br />
+                              Condition: @item.GetConditionDisplayName(item.Quality)<br /><br />
+                          </div>
+                      </p>
+                  </div>
+              </div>
         <br /><br />
     }
 </div>
+
+<script src="~/lib/viewer/viewer.min.js"></script>
+<script>
+    const viewer = new Viewer(document.getElementById('images'), {
+        inline: true,
+        minHeight: 10,
+        maxHeight: 50,
+        toolbar: false,
+        title: false,
+        viewed() {
+            viewer.resize();
+        },
+    });
+</script>

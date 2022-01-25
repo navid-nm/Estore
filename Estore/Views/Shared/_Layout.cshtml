@@ -1,6 +1,11 @@
-﻿@{ 
+﻿@{
     string title = ViewData["Title"] as string;
     if (!ViewData.ContainsKey("ShowSearchInNavbar")) ViewData["ShowSearchInNavbar"] = false;
+    var searchstyle = "flex-fill";
+    @if (User.Identity.Name == null)
+    {
+        searchstyle = "col-sm-7";
+    }
 }
 
 <!DOCTYPE html>
@@ -27,7 +32,7 @@
                         {
                             <li class='nav-item'><a class='nav-link text-dark' href='/'>Home</a></li>
                         }
-                        @if ((bool) ViewData["ShowSearchInNavbar"])
+                        @if ((bool)ViewData["ShowSearchInNavbar"])
                         {
                             <li class="form-inline justify-content-md-center flex-fill offset-1 pr-2">
                                 <select name="Categories" id="Categories" class="form-control col-sm-auto">
@@ -35,7 +40,7 @@
                                     <option value="Misc">Misc</option>
                                 </select>
                                 &nbsp;
-                                <input type="search" id="search" class="form-control flex-fill" placeholder="Search" />
+                                <input type="search" id="search" class="form-control @searchstyle" placeholder="Search" />
                                 &nbsp;
                                 <button type="button" class="btn btn-outline-primary">
                                     Go
