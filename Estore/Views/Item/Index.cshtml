@@ -26,10 +26,10 @@
         <br /><br />
               <div class="container">
                   <h3>@item.Name</h3>
-                  <br />
+                  <br /><br />
                   <div class="row pl-3">
                       <p>
-                          <div class="col-md-4" style="height: 400px !important">
+                          <div class="col-md-4" style="height: 370px !important">
                               @if (item.ImageUrls != null)
                               {
                                   <ul id="images">
@@ -48,8 +48,8 @@
                               }
                           </div>
                           <div class="col-md-6">
-                              Description: @item.Description <br />
-                              Condition: @item.GetConditionDisplayName(item.Quality)<br /><br />
+                              <p class="pl-2">Description: @item.Description
+                              <br />Condition: @item.GetConditionDisplayName(item.Quality)</p>
                           </div>
                       </p>
                   </div>

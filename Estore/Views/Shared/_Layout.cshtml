@@ -52,6 +52,12 @@
                 <ul class="nav navbar-nav navbar-right pl-1">
                     @if (User.Identity.Name != null)
                     {
+                        var dispname = User.Identity.Name;
+                        if (dispname.Length > 17)
+                        {
+                            dispname = dispname.Remove(dispname.Length - (dispname.Length - 17));
+                            dispname += "...";
+                        }
                         <li class='nav-item'>
                             <a class='btn btn-sell' href='/sell'>Sell an item</a>
                         </li>
@@ -61,7 +67,8 @@
                         <li class="dropdown pl-2">
                             <a class="dropdown-toggle btn-outline-primary btn btn-outline-dark"
                                data-toggle="dropdown" href="#">
-                                My Account (@User.Identity.Name)<span class="caret"></span>
+                                 
+                                My Account (@dispname)<span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-lg-right w-100">
                                 <li><a class='dropdown-item-text' href='/my/profile'>Profile</a></li>
