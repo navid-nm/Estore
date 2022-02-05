@@ -30,6 +30,14 @@ a.navbar-brand {
     color: lightgrey !important;
 }
 
+.offset-cust {
+    margin-left: 4.5%;
+}
+
+.offset-cust-smaller {
+    margin-left: 3%;
+}
+
 .item-image {
     height: 400px !important;
     display: none;
