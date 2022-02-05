@@ -67,10 +67,20 @@
                         </p>
                     </div>
                     <div class="col-md-2 border offset-cust-smaller">
-                        <p>
-                            Seller: @seller.Username<br />
-                            Email: @seller.Email
-                        </p>
+                        @{
+                            string susername = seller.Username;
+                            if (susername.Length > 23)
+                            {
+                                susername = susername.Substring(0, susername.Length - 19) + "...";
+                            }
+                        }
+                        <h5 class="pt-2">Seller details</h5>
+                        <hr />
+                        <a href="#">@susername</a><br />
+                        <span class="pt-1">
+                            50% positive rating 
+                            <!--Placeholder-->
+                        </span>
                     </div>
                 </p>
             </div>
