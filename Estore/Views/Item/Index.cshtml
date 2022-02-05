@@ -1,8 +1,14 @@
-﻿@{
+﻿@model List<Estore.Models.User>
+
+@{
     string title = "Not found";
+    User seller = null;
+    Item item = null;
     if (ViewBag.ThisItem != null)
     {
-        title = ((Item)ViewBag.ThisItem).Name;
+        item = (Item)ViewBag.ThisItem;
+        title = item.Name;
+        seller = Model?.Where(i => i.Id == item.UserId).FirstOrDefault();
     }
     ViewData["Title"] = title;
     ViewData["ShowSearchInNavbar"] = true;
@@ -22,38 +28,53 @@
     }
     else
     {
-        Item item = (Item)ViewBag.ThisItem;
         <br /><br />
-              <div class="container">
-                  <h3>@item.Name</h3>
-                  <br /><br />
-                  <div class="row pl-3">
-                      <p>
-                          <div class="col-md-4" style="height: 370px !important">
-                              @if (item.ImageUrls != null)
-                              {
-                                  <ul id="images">
-                                      <li style="list-style-type: none;">
-                                          @foreach (string url in item.ImageUrls)
-                                          {
-                                              var newurl = url.Substring(url.IndexOf("img"));
-                                              <img src="~/@newurl" style="height: 400px !important; display: none;" />
-                                          }
-                                      </li>
-                                  </ul>
-                              }
-                              else
-                              {
-                                  <span>(Generic image placeholder)</span>
-                              }
-                          </div>
-                          <div class="col-md-6">
-                              <p class="pl-2">Description: @item.Description
-                              <br />Condition: @item.GetConditionDisplayName(item.Quality)</p>
-                          </div>
-                      </p>
-                  </div>
-              </div>
+        <div class="container-fluid"> <!--use "override" of container in site.css or try container-fluid-->
+            <h3>@item.Name</h3>
+            <br /><br />
+            <div class="row pl-3">
+                <p>
+                    <div class="col-md-4" style="height: 370px !important">
+                        <ul id="images">
+                            <li style="list-style-type: none;">
+                                @if (item.ImageUrls != null)
+                                {
+                                    @foreach (string url in item.ImageUrls)
+                                    {
+                                        var newurl = url.Substring(url.IndexOf("img"));
+                                        <img src="~/@newurl" style="height: 400px !important; display: none;" />
+                                    }
+                                }
+                                else
+                                {
+                                    <img src="~/img/generic/item.png" class="item-image" />
+                                }
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6 border offset-1">
+                        <p class="pl-2">
+                            Price: <font size="5"><b>£@item.Price</b></font>
+                            <br />Condition: @item.GetConditionDisplayName(item.Quality)
+                            <hr />
+                            <div class="text-secondary">
+                                <span>Shipping price: £@item.Price</span><br />
+                                @if (item.ImageUrls == null)
+                                {
+                                    <span>(This seller has not included any photos for the item)</span>
+                                }
+                            </div>
+                        </p>
+                    </div>
+                    <div class="col-md-1 border offset-1">
+                        <p class="pl-2">
+                            Seller: @seller.Username<br />
+                            Email: @seller.Email
+                        </p>
+                    </div>
+                </p>
+            </div>
+        </div>
         <br /><br />
     }
 </div>

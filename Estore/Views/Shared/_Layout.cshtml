@@ -1,6 +1,7 @@
 ﻿@{
     string title = ViewData["Title"] as string;
     if (!ViewData.ContainsKey("ShowSearchInNavbar")) ViewData["ShowSearchInNavbar"] = false;
+    if (!ViewData.ContainsKey("ItemPage")) ViewData["ItemPage"] = false;
     var searchstyle = "flex-fill";
     @if (User.Identity.Name == null)
     {
@@ -53,9 +54,9 @@
                     @if (User.Identity.Name != null)
                     {
                         var dispname = User.Identity.Name;
-                        if (dispname.Length > 17)
+                        if (dispname.Length > 12)
                         {
-                            dispname = dispname.Remove(dispname.Length - (dispname.Length - 17));
+                            dispname = dispname.Remove(dispname.Length - (dispname.Length - 12));
                             dispname += "...";
                         }
                         <li class='nav-item'>
@@ -67,7 +68,7 @@
                         <li class="dropdown pl-2">
                             <a class="dropdown-toggle btn-outline-primary btn btn-outline-dark"
                                data-toggle="dropdown" href="#">
-                                 
+
                                 My Account (@dispname)<span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-lg-right w-100">
@@ -98,6 +99,13 @@
             </div>
         </nav>
     </header>
+    @{
+        string bclass = "container";
+        if ((bool)ViewData["ItemPage"] == true)
+        {
+            bclass += "-fluid";
+        }
+    }
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()

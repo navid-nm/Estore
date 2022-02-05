@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Estore.Data;
 using Estore.Models;
+using System.Linq;
 
 namespace Estore.Controllers
 {
@@ -24,7 +25,7 @@ namespace Estore.Controllers
             {
                 ViewBag.ThisItem = item;
             }
-            return View();
+            return View(_context.Users.ToList());
         }
     }
 }

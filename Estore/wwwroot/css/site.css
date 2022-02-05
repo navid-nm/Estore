@@ -16,6 +16,10 @@ a.navbar-brand {
     word-break: break-all;
 }
 
+.container {
+    max-width: 70% !important;
+}
+
 .container-cust {
     max-width: 100%  !important;
     margin-left: 0px !important;
@@ -24,6 +28,11 @@ a.navbar-brand {
 
 .navbar-cust {
     color: lightgrey !important;
+}
+
+.item-image {
+    height: 400px !important;
+    display: none;
 }
 
 /* Registration button in _Layout */
