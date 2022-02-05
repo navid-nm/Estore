@@ -29,7 +29,7 @@
     else
     {
         <br /><br />
-        <div class="container-fluid"> <!--use "override" of container in site.css or try container-fluid-->
+        <div class="container-fluid">
             <h3>@item.Name</h3>
             <br /><br />
             <div class="row pl-3">
@@ -71,7 +71,7 @@
                             string susername = seller.Username;
                             if (susername.Length > 23)
                             {
-                                susername = susername.Substring(0, susername.Length - 19) + "...";
+                                susername = susername.Substring(0, susername.Length - 23) + "...";
                             }
                         }
                         <h5 class="pt-2">Seller details</h5>
@@ -82,6 +82,13 @@
                             <!--Placeholder-->
                         </span>
                     </div>
+                </p>
+            </div>
+            <br /><br />
+            <div id="description" class="col-md-auto border pt-3">
+                <h4>Description</h4>
+                <p class="pt-1">
+                    <i>"@item.Description"</i>
                 </p>
             </div>
         </div>
