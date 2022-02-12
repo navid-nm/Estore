@@ -1,0 +1,30 @@
+﻿@model Estore.Models.User
+
+@{
+    User user = null;
+    ViewData["Title"] = "Not found";
+    ViewData["ShowSearchInNavbar"] = true;
+    if (ViewBag.User != null)
+    {
+        user = (User) ViewBag.User;
+        ViewData["Title"] = user.Username + "'s profile";
+    }
+}
+
+<center class="pt-5">
+    @if (user == null)
+    {
+        <div class="dz-error animate__animated animate__fadeInUp">
+            <h2>404 - Not found</h2>
+            <h5 class="text-muted">No such user exists.</h5>
+        </div>
+    }
+    else
+    {
+        <div class="container-fluid">
+            <img src="~/img/generic/user.png" class="user-image"/><br />
+            <h2 class="display-5 pt-2">@user.Username</h2>
+            <br /><div class="row justify-content-center align-items-center"></div>
+        </div>
+    }
+</center>

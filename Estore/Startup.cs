@@ -68,6 +68,11 @@ namespace Estore
                     defaults: new {controller = "Item", action = "Index"}
                 );
                 endpoints.MapControllerRoute(
+                    name: "user",
+                    pattern: "user/{username}",
+                    defaults: new { controller = "User", action = "Index" }
+                );
+                endpoints.MapControllerRoute(
                     name: "signout",
                     pattern: "/signout",
                     defaults: new {controller = "Home", action = "Leave"}

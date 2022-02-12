@@ -43,6 +43,13 @@ a.navbar-brand {
     display: none;
 }
 
+.user-image {
+    width: 125px;
+    height: auto;
+    border: 1px solid lightgray;
+    border-radius: 500px;
+}
+
 /* Registration button in _Layout */
 .btn-reg {
     color: #fff;
