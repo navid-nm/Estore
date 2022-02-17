@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
+using System;
 
 namespace Estore.Models
 {
@@ -24,6 +25,8 @@ namespace Estore.Models
 
         [Required, EmailAddress, Display(Name = "email"), StringLength(254)]
         public string Email { get; set; }
+
+        public DateTime DateOfRegistration { get; set; }
 
         public List<Item> Items { get; set; }
     }

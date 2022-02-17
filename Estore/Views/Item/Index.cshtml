@@ -69,9 +69,9 @@
                     <div class="col-md-2 border offset-cust-smaller">
                         @{
                             string susername = seller.Username;
-                            if (susername.Length > 23)
+                            if (susername.Length > 25)
                             {
-                                susername = susername.Substring(0, susername.Length - 23) + "...";
+                                susername = susername.Substring(0, susername.Length - 25) + "...";
                             }
                         }
                         <h5 class="pt-2">Seller details</h5>

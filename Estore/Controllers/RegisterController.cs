@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using Estore.Data;
 using Estore.Models;
 
@@ -32,6 +33,7 @@ namespace Estore.Controllers
                     ModelState.AddModelError("Username", "Username is already in use.");
                 else
                 {
+                    user.DateOfRegistration = DateTime.Now;
                     udata.AddUser(user);
                     return View("Success");
                 }
