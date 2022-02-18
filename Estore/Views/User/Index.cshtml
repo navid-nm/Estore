@@ -40,10 +40,9 @@
             <h4>Items this user is selling</h4>
             @if (items.Count > 0)
             {
-                <div class="row col-sm-10 pt-4">
+                <div class="row col-sm-11 pt-4">
                     @foreach (Item item in items)
                     {
-                        var boxstyle = "height: 125px; background-size:cover; cursor:pointer;";
                         var url = "/img/generic/invertedplaceholder.png";
                         @if (item.ImageUrls != null)
                         {
@@ -53,7 +52,7 @@
                             }
                         }
                         var img = "../" + url.Substring(url.IndexOf("img")).Replace("\\", "/");
-                        boxstyle += " background-image: url('" + img + "') !important";
+                        var boxstyle = "background-image: url('" + img + "') !important";
                         <div class="col-sm-2 item-preview" style="@boxstyle" onclick="location.href = '/item/@item.FindCode'">
                             <font color="white">
                                 @item.Name

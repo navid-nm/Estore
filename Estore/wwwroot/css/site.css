@@ -49,6 +49,9 @@ a.navbar-brand {
 
 .item-preview {
     position: relative;
+    height: 125px;
+    background-size: cover;
+    cursor: pointer;
 }
 
 .item-preview span {
