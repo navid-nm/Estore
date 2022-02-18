@@ -1,10 +1,9 @@
 ﻿@{
-    ViewData["Title"] = "Search";
     ViewData["ShowSearchInNavbar"] = true;
     List<Item> results = null;
     if (ViewBag.SearchTerm != null)
     {
-        ViewData["Title"] += (string)ViewBag.SearchTerm;
+        ViewData["Title"] = (string)ViewBag.SearchTerm + " - " + "eStore";
         results = ViewBag.Results;
     }
 }
