@@ -1,0 +1,37 @@
+﻿@{
+    ViewData["Title"] = "Search";
+    ViewData["ShowSearchInNavbar"] = true;
+    List<Item> results = null;
+    if (ViewBag.SearchTerm != null)
+    {
+        ViewData["Title"] += (string)ViewBag.SearchTerm;
+        results = ViewBag.Results;
+    }
+}
+
+<div class="container-fluid pt-5">
+    @{
+        if (results != null)
+        {
+            if (results.Count == 0)
+            {
+                <div class="dz-error animate__animated animate__fadeInUp text-center">
+                    <h2>There were no results</h2>
+                    <h5 class="text-muted">Try refining your search</h5>
+                </div>
+            }
+            else
+            {
+                <center>
+                    <h5>Results for "@ViewBag.SearchTerm"</h5>
+                </center>
+                <ul>
+                    @foreach (Item result in results)
+                    {
+                        <li>@result.Name</li>
+                    }
+                </ul>
+            }
+        }
+    }
+</div>

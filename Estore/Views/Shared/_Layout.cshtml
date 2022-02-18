@@ -3,7 +3,8 @@
     if (!ViewData.ContainsKey("ShowSearchInNavbar")) ViewData["ShowSearchInNavbar"] = false;
     if (!ViewData.ContainsKey("ItemPage")) ViewData["ItemPage"] = false;
     var searchstyle = "flex-fill";
-    @if (User.Identity.Name == null)
+    var searchscr = "";
+    if (User.Identity.Name == null)
     {
         searchstyle = "col-sm-7";
     }
@@ -43,7 +44,7 @@
                                 &nbsp;
                                 <input type="search" id="search" class="form-control @searchstyle" placeholder="Search" />
                                 &nbsp;
-                                <button type="button" class="btn btn-outline-primary">
+                                <button type="button" class="btn btn-outline-primary" onclick="javascript:go()">
                                     Go
                                 </button>
                             </li>
@@ -113,12 +114,23 @@
     </div>
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2021 - eStore
+            &copy; 2022 - eStore
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        function go() {
+            location.href = '/search/' + document.getElementById('search').value
+        }
+        const node = document.getElementById("search");
+        node.addEventListener("keyup", function (event) {
+            if (event.key === "Enter") {
+                go()
+            }
+        });
+    </script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>
