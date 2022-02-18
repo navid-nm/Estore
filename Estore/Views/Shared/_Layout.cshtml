@@ -3,7 +3,6 @@
     if (!ViewData.ContainsKey("ShowSearchInNavbar")) ViewData["ShowSearchInNavbar"] = false;
     if (!ViewData.ContainsKey("ItemPage")) ViewData["ItemPage"] = false;
     var searchstyle = "flex-fill";
-    var searchscr = "";
     if (User.Identity.Name == null)
     {
         searchstyle = "col-sm-7";
