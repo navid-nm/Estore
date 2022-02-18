@@ -28,7 +28,7 @@
                 <ul>
                     @foreach (Item result in results)
                     {
-                        <li>@result.Name</li>
+                        <li><a href="/item/@result.FindCode">@result.Name</a></li>
                     }
                 </ul>
             }
