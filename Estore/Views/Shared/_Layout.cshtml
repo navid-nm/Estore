@@ -35,13 +35,18 @@
                         }
                         @if ((bool)ViewData["ShowSearchInNavbar"])
                         {
+                            string placeholdertxt = string.Empty;
+                            if (ViewBag.SearchTerm != null)
+                            {
+                                placeholdertxt = (string)ViewBag.SearchTerm;
+                            }
                             <li class="form-inline justify-content-md-center flex-fill offset-1 pr-2">
                                 <select name="Categories" id="Categories" class="form-control col-sm-auto">
                                     <option value="All">All Categories</option>
                                     <option value="Misc">Misc</option>
                                 </select>
                                 &nbsp;
-                                <input type="search" id="search" class="form-control @searchstyle" placeholder="Search" />
+                                <input type="search" id="search" class="form-control @searchstyle" placeholder="Search" value="@placeholdertxt"/>
                                 &nbsp;
                                 <button type="button" class="btn btn-outline-primary" onclick="javascript:go()">
                                     Go
