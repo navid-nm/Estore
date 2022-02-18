@@ -2,29 +2,71 @@
 
 @{
     User user = null;
+    List<Item> items = null;
     ViewData["Title"] = "Not found";
     ViewData["ShowSearchInNavbar"] = true;
     if (ViewBag.User != null)
     {
-        user = (User) ViewBag.User;
+        user = (User)ViewBag.User;
+        items = (List<Item>)ViewBag.Items;
         ViewData["Title"] = user.Username + "'s profile";
     }
 }
 
-<center class="pt-5">
+<div class="pt-5">
     @if (user == null)
     {
-        <div class="dz-error animate__animated animate__fadeInUp">
+        <div class="dz-error animate__animated animate__fadeInUp text-center">
             <h2>404 - Not found</h2>
             <h5 class="text-muted">No such user exists.</h5>
         </div>
     }
     else
     {
-        <div class="container-fluid">
-            <img src="~/img/generic/user.png" class="user-image"/><br />
-            <h2 class="display-5 pt-2">@user.Username</h2>
-            <br /><div class="row justify-content-center align-items-center"></div>
+        <div class="container-fluid text-center">
+            <img src="~/img/generic/user.png" class="user-image" /><br />
+            <h2 class="display-5 pt-1">@user.Username</h2>
+            <div class="justify-content-center align-items-center">
+                <p class="subtext pt-2">
+                    Join date: @user.DateOfRegistration.ToLongDateString() <br />
+                    Buyer rating: 50% <br />
+                    Seller rating: 50%
+                </p>
+            </div>
+        </div>
+        <br /><hr />
+
+        <div id="item-container">
+            <h4>Items this user is selling</h4>
+            @if (items.Count > 0)
+            {
+                <div class="row col-sm-10 pt-4">
+                    @foreach (Item item in items)
+                    {
+                        var boxstyle = "height: 125px; background-size:cover; cursor:pointer;";
+                        var url = "/img/generic/invertedplaceholder.png";
+                        @if (item.ImageUrls != null)
+                        {
+                            if (item.ImageUrls.Count > 0)
+                            {
+                                url = item.ImageUrls[0];
+                            }
+                        }
+                        var img = "../" + url.Substring(url.IndexOf("img")).Replace("\\", "/");
+                        boxstyle += " background-image: url('" + img + "') !important";
+                        <div class="col-sm-2 item-preview" style="@boxstyle" onclick="location.href = '/item/@item.FindCode'">
+                            <font color="white">
+                                @item.Name
+                                <span><i>£@item.Price</i></span>
+                            </font>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <p class="pt-4">This user is not selling any items.</p>
+            }
         </div>
     }
-</center>
+</div>

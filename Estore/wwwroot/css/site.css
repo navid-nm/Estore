@@ -20,6 +20,10 @@ a.navbar-brand {
     max-width: 70% !important;
 }
 
+.subtext {
+    color: rgb(111 111 111);
+}
+
 .container-cust {
     max-width: 100%  !important;
     margin-left: 0px !important;
@@ -41,6 +45,16 @@ a.navbar-brand {
 .item-image {
     height: 400px !important;
     display: none;
+}
+
+.item-preview {
+    position: relative;
+}
+
+.item-preview span {
+    position: absolute;
+    bottom: 1%;
+    left: 10%;
 }
 
 .user-image {
