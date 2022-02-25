@@ -1,15 +1,20 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Estore.Data;
+using Estore.Models;
 using System.Linq;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Hosting;
 
 namespace Estore.Controllers
 {
     public class SearchController : Controller
     {
         private readonly EstoreDbContext _context;
+        private readonly IWebHostEnvironment _env;
 
-        public SearchController(EstoreDbContext context)
+        public SearchController(IWebHostEnvironment env, EstoreDbContext context)
         {
+            _env = env;
             _context = context;
         }
 
@@ -20,7 +25,12 @@ namespace Estore.Controllers
             {
                 if (term.Trim().Length > 0)
                 {
-                    ViewBag.Results = _context.Items.Where(i => i.Name.Contains(term)).ToList();
+                    List<Item> items = _context.Items.Where(i => i.Name.Contains(term)).ToList();
+                    foreach (Item item in items)
+                    {
+                        item.ImageUrls = new ItemData(_context, _env).GetImages(item);
+                    }
+                    ViewBag.Results = items;
                     ViewBag.SearchTerm = term;
                     return View();
                 }

@@ -47,6 +47,12 @@ a.navbar-brand {
     display: none;
 }
 
+.search-result-image {
+    object-fit: cover;
+    max-height: 140px;
+    width: 100%;
+}
+
 .item-preview {
     position: relative;
     height: 125px;

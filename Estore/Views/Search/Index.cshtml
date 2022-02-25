@@ -24,12 +24,25 @@
                 <center>
                     <h5>Results for "@ViewBag.SearchTerm"</h5>
                 </center>
-                <ul>
-                    @foreach (Item result in results)
+                <br /><br />
+                @foreach (Item result in results)
+                {
+                    var url = "/img/generic/invertedplaceholder.png";
+                    @if (result.ImageUrls != null)
                     {
-                        <li><a href="/item/@result.FindCode">@result.Name</a></li>
+                        if (result.ImageUrls.Count > 0) url = result.ImageUrls[0];
                     }
-                </ul>
+                    var img = "../" + url.Substring(url.IndexOf("img")).Replace("\\", "/");
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-2"><img src="@img" class="search-result-image" /></div>
+                        <div class="col-md-7 border-left">
+                            <a href="/item/@result.FindCode">@result.Name</a><br />
+                            <span><b>£@result.Price</b></span>
+                        </div>
+                    </div>
+                    <hr />
+                }
             }
         }
     }
