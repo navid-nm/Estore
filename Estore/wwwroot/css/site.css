@@ -53,6 +53,11 @@ a.navbar-brand {
     width: 100%;
 }
 
+.result-price {
+    font-size: 18px;
+    font-weight: bold;
+}
+
 .item-preview {
     position: relative;
     height: 125px;

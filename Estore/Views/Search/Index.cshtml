@@ -37,8 +37,9 @@
                     <div class="row">
                         <div class="col-md-2"><img src="@img" class="search-result-image" /></div>
                         <div class="col-md-7 border-left">
-                            <a href="/item/@result.FindCode">@result.Name</a><br />
-                            <span><b>£@result.Price</b></span>
+                            <a href="/item/@result.FindCode" style="font-size: 20px;">@result.Name</a><br />
+                            <span class="text-secondary">@result.GetConditionDisplayName(result.Quality)</span><br /><br />
+                            <span class="result-price">£@result.Price</span>
                         </div>
                     </div>
                     <hr />
