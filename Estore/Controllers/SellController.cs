@@ -51,7 +51,8 @@ namespace Estore.Controllers
         [HttpPost]
         public async Task<IActionResult> UploadImage()
         {
-            var path = GetPath();
+            var path = _env.ContentRootPath + "\\wwwroot\\img\\items\\" + User.Identity.Name + "\\"
+                       + HttpContext.Session.GetString(ifc);
             void Setup()
             {
                 if (!Directory.Exists(path)) Directory.CreateDirectory(path);
@@ -71,18 +72,6 @@ namespace Estore.Controllers
                 await file.CopyToAsync(fs);
             }
             return Content("Success");
-        }
-
-        /// <summary>
-        /// Get path to images for item.
-        /// Only to be used when session variable ItemFindCode is set.
-        /// </summary>
-        /// <returns>Path to store items in</returns>
-        private string GetPath()
-        {
-            return _env.ContentRootPath + "\\wwwroot\\img\\items\\"
-                + User.Identity.Name + "\\"
-                + HttpContext.Session.GetString(ifc);
         }
     }
 }
