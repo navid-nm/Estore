@@ -3,7 +3,7 @@
     List<Item> results = null;
     if (ViewBag.SearchTerm != null)
     {
-        ViewData["Title"] = (string)ViewBag.SearchTerm + " - " + "eStore";
+        ViewData["Title"] = ViewBag.SearchTerm;
         results = ViewBag.Results;
     }
 }
