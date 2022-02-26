@@ -15,7 +15,7 @@
             if (results.Count == 0)
             {
                 <div class="dz-error animate__animated animate__fadeInUp text-center">
-                    <h2>There were no results</h2>
+                    <h3>There were no results</h3>
                     <h5 class="text-muted">Try refining your search</h5>
                 </div>
             }
@@ -28,6 +28,7 @@
                 @foreach (Item result in results)
                 {
                     var url = "/img/generic/invertedplaceholder.png";
+                    var hlink = "/item/" + result.FindCode;
                     @if (result.ImageUrls != null)
                     {
                         if (result.ImageUrls.Count > 0) url = result.ImageUrls[0];
@@ -35,9 +36,9 @@
                     var img = "../" + url.Substring(url.IndexOf("img")).Replace("\\", "/");
                     <hr />
                     <div class="row">
-                        <div class="col-md-2"><img src="@img" class="search-result-image" /></div>
+                        <div class="col-md-2"><a href="@hlink"><img src="@img" class="search-result-image"/></a></div>
                         <div class="col-md-7 border-left">
-                            <a href="/item/@result.FindCode" style="font-size: 20px;">@result.Name</a><br />
+                            <a href="@hlink" style="font-size: 20px;">@result.Name</a><br />
                             <span class="text-secondary">@result.GetConditionDisplayName(result.Quality)</span><br /><br />
                             <span class="result-price">£@result.Price</span>
                         </div>

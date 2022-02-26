@@ -18,7 +18,7 @@ namespace Estore.Controllers
             _context = context;
         }
 
-        public IActionResult Index(string term)
+        public IActionResult Index(string term, Dictionary<string, string> limiters)
         {
             var back = Redirect("/");
             if (term != null)

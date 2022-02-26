@@ -78,6 +78,11 @@ namespace Estore
                     defaults: new { controller = "Search", action = "Index" }
                 );
                 endpoints.MapControllerRoute(
+                    name: "dashboard",
+                    pattern: "my/dashboard",
+                    defaults: new { controller = "Dashboard", action = "Index" }
+                );
+                endpoints.MapControllerRoute(
                     name: "signout",
                     pattern: "/signout",
                     defaults: new {controller = "Home", action = "Leave"}
