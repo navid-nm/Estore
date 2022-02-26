@@ -23,6 +23,7 @@
             {
                 <center>
                     <h5>Results for "@ViewBag.SearchTerm"</h5>
+                    <a href = "#" data-toggle="modal" data-target="#filtermodal" class="pr-1 pt-2">+ Filters</a>
                 </center>
                 <br /><br />
                 @foreach (Item result in results)
@@ -48,4 +49,25 @@
             }
         }
     }
+</div>
+
+<div class="modal fade" id="filtermodal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                    <h5 class="modal-title text-center">Filters for search "@ViewBag.SearchTerm"</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <span>Filter options here.</span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">
+                    Update search
+                </button>
+            </div>
+        </div>
+    </div>
 </div>
