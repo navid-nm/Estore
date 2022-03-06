@@ -82,6 +82,12 @@ a.navbar-brand {
     border-radius: 25px;
 }
 
+.carousel-image {
+    object-fit: cover;
+    width: 203px;
+    height: 203px;
+}
+
 /* Registration button in _Layout */
 .btn-reg {
     color: #fff;

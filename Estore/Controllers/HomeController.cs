@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Hosting;
 using Estore.Models;
 using Estore.Data;
 
@@ -11,10 +12,12 @@ namespace Estore.Controllers
     public class HomeController : Controller
     {
         private readonly EstoreDbContext _context;
-        
-        public HomeController(EstoreDbContext context)
+        private readonly IWebHostEnvironment _env;
+
+        public HomeController(EstoreDbContext context, IWebHostEnvironment env)
         {
             _context = context;
+            _env = env;
         }
 
         [AllowAnonymous]
@@ -24,7 +27,11 @@ namespace Estore.Controllers
             {
                 User user = _context.Users.Where(u => u.Username == User.Identity.Name).First();
                 List<Item> items = new UserData(_context).GetViewed(user.Username);
-                if (items.Count > 0) ViewBag.ViewingHistory = items;
+                foreach (Item item in items)
+                {
+                    item.ImageUrls = new ItemData(_context, _env).GetImages(item);
+                }
+                if (items.Count > 0) ViewBag.ViewingHistory = items.Distinct().ToList();
             }            
             return View();
         }

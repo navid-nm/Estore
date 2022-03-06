@@ -36,14 +36,28 @@
                     {
                         csuffix = "active";
                     }
-                    <div class="item @csuffix">
-                        <img src="~/img/generic/invertedplaceholder.png" class="s-edge">
-                        <div class="carousel-caption d-md-block">
-                            <h5>@item.Name</h5>
-                            <h6>@item.GetConditionDisplayName(item.Quality)</h6>
-                            <p>£@item.Price</p>
-                        </div>
+                    string finurl = "/img/generic/invertedplaceholder.png", pname = item.Name;
+                    if (pname.Length > 21)
+                    {
+                        pname = pname.Substring(0, 20);
+                        pname += "...";
+                    }
+                    if (items[i].ImageUrls != null)
+                    {
+                        string url = items[i].ImageUrls[0];
+                        finurl = url.Substring(url.IndexOf("img"));
+                    }
+                <div class="item @csuffix">
+                    <a href="/item/@item.FindCode">
+                        <img src="@finurl" class="s-edge carousel-image" />
+                    </a>
+                    <br />
+                    <div class="d-md-block">
+                        <h5><a href="/item/@item.FindCode">@pname</a></h5>
+                        <h6>@item.GetConditionDisplayName(item.Quality)</h6>
+                        <p><b>£@item.Price</b></p>
                     </div>
+                </div>
                 }
             </div>
         }
