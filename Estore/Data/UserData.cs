@@ -49,10 +49,11 @@ namespace Estore.Data
         public void WriteViewed(string username, Item item)
         {
             User user = dbc.Users.Where(u => u.Username == username).FirstOrDefault();
-            ViewLogEntry entry = new ViewLogEntry { Item = item, Viewer = user };
-            if (!dbc.ViewLogEntries.Contains(entry))
+            if (dbc.ViewLogEntries.Where(v => 
+                    v.Item == item && 
+                    v.Viewer.Username == username).ToList().Count == 0 && user.Id != item.UserId)
             {
-                dbc.ViewLogEntries.Add(entry);
+                dbc.ViewLogEntries.Add(new ViewLogEntry { Item = item, Viewer = user });
                 dbc.SaveChanges();
             }
         }

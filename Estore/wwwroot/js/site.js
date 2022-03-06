@@ -11,18 +11,18 @@ node.addEventListener("keyup", function (e) {
 })
 
 if (location.pathname == "/") {
-    let carContainer = document.getElementById("viewed-carousel"), ap = false, itemc = 4;
-    if (carContainer.childElementCount > 3) {
-        itemc = 5;
-        ap = true;
-    }
+    let carContainer = document.getElementById("viewed-carousel"), ap = false, itemc = 1, lp = false;
+    let c = carContainer.childElementCount;
+    if (c > 1) { ap = true; }
+    if (c > 2) { lp = true; itemc = 5; }
+
     var owl = $('.owl-carousel');
     owl.owlCarousel({
         items: itemc,
         margin: 10,
         nav: true,
         center: true,
-        loop: true,
+        loop: lp,
         autoplay: ap,
         autoplayTimeout: 4000,
         autoplayHoverPause: true,
