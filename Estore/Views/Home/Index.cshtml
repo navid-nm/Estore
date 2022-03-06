@@ -12,12 +12,40 @@
             <option value="Misc">Misc</option>
         </select>
         &nbsp;
-        <input type="search" id="search" class="form-control col-sm-5" placeholder="Search" autofocus/>
+        <input type="search" id="search" class="form-control col-sm-5" placeholder="Search" autofocus />
         &nbsp;
         <button type="button" class="btn btn-outline-primary" onclick="javascript:go()">
             Go
         </button>
     </div>
-    <br /><br />
+    <br /><br /><br />
+    @{
+        List<Item> items = new List<Item>();
+        if (ViewBag.ViewingHistory != null)
+        {
+            items = (List<Item>)ViewBag.ViewingHistory;
+            <hr class="pt-5"/>
+            <h4>Based on your viewing history</h4>
+            <br /><br />
+            <div class="pt-3 owl-carousel col-md-10" id="viewed-carousel">
+                @for (int i = 0; i < items.Count; i++)
+                {
+                    Item item = items[i];
+                    string csuffix = string.Empty;
+                    if (i == 0)
+                    {
+                        csuffix = "active";
+                    }
+                    <div class="item @csuffix">
+                        <img src="~/img/generic/invertedplaceholder.png" class="s-edge">
+                        <div class="carousel-caption d-md-block">
+                            <h5>@item.Name</h5>
+                            <h6>@item.GetConditionDisplayName(item.Quality)</h6>
+                            <p>£@item.Price</p>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    }
 </center>
-

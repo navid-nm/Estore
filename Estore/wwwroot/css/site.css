@@ -78,6 +78,10 @@ a.navbar-brand {
     border-radius: 500px;
 }
 
+.s-edge {
+    border-radius: 25px;
+}
+
 /* Registration button in _Layout */
 .btn-reg {
     color: #fff;

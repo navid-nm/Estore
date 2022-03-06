@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Linq;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Estore.Data;
 using Estore.Models;
-using System.Linq;
 
 namespace Estore.Controllers
 {
@@ -20,11 +21,14 @@ namespace Estore.Controllers
         [HttpGet]
         public IActionResult Index(string findcode)
         {
-            Item item = new ItemData(_context, _env).GetItem(findcode);
-            if (item != null)
+            using var idata = new ItemData(_context, _env);
+            using var udata = new UserData(_context);
+            Item item = idata.GetItem(findcode);
+            if (User.Identity.Name != null)
             {
-                ViewBag.ThisItem = item;
+                udata.WriteViewed(User.Identity.Name, item);
             }
+            if (item != null) ViewBag.ThisItem = item;
             return View(_context.Users.ToList());
         }
     }

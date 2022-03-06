@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/lib/dropzone/dist/dropzone.min.css" />
     <link rel="stylesheet" href="~/lib/animate/animate.min.css" />
+    <link rel="stylesheet" href="~/lib/owl/owl.carousel.min.css" />
+    <link rel="stylesheet" href="~/lib/owl/owl.theme.default.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
@@ -46,7 +48,7 @@
                                     <option value="Misc">Misc</option>
                                 </select>
                                 &nbsp;
-                                <input type="search" id="search" class="form-control @searchstyle" placeholder="Search" value="@placeholdertxt"/>
+                                <input type="search" id="search" class="form-control @searchstyle" placeholder="Search" value="@placeholdertxt" />
                                 &nbsp;
                                 <button type="button" class="btn btn-outline-primary" onclick="javascript:go()">
                                     Go
@@ -122,6 +124,7 @@
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/owl/owl.carousel.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)

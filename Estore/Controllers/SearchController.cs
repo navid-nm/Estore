@@ -20,7 +20,6 @@ namespace Estore.Controllers
 
         public IActionResult Index(string term, Dictionary<string, string> limiters)
         {
-            var back = Redirect("/");
             if (term != null)
             {
                 if (term.Trim().Length > 0)
@@ -35,7 +34,7 @@ namespace Estore.Controllers
                     return View();
                 }
             }
-            return back;
+            return Redirect("/");
         }
     }
 }

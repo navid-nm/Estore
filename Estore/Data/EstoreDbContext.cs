@@ -7,6 +7,7 @@ namespace Estore.Data
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Item> Items { get; set; }
+        public DbSet<ViewLogEntry> ViewLogEntries { get; set; }
 
         public EstoreDbContext(DbContextOptions<EstoreDbContext> options) : base(options) { }
     }
