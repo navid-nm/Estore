@@ -53,9 +53,16 @@
                         </ul>
                     </div>
                     <div class="col-md-5 border offset-cust">
-                        <p class="pl-2">
+                        <p class="pl-2 pt-1">
                             Price: <font size="5"><b>£@item.Price</b></font>
                             <br />Condition: @item.GetConditionDisplayName(item.Quality)
+                            <br />
+                            <div id="button-container" class="pt-2 pl-1">
+                                <button type="button" class="btn btn-primary" 
+                                        onclick="location.href='buy/@item.FindCode'">
+                                    Buy
+                                </button>
+                            </div>
                             <hr />
                             <div class="text-secondary">
                                 <span>Shipping price: £@item.Price</span><br />
@@ -74,12 +81,16 @@
                                 susername = susername.Substring(0, susername.Length - 25) + "...";
                             }
                         }
-                        <h5 class="pt-2">Seller details</h5>
+                        <h5 class="pt-3">Seller details</h5>
                         <hr />
                         <a href="/user/@seller.Username">@susername</a><br />
                         <span class="pt-1">
                             50% positive rating 
-                            <!--Placeholder-->
+                            <br /><br />
+                            <button type="button" class="btn btn-outline-primary" 
+                                    onclick="location.href = 'message/@seller.Username/@item.FindCode'">
+                                Ask about this item
+                            </button>
                         </span>
                     </div>
                 </p>

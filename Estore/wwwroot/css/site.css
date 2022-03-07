@@ -59,6 +59,7 @@ a.navbar-brand {
 }
 
 .item-preview {
+    filter: brightness(50%);
     position: relative;
     height: 125px;
     background-size: cover;
@@ -66,6 +67,7 @@ a.navbar-brand {
 }
 
 .item-preview span {
+    filter: brightness(100%);
     position: absolute;
     bottom: 1%;
     left: 10%;

@@ -26,6 +26,7 @@ if (location.pathname == "/") {
         autoplay: ap,
         autoplayTimeout: 4000,
         autoplayHoverPause: true,
+        stagePadding: 0.5,
         checkVisibility: false
     });
     $('.play').on('click', function () {owl.trigger('play.owl.autoplay', [1000])})
