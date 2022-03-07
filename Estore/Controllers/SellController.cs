@@ -41,6 +41,7 @@ namespace Estore.Controllers
             if (ModelState.IsValid)
             {
                 item.FindCode = HttpContext.Session.GetString(ifc);
+                item.Concluded = false;
                 new ItemData(_context).AddItem(item, User.Identity.Name);
                 HttpContext.Session.SetString(ifc, "");
                 return Redirect("/item/" + item.FindCode);

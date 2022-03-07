@@ -34,6 +34,8 @@ namespace Estore.Models
         [Required, MinLength(5), MaxLength(1400)]
         public string Description { get; set; }
 
+        public bool Concluded { get; set; }
+
         [NotMapped]
         public List<string> ImageUrls { get; set; }
 
