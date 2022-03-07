@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
 using System;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Estore.Models
 {
@@ -26,6 +25,12 @@ namespace Estore.Models
 
         [Required, EmailAddress, Display(Name = "email"), StringLength(254)]
         public string Email { get; set; }
+
+        [DataType(DataType.PostalCode), StringLength(12)]
+        public string PostalCode { get; set; }
+
+        [StringLength(100, MinimumLength = 1)]
+        public string Address { get; set; }
 
         public DateTime DateOfRegistration { get; set; }
 

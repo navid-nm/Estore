@@ -4,14 +4,16 @@ using Estore.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Estore.Migrations
 {
     [DbContext(typeof(EstoreDbContext))]
-    partial class EstoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220307133620_AddLocationToUser")]
+    partial class AddLocationToUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
