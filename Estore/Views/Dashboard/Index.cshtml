@@ -7,10 +7,73 @@
 <center>
     <h3 class="pt-3">Dashboard</h3>
     <br /><br />
-    <ul class="nav nav-tabs">
-        <li class="nav-item"><a class="nav-link" href="#">Items you are selling</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Purchase history</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Saved listings</a></li>
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="selling-tab" data-toggle="tab" href="#selling" role="tab" aria-controls="selling" aria-selected="true">
+                Items you are selling
+            </a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="history-tab" data-toggle="tab" href="#history" role="tab" aria-controls="history" aria-selected="false">
+                Purchase history
+            </a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="saved-tab" data-toggle="tab" href="#saved" role="tab" aria-controls="saved" aria-selected="false">
+                Saved listings
+            </a>
+        </li>
     </ul>
 </center>
+<div class="tab-content">
+    <div class="tab-pane fade show active" id="selling" role="tabpanel" aria-labelledby="selling-tab">
+        <div id="selling-container" class="pt-2">
+            @if (ViewBag.ItemsSoldByUser != null)
+            {
+                List<Item> items = (List<Item>)ViewBag.ItemsSoldByUser;
+                foreach (Item item in items)
+                {
+                    var url = "/img/generic/invertedplaceholder.png";
+                    var hlink = "/item/" + item.FindCode;
+                    @if (item.ImageUrls != null)
+                    {
+                        if (item.ImageUrls.Count > 0) url = item.ImageUrls[0];
+                    }
+                    var img = "../" + url.Substring(url.IndexOf("img")).Replace("\\", "/");
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-2"><a href="@hlink"><img src="@img" class="search-result-image" /></a></div>
+                        <div class="col-md-7 border-left">
+                            <a href="@hlink" style="font-size: 20px;">@item.Name</a><br />
+                            <span class="text-secondary">@item.GetConditionDisplayName(item.Quality)</span><br /><br />
+                            <span class="result-price">£@item.Price</span>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <center>
+                    <p class="pt-5 text-secondary m-text">
+                        You have not saved any items.
+                    </p>
+                </center>
+            }
+        </div>
+    </div>
+    <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="history-tab">
+        <center>
+            <p class="pt-5 text-secondary m-text">
+                You have not purchased any items.
+            </p>
+        </center>
+    </div>
+    <div class="tab-pane fade" id="saved" role="tabpanel" aria-labelledby="saved-tab">
+        <center>
+            <p class="pt-5 text-secondary m-text">
+                You have not saved any items.
+            </p>
+        </center>
+    </div>
+</div>
 
