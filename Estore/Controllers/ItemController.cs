@@ -26,6 +26,7 @@ namespace Estore.Controllers
             if (User.Identity.Name != null)
             {
                 udata.WriteViewed(User.Identity.Name, item);
+                ViewBag.ViewingUser = _context.Users.First(u => u.Username == User.Identity.Name);
             }
             if (item != null) ViewBag.ThisItem = item;
             return View(_context.Users.ToList());

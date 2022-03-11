@@ -24,7 +24,7 @@ namespace Estore.Controllers
             {
                 if (term.Trim().Length > 0)
                 {
-                    List<Item> items = _context.Items.Where(i => i.Name.Contains(term)).ToList();
+                    List<Item> items = _context.Items.Where(i => i.Name.Contains(term) && !i.Concluded).ToList();
                     foreach (Item item in items)
                     {
                         item.ImageUrls = new ItemData(_context, _env).GetImages(item);

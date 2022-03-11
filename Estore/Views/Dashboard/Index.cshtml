@@ -1,7 +1,33 @@
 ﻿@{
     ViewData["Title"] = "Dashboard";
     ViewData["ShowSearchInNavbar"] = true;
-    List<Item> items = (List<Item>)ViewBag.ItemsSoldByUser;
+    List<Item> items = (List<Item>)ViewBag.ItemsSoldByUser,
+               purchased = (List<Item>)ViewBag.PurchasedItems;
+}
+
+@functions {
+    void ShowItems(List<Item> items, string context)
+    {
+        foreach (Item item in items)
+        {
+            var url = "/img/generic/invertedplaceholder.png";
+            var hlink = "/" + context + "/" + item.FindCode;
+            @if (item.ImageUrls != null)
+            {
+                if (item.ImageUrls.Count > 0) url = item.ImageUrls[0];
+            }
+            var img = "../" + url.Substring(url.IndexOf("img")).Replace("\\", "/");
+            <hr />
+            <div class="row">
+                <div class="col-md-2"><a href="@hlink"><img src="@img" class="search-result-image" /></a></div>
+                <div class="col-md-7 border-left">
+                    <a href="@hlink" style="font-size: 20px;">@item.Name</a><br />
+                    <span class="text-secondary">@item.GetConditionDisplayName(item.Quality)</span><br /><br />
+                    <span class="result-price">£@item.Price</span>
+                </div>
+            </div>
+        }
+    }
 }
 
 <br />
@@ -31,25 +57,7 @@
         <div id="selling-container" class="pt-2">
             @if (items.Count != 0)
             {
-                foreach (Item item in items)
-                {
-                    var url = "/img/generic/invertedplaceholder.png";
-                    var hlink = "/item/" + item.FindCode;
-                    @if (item.ImageUrls != null)
-                    {
-                        if (item.ImageUrls.Count > 0) url = item.ImageUrls[0];
-                    }
-                    var img = "../" + url.Substring(url.IndexOf("img")).Replace("\\", "/");
-                    <hr />
-                    <div class="row">
-                        <div class="col-md-2"><a href="@hlink"><img src="@img" class="search-result-image" /></a></div>
-                        <div class="col-md-7 border-left">
-                            <a href="@hlink" style="font-size: 20px;">@item.Name</a><br />
-                            <span class="text-secondary">@item.GetConditionDisplayName(item.Quality)</span><br /><br />
-                            <span class="result-price">£@item.Price</span>
-                        </div>
-                    </div>
-                }
+                ShowItems(items, "item");
             }
             else
             {
@@ -63,11 +71,18 @@
     </div>
     <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="history-tab">
         <div id="purchased-container" class="pt-2">
-            <center>
-                <p class="pt-5 text-secondary m-text">
-                    You have not purchased any items.
-                </p>
-            </center>
+            @if (purchased.Count != 0)
+            {
+                ShowItems(purchased, "purchased");
+            }
+            else
+            {
+                <center>
+                    <p class="pt-5 text-secondary m-text">
+                        You have not purchased any items.
+                    </p>
+                </center>
+            }
         </div>
     </div>
     <div class="tab-pane fade" id="saved" role="tabpanel" aria-labelledby="saved-tab">

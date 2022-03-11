@@ -26,7 +26,6 @@ namespace Estore.Models
         [Required, EmailAddress, Display(Name = "email"), StringLength(254)]
         public string Email { get; set; }
 
-        [DataType(DataType.PostalCode), StringLength(12)]
         public Location ShippingLocation { get; set; }
 
         public DateTime DateOfRegistration { get; set; }

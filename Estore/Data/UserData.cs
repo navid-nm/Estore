@@ -83,7 +83,7 @@ namespace Estore.Data
             User user = dbc.Users.First(u => u.Username == username);
             List<Item> outlist = new List<Item>();
             List<ViewLogEntry> vles = dbc.ViewLogEntries.Include(v => v.Item)
-                                                        .Where(v => v.Viewer == user).ToList();
+                                                        .Where(v => v.Viewer == user && !v.Item.Concluded).ToList();
             foreach (ViewLogEntry vle in vles)
             {
                 outlist.Add(vle.Item);

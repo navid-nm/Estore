@@ -73,6 +73,11 @@ namespace Estore
                     defaults: new { controller = "Buy", action = "Index" }
                 );
                 endpoints.MapControllerRoute(
+                    name: "purchased",
+                    pattern: "purchased/{findcode}",
+                    defaults: new { controller = "PurchasedItem", action = "Index" }
+                );
+                endpoints.MapControllerRoute(
                     name: "location",
                     pattern: "location/{findcode}",
                     defaults: new { controller = "Location", action = "Index" }

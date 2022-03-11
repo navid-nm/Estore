@@ -29,13 +29,20 @@ namespace Estore.Data
              * Username is passed as a string because User object should be created in AddItem
              * (for EF).
              */
-            var user = dbc.Users.Where(u => u.Username == uname).First();
+            var user = dbc.Users.First(u => u.Username == uname);
             item.UserId = user.Id;
             if (user.Items == null)
             {
                 user.Items = new List<Item>();
             }
             user.Items.Add(item);
+            dbc.SaveChanges();
+        }
+
+        public void ConcludeItem(Item item, string uname)
+        {
+            item.BuyerId = dbc.Users.First(u => u.Username == uname).Id;
+            item.Concluded = true;
             dbc.SaveChanges();
         }
 
@@ -61,6 +68,16 @@ namespace Estore.Data
                 item.ImageUrls = GetImages(item);
             }
             return item;
+        }
+
+        public List<Item> GetItems(Func<Item, bool> expr)
+        {
+            List<Item> items = dbc.Items.Where(expr).ToList();
+            foreach (Item item in items)
+            {
+                item.ImageUrls = GetImages(item);
+            }
+            return items;
         }
 
         public void Dispose()

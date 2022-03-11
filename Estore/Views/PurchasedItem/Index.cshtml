@@ -1,0 +1,29 @@
+﻿@{
+    Item item = (Item) ViewBag.PurchasedItem;
+    ViewData["Title"] = "Success: " + item.Name;
+    var url = "/img/generic/invertedplaceholder.png";
+    @if (item.ImageUrls != null)
+    {
+        if (item.ImageUrls.Count > 0) url = item.ImageUrls[0];
+    }
+    var img = "../" + url.Substring(url.IndexOf("img")).Replace("\\", "/");
+}
+
+<div id="result-container">
+    <hr />
+    <div id="preview-container" class="row">
+        <div class="col-3">
+            <img src="@img" class="search-result-image" />
+        </div>
+        <div class="col-9">
+            <h5 class="text-success">Purchase successful</h5>
+            <h6>@item.Name</h6>
+            <span class="text-secondary">
+                @item.GetConditionDisplayName(item.Quality)
+            </span>
+        </div>
+    </div>
+    <hr />
+</div>
+
+

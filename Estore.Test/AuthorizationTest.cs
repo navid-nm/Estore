@@ -23,6 +23,7 @@ namespace Estore.Test
             var protectedPaths = new List<string> {
                 "/location/TestFindCode",
                 "/dashboard",
+                "/purchased",
                 "/sell",
                 "/buy"
             };

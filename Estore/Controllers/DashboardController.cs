@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Estore.Models;
 using Estore.Data;
+using System;
 
 namespace Estore.Controllers
 {
@@ -25,13 +26,9 @@ namespace Estore.Controllers
         public IActionResult Index()
         {
             User user = _context.Users.Where(u => u.Username == User.Identity.Name).First();
-            List<Item> items = _context.Items.Where(i => user.Id == i.UserId).ToList();
             using var idata = new ItemData(_context, _env);
-            foreach (var item in items)
-            {
-                item.ImageUrls = idata.GetImages(item);
-            }
-            ViewBag.ItemsSoldByUser = items;
+            ViewBag.ItemsSoldByUser = idata.GetItems(i => user.Id == i.UserId);
+            ViewBag.PurchasedItems = idata.GetItems(i => i.BuyerId == user.Id);
             return View();
         }
     }

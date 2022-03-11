@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Estore.Data;
 using Estore.Models;
 
@@ -35,7 +37,20 @@ namespace Estore.Controllers
             ViewBag.Buyer = _context.Users.First(u => u.Username == User.Identity.Name);
             ViewBag.Seller = _context.Users.First(u => u.Id == item.UserId);
             ViewBag.ItemToBuy = item;
+            HttpContext.Session.SetString("LastPurchase", item.FindCode);
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult Index(Payment payment)
+        {
+            if (ModelState.IsValid)
+            {
+                string fc = HttpContext.Session.GetString("LastPurchase");
+                new ItemData(_context).ConcludeItem(_context.Items.First(i => i.FindCode == fc), User.Identity.Name);
+                return Redirect("/purchased/" + fc);
+            }
+            return View(payment);
         }
     }
 }

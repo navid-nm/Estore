@@ -2,7 +2,8 @@
 
 @{
     string title = "Not found";
-    User seller = null;
+    User seller = null, 
+         viewer = (User)ViewBag.ViewingUser;
     Item item = null;
     if (ViewBag.ThisItem != null)
     {
@@ -16,6 +17,17 @@
 
 <link rel="stylesheet" href="~/lib/viewer/viewer.min.css" />
 
+@if (item.Concluded) 
+{ 
+    <div class="pt-5 pl-2">
+        <div class="border-left border-top pt-2 pb-2" style="width:99%;">
+            <b>
+                &nbsp; This listing has ended.
+            </b>
+        </div>
+    </div>
+} 
+
 <div class="nonbscontainer">
     @if (ViewBag.ThisItem == null)
     {
@@ -28,9 +40,14 @@
     }
     else
     {
+        var hstyle = string.Empty;
+        if (item.Concluded)
+        {
+            hstyle = "font-style:italic";
+        }
         <br /><br />
         <div class="container-fluid">
-            <h3>@item.Name</h3>
+            <h3 style="@hstyle">@item.Name</h3>
             <br /><br />
             <div class="row pl-3">
                 <p>
@@ -54,10 +71,17 @@
                     </div>
                     <div class="col-md-5 border offset-cust">
                         <p class="pl-2 pt-1">
-                            Price: <font size="5"><b>£@item.Price</b></font>
+                            @{
+                                var ptext = "Price";
+                                if (item.Concluded)
+                                {
+                                    ptext = "Sold for";
+                                }
+                            }
+                            @ptext: <font size="5"><b>£@item.Price</b></font>
                             <br />Condition: @item.GetConditionDisplayName(item.Quality)
                             <br />
-                            @if (seller.Username != User.Identity.Name)
+                            @if (seller.Username != User.Identity.Name && !item.Concluded)
                             {
                                 <div id="button-container" class="pt-1 pl-1">
                                     <button type="button" class="btn btn-primary"
@@ -96,7 +120,14 @@
                         <a href="/user/@seller.Username">@susername</a><br />
                         <span class="pt-1">
                             50% positive rating 
-                            @if (seller.Username != User.Identity.Name) 
+                            @{ 
+                                bool buyerCheck = false;
+                                if (viewer != null)
+                                {
+                                    buyerCheck = item.BuyerId == viewer.Id;
+                                }
+                            }
+                            @if (seller.Username != User.Identity.Name && (!item.Concluded || buyerCheck))
                             { 
                                 <br /><br />
                                 <button type="button" class="btn btn-outline-primary" 

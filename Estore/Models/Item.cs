@@ -9,6 +9,7 @@ namespace Estore.Models
     public class Item
     {
         public int Id { get; set; }
+        public int? BuyerId { get; set; }
 
         [ForeignKey("User")]
         public int UserId { get; set; }
