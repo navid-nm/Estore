@@ -1,0 +1,71 @@
+﻿@model Estore.Models.Payment;
+
+@{
+    Item item = (Item)ViewBag.ItemToBuy;
+    User buyer = (User)ViewBag.Buyer;
+    ViewData["Title"] = item.Name;
+    var url = "/img/generic/invertedplaceholder.png";
+    @if (item.ImageUrls != null)
+    {
+        if (item.ImageUrls.Count > 0) url = item.ImageUrls[0];
+    }
+    var img = "../" + url.Substring(url.IndexOf("img")).Replace("\\", "/");
+}
+
+<hr />
+    <div id="preview-container" class="row">
+        <div class="col-3">
+            <img src="@img" class="search-result-image" />
+        </div>
+        <div class="col-9">
+            <h5>Purchasing:</h5>
+            <h6>@item.Name</h6>
+            <span class="text-secondary">
+                @item.GetConditionDisplayName(item.Quality)
+            </span>
+        </div>
+    </div>
+<hr />
+
+<form class="form-row" method="post" asp-controller="Buy">
+    <div class="form-group col-md-9">
+        <div id="payment-select-section" class="border-bottom border-right pt-1 w-75">
+            <label for="method">Payment method:</label>
+            <select class="form-control col-md-5" asp-for="Method" name="Quality"
+                    asp-items="@Html.GetEnumSelectList<PaymentMethod>()"></select>
+            <br />
+            <span asp-validation-for="Method"></span>
+            <br />
+        </div>
+        <div class="pt-4 w-75 border-bottom border-right">
+            Shipping location <a href="#">(Change)</a>:
+            <div class="pt-4">
+                <table class="table table-bordered w-75">
+                    <tr>
+                        <td>Address</td>
+                        <td><i>@buyer.ShippingLocation.Address</i></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 120px;">Postal Code</td>
+                        <td><i>@buyer.ShippingLocation.PostalCode</i></td>
+                    </tr>
+                </table>
+            </div>
+            <br /><br />
+        </div>
+    </div>
+    <div class="form-group col-md-3 pt-2 border text-center">
+        Item cost: £@item.Price<br />
+        <div class="text-secondary pt-1">Shipping cost: £@item.ShippingCost</div>
+        <hr />
+        <div class="pt-1"><b>Amount due:</b> £@{@Html.Raw(item.Price + item.ShippingCost);}</div>
+        <div class="pt-1"></div><hr />
+        <div class="pt-2">
+            <button type="button" class="btn btn-outline-primary">
+                Confirm and pay
+            </button>
+        </div>
+    </div>
+</form>
+
+

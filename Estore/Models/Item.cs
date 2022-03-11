@@ -28,6 +28,10 @@ namespace Estore.Models
         [Column(TypeName = "decimal(18, 2)")]
         public decimal Price { get; set; }
 
+        [Required, Range(0, 70000)]
+        [Column(TypeName = "decimal(18, 2)")]
+        public decimal ShippingCost { get; set; }
+
         [Required]
         public Condition Quality { get; set; }
 

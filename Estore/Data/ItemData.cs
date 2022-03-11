@@ -1,10 +1,9 @@
-﻿using Estore.Models;
-using Microsoft.AspNetCore.Hosting;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.IO;
 using System.Linq;
-using System.Runtime.Serialization.Formatters.Binary;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Hosting;
+using Estore.Models;
 
 namespace Estore.Data
 {

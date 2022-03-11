@@ -40,7 +40,10 @@
                         <div class="col-md-2"><a href="@hlink"><img src="@img" class="search-result-image"/></a></div>
                         <div class="col-md-7 border-left">
                             <a href="@hlink" style="font-size: 20px;">@result.Name</a><br />
-                            <span class="text-secondary">@result.GetConditionDisplayName(result.Quality)</span><br /><br />
+                            <span class="text-secondary">
+                                @result.GetConditionDisplayName(result.Quality)
+                            </span>
+                            <br /><br />
                             <span class="result-price">£@result.Price</span>
                         </div>
                     </div>
@@ -55,7 +58,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                    <h5 class="modal-title text-center">Filters for search "@ViewBag.SearchTerm"</h5>
+                <h5 class="modal-title text-center">Filters for search "@ViewBag.SearchTerm"</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

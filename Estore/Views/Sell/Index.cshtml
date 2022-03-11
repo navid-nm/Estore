@@ -1,6 +1,5 @@
 ﻿@model Estore.Models.Item
 
-
 @{
     ViewData["Title"] = "List an item";
 }
@@ -24,6 +23,12 @@
             <input type="text" class="form-control" id="price" name="Price"
                    asp-for="Price" placeholder="The price of the item">
             <span asp-validation-for="Price"></span>
+        </div>
+        <div class="form-group">
+            <label for="username">Shipping Cost:</label>
+            <input type="text" class="form-control" id="shippingcost" name="ShippingCost"
+                   asp-for="ShippingCost" placeholder="The cost of shipping the item">
+            <span asp-validation-for="ShippingCost"></span>
         </div>
         <div>
             <label>Item pictures:</label>

@@ -1,10 +1,8 @@
 ﻿using System.Linq;
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Estore.Data;
 using Estore.Models;
 
@@ -25,6 +23,18 @@ namespace Estore.Controllers
         [HttpGet]
         public IActionResult Index(string findcode)
         {
+            if (!new UserData(_context).UserHasLocation(User.Identity.Name))
+            {
+                return Redirect("/location/" + findcode);
+            }
+            Item item = new ItemData(_context, _env).GetItem(findcode);
+            if (item == null)
+            {
+                return Redirect("/item/404");
+            }
+            ViewBag.Buyer = _context.Users.First(u => u.Username == User.Identity.Name);
+            ViewBag.Seller = _context.Users.First(u => u.Id == item.UserId);
+            ViewBag.ItemToBuy = item;
             return View();
         }
     }

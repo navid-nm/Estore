@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Collections.Generic;
 using System.Security.Claims;
+using System.Linq;
 using Estore.Data;
 using Estore.Models;
 
@@ -24,9 +25,9 @@ namespace Estore.Controllers
             return View();
         }
 
-        public async void OpenGate(SignIn svm)
+        public async void AllowAccess(SignIn svm)
         {
-            User user = new UserData(_context).GetUserByEmail(svm.Email);
+            User user = _context.Users.First(u => u.Email == svm.Email);
             var usrclaims = new List<Claim>() 
             {
                 new Claim(ClaimTypes.Name, user.Username),
@@ -44,7 +45,7 @@ namespace Estore.Controllers
             {
                 if (new UserData(_context).AuthenticateUser(svm))
                 {
-                    OpenGate(svm);
+                    AllowAccess(svm);
                     if (returnUrl == null) returnUrl = "/";
                     return Redirect(returnUrl);
                 }

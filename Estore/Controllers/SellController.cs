@@ -61,6 +61,7 @@ namespace Estore.Controllers
             await Task.Run(Setup);
             foreach (IFormFile file in Request.Form.Files)
             {
+                if (file.Length > 5 * Math.Pow(10, 6)) { throw new Exception("Max filesize reached."); }
                 char[] avoid = Path.GetInvalidFileNameChars();
                 var safe = string.Join("-", file.FileName.Split(avoid, StringSplitOptions.RemoveEmptyEntries))
                                  .TrimEnd('.');

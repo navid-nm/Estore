@@ -1,0 +1,35 @@
+﻿@model Estore.Models.Location;
+
+@{ 
+    ViewData["Title"] = "Further information required";
+}
+
+<center>
+    <br /><br />
+    <h2 class="display-5">@ViewData["Title"]</h2>
+</center>
+
+<br />
+<br />
+<div class="row justify-content-center align-items-center">
+    <form class="w-50 align-content-center" method="post" asp-controller="Location">
+        <div class="form-group">
+            <label for="address">Address</label>
+            <input type="text" class="form-control" asp-for="Address" name="Address" id="address" placeholder="9 Denver Road">
+            <span asp-validation-for="Address"></span>
+        </div>
+        <div class="form-group">
+            <label for="postalcode">Postal Code</label>
+            <input type="text" class="form-control" asp-for="PostalCode" name="PostalCode" id="postalcode" placeholder="TW20 9AZ">
+            <span asp-validation-for="PostalCode"></span>
+        </div>
+        <input type="submit" class="btn btn-outline-primary" value="Confirm" />
+    </form>
+</div>
+
+
+@section scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/regvalidation.js"></script>
+}

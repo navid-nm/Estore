@@ -57,15 +57,25 @@
                             Price: <font size="5"><b>£@item.Price</b></font>
                             <br />Condition: @item.GetConditionDisplayName(item.Quality)
                             <br />
-                            <div id="button-container" class="pt-2 pl-1">
-                                <button type="button" class="btn btn-primary" 
-                                        onclick="location.href='buy/@item.FindCode'">
-                                    Buy
-                                </button>
-                            </div>
+                            @if (seller.Username != User.Identity.Name)
+                            {
+                                <div id="button-container" class="pt-1 pl-1">
+                                    <button type="button" class="btn btn-primary"
+                                            onclick="location.href='/buy/@item.FindCode'">
+                                        Buy
+                                    </button>
+                                </div>
+                            }
                             <hr />
                             <div class="text-secondary">
-                                <span>Shipping price: £@item.Price</span><br />
+                                @{ 
+                                    var shiptext = "Free shipping.";
+                                    if (item.ShippingCost != 0)
+                                    {
+                                        shiptext = "Shipping cost: £" + item.ShippingCost.ToString();
+                                    }
+                                }
+                                <span>@shiptext</span><br />
                                 @if (item.ImageUrls == null)
                                 {
                                     <span>(This seller has not included any photos for the item)</span>
@@ -86,11 +96,14 @@
                         <a href="/user/@seller.Username">@susername</a><br />
                         <span class="pt-1">
                             50% positive rating 
-                            <br /><br />
-                            <button type="button" class="btn btn-outline-primary" 
-                                    onclick="location.href = 'message/@seller.Username/@item.FindCode'">
-                                Ask about this item
-                            </button>
+                            @if (seller.Username != User.Identity.Name) 
+                            { 
+                                <br /><br />
+                                <button type="button" class="btn btn-outline-primary" 
+                                        onclick="location.href = '/message/@seller.Username/@item.FindCode'">
+                                    Ask about this item
+                                </button>
+                            } 
                         </span>
                     </div>
                 </p>

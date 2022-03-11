@@ -9,13 +9,12 @@ node.addEventListener("keyup", function (e) {
         go()
     }
 })
-
+ 
 if (location.pathname == "/") {
-    let carContainer = document.getElementById("viewed-carousel"), ap = false, itemc = 1, lp = false;
-    let c = carContainer.childElementCount;
+    let carContainer = document.getElementById("viewed-carousel"), ap = false, itemc = 1, lp = false,
+        c = carContainer.childElementCount;
     if (c > 1) { ap = true; }
     if (c > 2) { lp = true; itemc = 5; }
-
     var owl = $('.owl-carousel');
     owl.owlCarousel({
         items: itemc,

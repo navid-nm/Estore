@@ -42,17 +42,17 @@
                         string url = items[i].ImageUrls[0];
                         finurl = url.Substring(url.IndexOf("img"));
                     }
-                <div class="item">
-                    <a href="/item/@item.FindCode">
-                        <img src="@finurl" class="s-edge carousel-image" />
-                    </a>
-                    <br />
-                    <div class="d-md-block">
-                        <h5><a href="/item/@item.FindCode">@pname</a></h5>
-                        <h6>@item.GetConditionDisplayName(item.Quality)</h6>
-                        <p><b>£@item.Price</b></p>
+                    <div class="item">
+                        <a href="/item/@item.FindCode">
+                            <img src="@finurl" class="s-edge carousel-image" />
+                        </a>
+                        <br />
+                        <div class="d-md-block">
+                            <h5><a href="/item/@item.FindCode">@pname</a></h5>
+                            <h6>@item.GetConditionDisplayName(item.Quality)</h6>
+                            <p><b>£@item.Price</b></p>
+                        </div>
                     </div>
-                </div>
                 }
             </div>
         }

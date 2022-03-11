@@ -1,22 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using Estore.Models;
+using System.Globalization;
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using Estore.Models;
 
 namespace Estore.Data
 {
     public class UserData : IDisposable
     {
         private readonly EstoreDbContext dbc;
+        private readonly TextInfo ti;
 
         public UserData(EstoreDbContext context)
         {
+            ti = new CultureInfo("en-GB", false).TextInfo;
             dbc = context;
         }
 
         public void AddUser(User user)
         {
+            user.DateOfRegistration = DateTime.Now;
+            user.FirstName = ti.ToTitleCase(user.FirstName);
+            user.Surname = ti.ToTitleCase(user.Surname);
             user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
             dbc.Users.Add(user);
             dbc.SaveChanges();
@@ -25,12 +31,27 @@ namespace Estore.Data
         public bool AuthenticateUser(SignIn svm)
         {
             bool conf = false;
-            User user = dbc.Users.Where(u => u.Email == svm.Email).FirstOrDefault<User>();
+            User user = dbc.Users.FirstOrDefault(u => u.Email == svm.Email);
             if (user != null)
             {
                 conf = BCrypt.Net.BCrypt.Verify(svm.Password, user.Password);
             }
             return conf;
+        }
+
+        public void SetLocation(string username, Location location)
+        {
+            User user = dbc.Users.Where(u => u.Username == username).First();
+            location.PostalCode = location.PostalCode.ToUpper();
+            location.Address = ti.ToTitleCase(location.Address);
+            user.ShippingLocation = location;
+            dbc.SaveChanges();
+        }
+
+        public bool UserHasLocation(string name)
+        {
+            User user = dbc.Users.Include(u => u.ShippingLocation).First(u => u.Username == name);
+            return user.ShippingLocation != null;
         }
 
         public List<string> InUse(string email, string username)
@@ -41,26 +62,25 @@ namespace Estore.Data
             return used;
         }
 
-        public User GetUserByEmail(string email)
-        {
-            return dbc.Users.FirstOrDefault(u => u.Email == email);
-        }
-
         public void WriteViewed(string username, Item item)
         {
-            User user = dbc.Users.Where(u => u.Username == username).FirstOrDefault();
-            if (dbc.ViewLogEntries.Where(v => 
-                    v.Item == item && 
-                    v.Viewer.Username == username).ToList().Count == 0 && user.Id != item.UserId)
+            if (item != null)
             {
-                dbc.ViewLogEntries.Add(new ViewLogEntry { Item = item, Viewer = user });
-                dbc.SaveChanges();
+                User user = dbc.Users.First(u => u.Username == username);
+                if (dbc.ViewLogEntries.Where(v =>
+                                    v.Item == item 
+                                    && v.Viewer.Username == username).ToList().Count == 0 
+                                    && user.Id != item.UserId)
+                {
+                    dbc.ViewLogEntries.Add(new ViewLogEntry { Item = item, Viewer = user });
+                    dbc.SaveChanges();
+                }
             }
         }
 
         public List<Item> GetViewed(string username)
         {
-            User user = dbc.Users.Where(u => u.Username == username).First();
+            User user = dbc.Users.First(u => u.Username == username);
             List<Item> outlist = new List<Item>();
             List<ViewLogEntry> vles = dbc.ViewLogEntries.Include(v => v.Item)
                                                         .Where(v => v.Viewer == user).ToList();

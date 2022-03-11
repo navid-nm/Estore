@@ -1,6 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Dashboard";
     ViewData["ShowSearchInNavbar"] = true;
+    List<Item> items = (List<Item>)ViewBag.ItemsSoldByUser;
 }
 
 <br />
@@ -28,9 +29,8 @@
 <div class="tab-content">
     <div class="tab-pane fade show active" id="selling" role="tabpanel" aria-labelledby="selling-tab">
         <div id="selling-container" class="pt-2">
-            @if (ViewBag.ItemsSoldByUser != null)
+            @if (items.Count != 0)
             {
-                List<Item> items = (List<Item>)ViewBag.ItemsSoldByUser;
                 foreach (Item item in items)
                 {
                     var url = "/img/generic/invertedplaceholder.png";
@@ -62,18 +62,22 @@
         </div>
     </div>
     <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="history-tab">
-        <center>
-            <p class="pt-5 text-secondary m-text">
-                You have not purchased any items.
-            </p>
-        </center>
+        <div id="purchased-container" class="pt-2">
+            <center>
+                <p class="pt-5 text-secondary m-text">
+                    You have not purchased any items.
+                </p>
+            </center>
+        </div>
     </div>
     <div class="tab-pane fade" id="saved" role="tabpanel" aria-labelledby="saved-tab">
-        <center>
-            <p class="pt-5 text-secondary m-text">
-                You have not saved any items.
-            </p>
-        </center>
+        <div id="saved-container" class="pt-2">
+            <center>
+                <p class="pt-5 text-secondary m-text">
+                    You have not saved any items.
+                </p>
+            </center>
+        </div>
     </div>
 </div>
 

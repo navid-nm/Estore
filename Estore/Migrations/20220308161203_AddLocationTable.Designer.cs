@@ -4,14 +4,16 @@ using Estore.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Estore.Migrations
 {
     [DbContext(typeof(EstoreDbContext))]
-    partial class EstoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220308161203_AddLocationTable")]
+    partial class AddLocationTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,9 +50,6 @@ namespace Estore.Migrations
 
                     b.Property<int>("Quality")
                         .HasColumnType("int");
-
-                    b.Property<decimal>("ShippingCost")
-                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
