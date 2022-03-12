@@ -32,10 +32,10 @@ if (location.pathname == "/") {
     $('.stop').on('click', function () {owl.trigger('stop.owl.autoplay')})
 }
 
-if (document.getElementById("message-form") != null) {
-    $("#message-form").on("submit",
-        function () {
-            $("#hidden").val($("#message-editor").html());
-        }
-    )
-}
+$("#message-form").on("submit",
+    function (e) {
+        e.preventDefault();
+        $("#hidden").val($("#message-editor").html());
+        document.getElementById("message-form").submit();
+    }
+)    

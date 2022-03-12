@@ -1,14 +1,12 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
+using Newtonsoft.Json;
 using Estore.Data;
 using Estore.Models;
-using Newtonsoft.Json;
-using System.Diagnostics;
 
 namespace Estore.Controllers
 {
@@ -23,39 +21,44 @@ namespace Estore.Controllers
             _context = context;
         }
 
-        private void SaveAllMessageViewData()
+        private void SetMessageObjects(Dictionary<string, object> kvps)
         {
-            foreach (string key in new List<string> { "Viewer", "Seller", "Item" })
+            foreach (string key in kvps.Keys)
             {
+                TempData[key] = JsonConvert.SerializeObject(kvps[key]);
                 TempData.Keep(key);
             }
+        }
+
+        private T GetMessageObject<T>(string key)
+        {
+            return JsonConvert.DeserializeObject<T>(TempData.Peek(key).ToString());
         }
 
         [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
         [HttpGet]
         public IActionResult Index(string username, string findcode)
         {
-            User seller = _context.Users.FirstOrDefault(u => u.Username == username);
-            Item item = new ItemData(_context, _env).GetItem(findcode);
-            TempData["Viewer"] = JsonConvert.SerializeObject(_context.Users.First(u => u.Username == User.Identity.Name));
-            TempData["Seller"] = JsonConvert.SerializeObject(seller);
-            TempData["Item"] = JsonConvert.SerializeObject(item);
-            SaveAllMessageViewData();
+            SetMessageObjects(new Dictionary<string, object>
+            {
+                { "Viewer", _context.Users.First(u => u.Username == User.Identity.Name) },
+                { "Seller", _context.Users.FirstOrDefault(u => u.Username == username) },
+                { "Item", new ItemData(_context, _env).GetItem(findcode) }
+            });
             return View();
         }
 
         [HttpPost]
         public IActionResult Index(Message message)
         {
-            Debug.WriteLine("###################################################");
-            //Debug.WriteLine(((User)TempData["Viewer"]).Username);
-            Debug.WriteLine("###################################################");
             if (ModelState.IsValid)
             {
-                new MessageData(_context).AddMessage(message.MessageBody, 
-                                                     (User)TempData["Viewer"],
-                                                     (User)TempData["Seller"],
-                                                     (Item)TempData["Item"]);
+                new MessageData(_context).AddMessage(
+                    message.MessageBody, 
+                    GetMessageObject<User>("Viewer"),
+                    GetMessageObject<User>("Seller"),
+                    GetMessageObject<Item>("Item")
+                );
                 return Redirect("/");
             }
             return View();
