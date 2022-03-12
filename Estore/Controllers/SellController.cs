@@ -15,13 +15,11 @@ namespace Estore.Controllers
     {
         private readonly IWebHostEnvironment _env;
         private readonly EstoreDbContext _context;
-        private readonly string ifc;
 
         public SellController(IWebHostEnvironment hostenv, EstoreDbContext context)
         {
             _env = hostenv;
             _context = context;
-            ifc = "ItemFindCode";
         }
 
         [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
@@ -30,7 +28,7 @@ namespace Estore.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                HttpContext.Session.SetString(ifc, Guid.NewGuid().ToString("N")[14..]);
+                HttpContext.Session.SetString("ifc", Guid.NewGuid().ToString("N")[14..]);
             }
             return View();
         }
@@ -40,10 +38,10 @@ namespace Estore.Controllers
         {
             if (ModelState.IsValid)
             {
-                item.FindCode = HttpContext.Session.GetString(ifc);
+                item.FindCode = HttpContext.Session.GetString("ifc");
                 item.Concluded = false;
                 new ItemData(_context).AddItem(item, User.Identity.Name);
-                HttpContext.Session.SetString(ifc, "");
+                HttpContext.Session.SetString("ifc", "");
                 return Redirect("/item/" + item.FindCode);
             }
             return View(item);
@@ -53,7 +51,7 @@ namespace Estore.Controllers
         public async Task<IActionResult> UploadImage()
         {
             var path = _env.ContentRootPath + "\\wwwroot\\img\\items\\" + User.Identity.Name + "\\"
-                       + HttpContext.Session.GetString(ifc);
+                       + HttpContext.Session.GetString("ifc");
             void Setup()
             {
                 if (!Directory.Exists(path)) Directory.CreateDirectory(path);

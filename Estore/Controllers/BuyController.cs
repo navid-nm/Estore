@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using Estore.Data;
 using Estore.Models;
 
@@ -47,7 +46,10 @@ namespace Estore.Controllers
             if (ModelState.IsValid)
             {
                 string fc = HttpContext.Session.GetString("LastPurchase");
-                new ItemData(_context).ConcludeItem(_context.Items.First(i => i.FindCode == fc), User.Identity.Name);
+                new ItemData(_context).ConcludeItem(
+                    _context.Items.First(i => i.FindCode == fc), 
+                    User.Identity.Name
+                );
                 return Redirect("/purchased/" + fc);
             }
             return View(payment);

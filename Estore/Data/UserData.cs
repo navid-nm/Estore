@@ -39,9 +39,9 @@ namespace Estore.Data
             return conf;
         }
 
-        public void SetLocation(string username, Location location)
+        public void SetLocation(string name, Location location)
         {
-            User user = dbc.Users.Where(u => u.Username == username).First();
+            User user = dbc.Users.Where(u => u.Username == name).First();
             location.PostalCode = location.PostalCode.ToUpper();
             location.Address = ti.ToTitleCase(location.Address);
             user.ShippingLocation = location;
@@ -54,22 +54,22 @@ namespace Estore.Data
             return user.ShippingLocation != null;
         }
 
-        public List<string> InUse(string email, string username)
+        public List<string> InUse(string email, string name)
         {
             var used = new List<string>();
             if (dbc.Users.FirstOrDefault(u => u.Email == email) != null) used.Add("Email");
-            if (dbc.Users.FirstOrDefault(u => u.Username == username) != null) used.Add("Username");
+            if (dbc.Users.FirstOrDefault(u => u.Username == name) != null) used.Add("Username");
             return used;
         }
 
-        public void WriteViewed(string username, Item item)
+        public void WriteViewed(string name, Item item)
         {
             if (item != null)
             {
-                User user = dbc.Users.First(u => u.Username == username);
+                User user = dbc.Users.First(u => u.Username == name);
                 if (dbc.ViewLogEntries.Where(v =>
                                     v.Item == item 
-                                    && v.Viewer.Username == username).ToList().Count == 0 
+                                    && v.Viewer.Username == name).ToList().Count == 0 
                                     && user.Id != item.UserId)
                 {
                     dbc.ViewLogEntries.Add(new ViewLogEntry { Item = item, Viewer = user });
@@ -78,9 +78,9 @@ namespace Estore.Data
             }
         }
 
-        public List<Item> GetViewed(string username)
+        public List<Item> GetViewed(string name)
         {
-            User user = dbc.Users.First(u => u.Username == username);
+            User user = dbc.Users.First(u => u.Username == name);
             List<Item> outlist = new List<Item>();
             List<ViewLogEntry> vles = dbc.ViewLogEntries.Include(v => v.Item)
                                                         .Where(v => v.Viewer == user && !v.Item.Concluded).ToList();

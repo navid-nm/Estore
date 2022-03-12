@@ -1,0 +1,93 @@
+﻿@model Estore.Models.Message
+
+@using Newtonsoft.Json;
+
+@{
+    string title = "Not found";
+    User seller = null, viewer = GetMessageObject<User>("Viewer");
+    Item item = null;
+    var url = "/img/generic/invertedplaceholder.png";
+    if (TempData.Peek("Item") != null && TempData.Peek("Seller") != null)
+    {
+        item = GetMessageObject<Item>("Item");
+        seller = GetMessageObject<User>("Seller");
+        title = item.Name;
+        @if (item.ImageUrls != null)
+        {
+            if (item.ImageUrls.Count > 0) url = item.ImageUrls[0];
+        }
+    }
+    var img = "/" + url.Substring(url.IndexOf("img")).Replace("\\", "/");
+    ViewData["Title"] = title;
+    ViewData["ShowSearchInNavbar"] = true;
+}
+
+@functions {
+    void ShowError(string title, string message)
+    {
+        <center>
+            <div class="dz-error animate__animated animate__fadeInUp pt-5">
+                <h2>@title</h2>
+                <h5 class="text-muted">@message</h5>
+            </div>
+        </center>
+    }
+
+    T GetMessageObject<T>(string name)
+    {
+        return JsonConvert.DeserializeObject<T>(TempData.Peek(name).ToString());
+    }
+}
+
+<link rel="stylesheet" href="~/lib/quill/quill.snow.css" />
+
+<div class="nonbscontainer pt-5">
+    @if (item == null || seller == null)
+    {
+        ShowError("Item not found",
+                  "You cannot message the seller as no such item exists.");
+    }
+    else if (item.Concluded && item.BuyerId != viewer.Id)
+    {
+        ShowError("Listing concluded",
+                  "The listing has ended. The seller cannot be messaged regarding this item.");
+    }
+    else
+    {
+        <form method="post" id="message-form" asp-controller="Message">
+            <div id="item-preview border">
+                <h4>Messaging the seller of this item:</h4>
+                <div class="row pt-4">
+                    <div class="pl-3">
+                        <img src="@img" class="search-result-image" style="width:80%; object-fit:cover;" />
+                    </div>
+                    <div class="col-9">
+                        <h5>@item.Name</h5>
+                        <span class="text-secondary">
+                            @item.GetConditionDisplayName(item.Quality)
+                        </span>
+                        <div class="pt-3">
+                            Seller: <a href="/user/@seller.Username">@seller.Username</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="message-composition" class="container-flex pt-2" style="min-height:12em; height:12em;">
+                <br /><div id="message-editor"></div>
+            </div>
+            <br />
+            <textarea style="display:none;" id="hidden-body" asp-for="MessageBody"></textarea>
+            <br /><br />
+            <div class="pt-2 text-right border-bottom">
+                <input type="submit" class="btn btn-outline-primary" value="Send" />
+                <div class="pb-3"></div>
+            </div>
+            <span asp-validation-for="MessageBody"></span>
+        </form>
+    }
+</div>
+
+<script src="~/lib/quill/quill.min.js"></script>
+<script>
+    var quill = new Quill("#message-editor", { theme: "snow" })
+</script>

@@ -24,6 +24,7 @@ namespace Estore.Test
                 "/location/TestFindCode",
                 "/dashboard",
                 "/purchased",
+                "/message",
                 "/sell",
                 "/buy"
             };

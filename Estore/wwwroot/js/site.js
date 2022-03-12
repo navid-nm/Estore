@@ -31,3 +31,11 @@ if (location.pathname == "/") {
     $('.play').on('click', function () {owl.trigger('play.owl.autoplay', [1000])})
     $('.stop').on('click', function () {owl.trigger('stop.owl.autoplay')})
 }
+
+if (document.getElementById("message-form") != null) {
+    $("#message-form").on("submit",
+        function () {
+            $("#hidden").val($("#message-editor").html());
+        }
+    )
+}
