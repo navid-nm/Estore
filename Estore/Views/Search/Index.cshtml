@@ -28,13 +28,8 @@
                 <br /><br />
                 @foreach (Item result in results)
                 {
-                    var url = "/img/generic/invertedplaceholder.png";
                     var hlink = "/item/" + result.FindCode;
-                    @if (result.ImageUrls != null)
-                    {
-                        if (result.ImageUrls.Count > 0) url = result.ImageUrls[0];
-                    }
-                    var img = "../" + url.Substring(url.IndexOf("img")).Replace("\\", "/");
+                    var img = ViewFunc.GetImageUrls(result)[0];
                     <hr />
                     <div class="row">
                         <div class="col-md-2"><a href="@hlink"><img src="@img" class="search-result-image"/></a></div>

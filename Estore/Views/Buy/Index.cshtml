@@ -4,12 +4,7 @@
     Item item = (Item)ViewBag.ItemToBuy;
     User buyer = (User)ViewBag.Buyer;
     ViewData["Title"] = item.Name;
-    var url = "/img/generic/invertedplaceholder.png";
-    @if (item.ImageUrls != null)
-    {
-        if (item.ImageUrls.Count > 0) url = item.ImageUrls[0];
-    }
-    var img = "../" + url.Substring(url.IndexOf("img")).Replace("\\", "/");
+    var img = ViewFunc.GetImageUrls(item);
 }
 
 <hr />
