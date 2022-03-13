@@ -4,7 +4,7 @@
     Item item = (Item)ViewBag.ItemToBuy;
     User buyer = (User)ViewBag.Buyer;
     ViewData["Title"] = item.Name;
-    var img = ViewFunc.GetImageUrls(item);
+    var img = ViewFunc.GetImageUrls(item)[0];
 }
 
 <hr />
