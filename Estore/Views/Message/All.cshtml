@@ -2,23 +2,58 @@
     ViewData["Title"] = "Messages";
     ViewData["ShowSearchInNavbar"] = true;
     List<Message> messages = (List<Message>)ViewBag.Messages;
+    messages.Reverse();
 }
 
 <div class="nonbscontainer pt-5">
-    <h5>Inbox</h5>
-    <div class="pt-5">
-        @foreach (var message in messages)
-        {
-            <hr />
-            <div class="row">
-                <div id="subject" class="col-9">
-                    <b>@message.Sender's message regarding @message.SubjectItem.Name</b>
-                </div>
-                <div id="time" class="col-3">
-                    @message.Date.ToShortTimeString()
-                </div>
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="inbox-tab" data-toggle="tab" href="#inbox" role="tab" aria-controls="inbox" aria-selected="true">
+                Inbox
+            </a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="sent-tab" data-toggle="tab" href="#sent" role="tab" aria-controls="sent" aria-selected="false">
+                Your sent messages
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane fade show active" id="inbox" role="tabpanel" aria-labelledby="inbox-tab">
+            <div id="inbox-container" class="pt-5">
+                @foreach (var message in messages)
+                {
+                    var senderName = ViewFunc.NormaliseName(message.Sender.Username, 25);
+                    <hr />
+                    <div class="row">
+                        <div id="subject" class="col-9">
+                            <b class="pl-1">
+                                <a href="/my/messages/show/@message.Id">
+                                    @senderName's message regarding @message.SubjectItem.Name
+                                </a>
+                            </b>
+                        </div>
+                        <div id="time" class="col-3 text-right">
+                            <div class="pr-1">
+                                @message.Date.ToShortTimeString() - @message.Date.ToShortDateString()
+                            </div>
+                        </div>
+                    </div>
+                }
+                @if (messages.Count == 0)
+                {
+                    <center>
+                        <div class="dz-error animate__animated animate__fadeInUp">
+                            <h2>Empty</h2>
+                            <h5 class="text-muted">You have not received any messages.</h5>
+                        </div>
+                    </center>
+                }
             </div>
-        }
+        </div>
+        <div class="tab-pane fade show active" id="sent" role="tabpanel" aria-labelledby="sent-tab">
+            <div id="sent-container" class="pt-5">
+            </div>
+        </div>
     </div>
 </div>
-

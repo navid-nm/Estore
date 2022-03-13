@@ -9,7 +9,7 @@
     {
         user = (User)ViewBag.User;
         items = (List<Item>)ViewBag.Items;
-        ViewData["Title"] = user.Username + "'s profile";
+        ViewData["Title"] = ViewFunc.NormaliseName(user.Username, 25) + "'s profile";
     }
 }
 
@@ -43,19 +43,11 @@
                 <div class="row col-sm-12 pt-4">
                     @foreach (Item item in items)
                     {
-                        var url = "/img/generic/invertedplaceholder.png";
-                        @if (item.ImageUrls != null)
-                        {
-                            if (item.ImageUrls.Count > 0)
-                            {
-                                url = item.ImageUrls[0];
-                            }
-                        }
-                        var img = "../" + url.Substring(url.IndexOf("img")).Replace("\\", "/");
+                        var img = ViewFunc.GetImageUrls(item)[0];
                         var boxstyle = "background-image: url('" + img + "') !important";
                         <div class="col-sm-2 item-preview" style="@boxstyle" onclick="location.href = '/item/@item.FindCode'">
                             <font color="white">
-                                @item.Name
+                                @ViewFunc.NormaliseName(item.Name, 22)
                                 <span><i>£@item.Price</i></span>
                             </font>
                         </div>

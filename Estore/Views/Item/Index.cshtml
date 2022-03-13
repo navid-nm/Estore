@@ -111,12 +111,11 @@
                         </p>
                     </div>
                     <div class="col-md-2 border offset-cust-smaller">
-                        @{
-                            string susername = ViewFunc.NormaliseName(seller.Username, 25);
-                        }
                         <h5 class="pt-3">Seller details</h5>
                         <hr />
-                        <a href="/user/@seller.Username">@susername</a><br />
+                        <a href="/user/@seller.Username">
+                            @ViewFunc.NormaliseName(seller.Username, 16)
+                        </a><br />
                         <span class="pt-1">
                             50% positive rating
                             @{

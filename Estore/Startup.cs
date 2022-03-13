@@ -95,6 +95,11 @@ namespace Estore
                 );
                 endpoints.MapControllerRoute(
                     name: "messages",
+                    pattern: "my/messages/show/{message}",
+                    defaults: new { controller = "Message", action = "ShowMessage" }
+                );
+                endpoints.MapControllerRoute(
+                    name: "messages",
                     pattern: "my/messages",
                     defaults: new { controller = "Message", action = "ViewAll" }
                 );

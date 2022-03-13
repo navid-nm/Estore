@@ -60,12 +60,7 @@
                 <ul class="nav navbar-nav navbar-right pl-1">
                     @if (User.Identity.Name != null)
                     {
-                        var dispname = User.Identity.Name;
-                        if (dispname.Length > 12)
-                        {
-                            dispname = dispname.Remove(dispname.Length - (dispname.Length - 12));
-                            dispname += "...";
-                        }
+                        var dispname = ViewFunc.NormaliseName(User.Identity.Name, 12);
                         <li class='nav-item'>
                             <a class='btn btn-sell' href='/sell'>Sell an item</a>
                         </li>
@@ -75,7 +70,6 @@
                         <li class="dropdown pl-2">
                             <a class="dropdown-toggle btn-outline-primary btn btn-outline-dark"
                                data-toggle="dropdown" href="#">
-
                                 My Account (@dispname)<span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-lg-right w-100">
@@ -99,7 +93,6 @@
                             <li class='nav-item pl-3'>
                                 <a class='btn btn-outline-secondary' href='/signin'>Sign in</a>
                             </li>
-                            <!--Formerly btn-signin-->
                         }
                     }
                 </ul>
