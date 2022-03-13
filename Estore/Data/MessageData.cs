@@ -41,6 +41,11 @@ namespace Estore.Data
             return messages;
         }
 
+        public Message GetMessage(int id)
+        {
+            return new Message();
+        }
+
         public void Dispose()
         {
             dbc.Dispose();

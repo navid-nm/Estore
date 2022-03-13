@@ -75,5 +75,13 @@ namespace Estore.Controllers
             ViewBag.Messages = new MessageData(_context).GetMessages(User.Identity.Name);
             return View("All");
         }
+
+        [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
+        [HttpGet]
+        public IActionResult ShowMessage(int id)
+        {
+            ViewBag.Message = new MessageData(_context).GetMessage(id);
+            return View("All");
+        }
     }
 }
