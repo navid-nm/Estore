@@ -21,6 +21,10 @@ namespace Estore.Controllers
             _context = context;
         }
 
+        /// <summary>
+        /// Set temporary data for message view.
+        /// </summary>
+        /// <param name="kvps">Collection containing the data to keep across multiple requests</param>
         private void SetMessageObjects(Dictionary<string, object> kvps)
         {
             foreach (string key in kvps.Keys)
@@ -59,9 +63,17 @@ namespace Estore.Controllers
                     GetMessageObject<User>("Seller"),
                     GetMessageObject<Item>("Item")
                 );
-                return Redirect("/");
+                return View("Success");
             }
             return View();
+        }
+
+        [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
+        [HttpGet]
+        public IActionResult ViewAll()
+        {
+            ViewBag.Messages = new MessageData(_context).GetMessages(User.Identity.Name);
+            return View("All");
         }
     }
 }

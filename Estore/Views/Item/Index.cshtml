@@ -109,11 +109,7 @@
                     </div>
                     <div class="col-md-2 border offset-cust-smaller">
                         @{
-                            string susername = seller.Username;
-                            if (susername.Length > 25)
-                            {
-                                susername = susername.Substring(0, susername.Length - 25) + "...";
-                            }
+                            string susername = ViewFunc.NormaliseName(seller.Username, 25);
                         }
                         <h5 class="pt-3">Seller details</h5>
                         <hr />

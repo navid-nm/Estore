@@ -31,17 +31,8 @@
                 @for (int i = 0; i < items.Count; i++)
                 {
                     Item item = items[i];
-                    string finurl = "/img/generic/invertedplaceholder.png", pname = item.Name;
-                    if (pname.Length > 21)
-                    {
-                        pname = pname.Substring(0, 20);
-                        pname += "...";
-                    }
-                    if (items[i].ImageUrls != null)
-                    {
-                        string url = items[i].ImageUrls[0];
-                        finurl = url.Substring(url.IndexOf("img"));
-                    }
+                    string finurl = ViewFunc.GetImageUrls(item)[0],
+                           pname = ViewFunc.NormaliseName(item.Name, 20);
                     <div class="item">
                         <a href="/item/@item.FindCode">
                             <img src="@finurl" class="s-edge carousel-image" />

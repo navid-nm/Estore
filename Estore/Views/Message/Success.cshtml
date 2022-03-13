@@ -1,0 +1,41 @@
+﻿@using Newtonsoft.Json;
+
+@{
+    ViewData["Title"] = "Success";
+    ViewData["ShowSearchInNavbar"] = true;
+    Item item = JsonConvert.DeserializeObject<Item>(TempData.Peek("Item").ToString());
+    User seller = JsonConvert.DeserializeObject<User>(TempData.Peek("Seller").ToString());
+
+    string nameDisplay = ViewFunc.NormaliseName(seller.Username, 25),
+           img = ViewFunc.GetImageUrls(item)[0];
+}
+
+<div class="nonbscontainer pt-5">
+    <div id="item-preview border">
+        <h4>Success</h4>
+        <div class="row pt-4">
+            <div class="pl-3">
+                <img src="@img" class="search-result-image" style="width:80%; object-fit:cover;" />
+            </div>
+            <div class="col-9">
+                <h5>@item.Name</h5>
+                <span class="text-secondary">
+                    @item.GetConditionDisplayName(item.Quality)
+                </span>
+                <div class="pt-3">
+                    Seller: <a href="/user/@seller.Username">@nameDisplay</a>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div class="pt-4">
+            Your message to @nameDisplay has been sent. 
+        </div>
+        <div class="pt-3">
+            <a href="/my/messages">
+                Go to my messages
+            </a>
+        </div>
+    </div>
+</div>
+

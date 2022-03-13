@@ -1,8 +1,6 @@
 ﻿using System;
-using System.IO;
 using System.Linq;
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Hosting;
 using Estore.Models;
 
 namespace Estore.Data
@@ -21,12 +19,26 @@ namespace Estore.Data
             Message message = new Message
             {
                 Date = DateTime.Now,
-                SubjectItem = item,
-                Recipient = recipient,
-                Sender = sender,
+                SubjectItemId = item.Id,
+                SenderId = sender.Id,
+                RecipientId = recipient.Id,
                 MessageBody = body
             };
             dbc.Messages.Add(message);
+            dbc.SaveChanges();
+        }
+
+        public List<Message> GetMessages(string recipientName)
+        {
+            User recipient = dbc.Users.First(u => u.Username == recipientName);
+            List<Message> messages = dbc.Messages.Where(m => m.RecipientId == recipient.Id).ToList();
+            foreach (Message msg in messages)
+            {
+                msg.Recipient = recipient;
+                msg.Sender = dbc.Users.First(u => u.Id == msg.SenderId);
+                msg.SubjectItem = dbc.Items.First(i => i.Id == msg.SubjectItemId);
+            }
+            return messages;
         }
 
         public void Dispose()

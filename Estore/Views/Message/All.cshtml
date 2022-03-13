@@ -1,0 +1,23 @@
+﻿@{
+    ViewData["Title"] = "Messages";
+    ViewData["ShowSearchInNavbar"] = true;
+    List<Message> messages = (List<Message>)ViewBag.Messages;
+}
+
+<div class="nonbscontainer pt-5">
+    <h5>Inbox</h5>
+    <div class="pt-5">
+        @foreach (var message in messages)
+        {
+            <div class="row">
+                <div id="subject" class="col-9">
+                    <b>@message.Sender's message regarding @message.SubjectItem.Name</b>
+                </div>
+                <div id="time" class="col-3">
+                    @message.Date.ToShortTimeString()
+                </div>
+            </div>
+        }
+    </div>
+</div>
+

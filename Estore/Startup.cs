@@ -31,6 +31,7 @@ namespace Estore
             services.AddDbContext<EstoreDbContext>(options
                 => options.UseSqlServer(Configuration.GetConnectionString("Default")));
             services.AddControllersWithViews();
+            services.AddSingleton<Views.ViewFunctions>();
             services.AddSession();
             services.AddRouting(options => options.LowercaseUrls = true);
         }
@@ -93,14 +94,19 @@ namespace Estore
                     defaults: new { controller = "Message", action = "Index" }
                 );
                 endpoints.MapControllerRoute(
-                    name: "search",
-                    pattern: "search/{term}",
-                    defaults: new { controller = "Search", action = "Index" }
+                    name: "messages",
+                    pattern: "my/messages",
+                    defaults: new { controller = "Message", action = "ViewAll" }
                 );
                 endpoints.MapControllerRoute(
                     name: "dashboard",
                     pattern: "my/dashboard",
                     defaults: new { controller = "Dashboard", action = "Index" }
+                );
+                endpoints.MapControllerRoute(
+                    name: "search",
+                    pattern: "search/{term}",
+                    defaults: new { controller = "Search", action = "Index" }
                 );
                 endpoints.MapControllerRoute(
                     name: "signout",

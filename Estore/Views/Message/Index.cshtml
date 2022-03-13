@@ -6,18 +6,16 @@
     string title = "Not found";
     User seller = null, viewer = GetMessageObject<User>("Viewer");
     Item item = null;
-    var url = "/img/generic/invertedplaceholder.png";
     if (TempData.Peek("Item") != null && TempData.Peek("Seller") != null)
     {
         item = GetMessageObject<Item>("Item");
         seller = GetMessageObject<User>("Seller");
-        title = item.Name;
-        @if (item.ImageUrls != null)
+        if (item != null)
         {
-            if (item.ImageUrls.Count > 0) url = item.ImageUrls[0];
+            title = item.Name;
         }
     }
-    var img = "/" + url.Substring(url.IndexOf("img")).Replace("\\", "/");
+    var img = ViewFunc.GetImageUrls(item)[0];
     ViewData["Title"] = title;
     ViewData["ShowSearchInNavbar"] = true;
 }
@@ -39,7 +37,7 @@
     }
 }
 
-<link rel="stylesheet" href="~/lib/quill/quill.snow.css" />
+<link rel="stylesheet" href="~/lib/quill/quill.min.css" />
 
 <div class="nonbscontainer pt-5">
     @if (item == null || seller == null)
@@ -67,7 +65,7 @@
                             @item.GetConditionDisplayName(item.Quality)
                         </span>
                         <div class="pt-3">
-                            Seller: <a href="/user/@seller.Username">@seller.Username</a>
+                            Seller: <a href="/user/@seller.Username">@ViewFunc.NormaliseName(seller.Username, 25)</a>
                         </div>
                     </div>
                 </div>
