@@ -24,7 +24,6 @@
                 @foreach (var message in messages)
                 {
                     var senderName = ViewFunc.NormaliseName(message.Sender.Username, 25);
-                    <hr />
                     <div class="row">
                         <div id="subject" class="col-9">
                             <b class="pl-1">
@@ -39,12 +38,13 @@
                             </div>
                         </div>
                     </div>
+                    <hr />
                 }
                 @if (messages.Count == 0)
                 {
                     <center>
                         <div class="dz-error animate__animated animate__fadeInUp">
-                            <h2>Empty</h2>
+                            <h3>Empty</h3>
                             <h5 class="text-muted">You have not received any messages.</h5>
                         </div>
                     </center>

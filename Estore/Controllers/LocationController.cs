@@ -24,9 +24,12 @@ namespace Estore.Controllers
             { 
                 return Redirect("/");
             }
-            if (!string.IsNullOrEmpty(findcode.Trim()))
+            if (findcode != null)
             {
-                HttpContext.Session.SetString("lastfc", findcode);
+                if (!string.IsNullOrEmpty(findcode.Trim()))
+                {
+                    HttpContext.Session.SetString("lastfc", findcode);
+                }
             }
             return View();
         }
@@ -38,7 +41,13 @@ namespace Estore.Controllers
             if (ModelState.IsValid)
             {
                 new UserData(_context).SetLocation(User.Identity.Name, location);
-                return Redirect("/buy/" + HttpContext.Session.GetString("lastfc"));
+                var last = HttpContext.Session.GetString("lastfc");
+                if (last == null)
+                {
+                    return Redirect("/sell");
+                }
+                HttpContext.Session.Clear();
+                return Redirect("/buy/" + last);
             }
             return View();
         }
