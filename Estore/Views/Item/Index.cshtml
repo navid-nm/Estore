@@ -8,7 +8,7 @@
     if (ViewBag.ThisItem != null)
     {
         item = (Item)ViewBag.ThisItem;
-        title = item.Name;
+        title = ViewFunc.NormaliseName(item.Name, 20);
         seller = Model?.Where(i => i.Id == item.UserId).FirstOrDefault();
     }
     ViewData["Title"] = title;
@@ -30,7 +30,6 @@
         </div>
     }
 }
-
 
 <div class="nonbscontainer">
     @if (ViewBag.ThisItem == null)
