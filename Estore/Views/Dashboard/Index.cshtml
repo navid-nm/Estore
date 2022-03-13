@@ -10,13 +10,8 @@
     {
         foreach (Item item in items)
         {
-            var url = "/img/generic/invertedplaceholder.png";
             var hlink = "/" + context + "/" + item.FindCode;
-            @if (item.ImageUrls != null)
-            {
-                if (item.ImageUrls.Count > 0) url = item.ImageUrls[0];
-            }
-            var img = "../" + url.Substring(url.IndexOf("img")).Replace("\\", "/");
+            var img = ViewFunc.GetImageUrls(item)[0];
             <hr />
             <div class="row">
                 <div class="col-md-2"><a href="@hlink"><img src="@img" class="search-result-image" /></a></div>
