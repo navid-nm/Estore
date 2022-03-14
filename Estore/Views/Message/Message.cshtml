@@ -5,16 +5,14 @@
     ViewData["ShowSearchInNavbar"] = true;
 
     Message message = null;
-    Item item = null;
     User seller = null;
     string img = null;
     if (ViewBag.ThisMessage != null)
     {
         message = (Message)ViewBag.ThisMessage;
         seller = (User)ViewBag.Seller;
-        item = message.SubjectItem;
         img = ViewFunc.GetImageUrls(message.SubjectItem)[0];
-        ViewData["Title"] = message.Sender.Username + "'s message on" + item.Name;
+        ViewData["Title"] = message.Sender.Username + "'s message on" + message.SubjectItem.Name;
     }
 }
 
@@ -43,9 +41,9 @@
                         <img src="@img" class="search-result-image" />
                     </div>
                     <div class="col-9">
-                        <h5>@item.Name</h5>
+                        <h5>@message.SubjectItem.Name</h5>
                         <span class="text-secondary">
-                            @item.GetConditionDisplayName(message.SubjectItem.Quality)
+                            @message.SubjectItem.GetConditionDisplayName(message.SubjectItem.Quality)
                         </span>
                         <div class="pt-3">
                             Seller:
