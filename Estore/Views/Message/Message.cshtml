@@ -55,7 +55,8 @@
                 </div>
             </div>
             <div id="received-container" class="pt-3">
-                <div id="recieved-message-body" class="container-flex pt-2 pl-2 border m-element">
+                <div id="recieved-message-body" class="container-flex pt-2 pl-2 border m-element" 
+                                                style="overflow:auto;">
                     <b>From: </b>
                     <a href="/user/@message.Sender.Username">
                         @ViewFunc.NormaliseName(message.Sender.Username, 25)
@@ -80,10 +81,11 @@
             <textarea style="display:none;" id="hidden" asp-for="MessageBody"></textarea>
             <br /><br />
             <div class="pt-2 text-right border-bottom">
-                <input type="submit" class="btn btn-outline-primary" value="Reply" />
+                <input type="submit" class="btn btn-outline-primary" id="send-button" value="Reply" />
                 <div class="pb-3"></div>
             </div>
             <span asp-validation-for="MessageBody"></span>
+            <span id="cur-recipient-name" style="display:none;">@message.Sender.Username</span>
         </form>
     }
 </div>

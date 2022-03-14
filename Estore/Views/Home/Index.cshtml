@@ -3,10 +3,12 @@
 }
 
 <center>
-    <br /><br />
-    <h1 class="display-4">&nbsp;eStore</h1>
-    <br /><br />
-    <div class="form-inline justify-content-md-center">
+    <div class="pt-5"></div>
+    <h1>
+        <img src="~/img/generic/brand.png" style="height: 5.4em;"/>
+    </h1>
+    <br />
+    <div class="form-inline justify-content-md-center pt-4">
         <select name="Categories" id="Categories" class="form-control col-sm-auto">
             <option value="All">All Categories</option>
             <option value="Misc">Misc</option>
@@ -18,16 +20,16 @@
             Go
         </button>
     </div>
-    <br /><br /><br />
+    <br /><br />
     @{
         List<Item> items = new List<Item>();
         if (ViewBag.ViewingHistory != null)
         {
             items = (List<Item>)ViewBag.ViewingHistory;
-            <hr class="pt-5"/>
+            <hr class="pt-4"/>
             <h4>Based on your viewing history</h4>
-            <br /><br />
-            <div class="pt-3 owl-carousel col-md-12" id="viewed-carousel">
+            <br />
+            <div class="pt-4 owl-carousel col-md-12" id="viewed-carousel">
                 @for (int i = 0; i < items.Count; i++)
                 {
                     Item item = items[i];

@@ -15,11 +15,13 @@
     <meta charset="utf-8" class="form-control-lg col-10" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - eStore</title>
+    <link rel="icon" type="image/png" href="/img/generic/favicon.png" sizes="32x32">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/lib/dropzone/dist/dropzone.min.css" />
     <link rel="stylesheet" href="~/lib/animate/animate.min.css" />
     <link rel="stylesheet" href="~/lib/owl/owl.carousel.min.css" />
     <link rel="stylesheet" href="~/lib/owl/owl.theme.default.min.css" />
+    <link rel="stylesheet" href="~/lib/notyf/notyf.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
@@ -70,7 +72,7 @@
                         <li class="dropdown pl-2">
                             <a class="dropdown-toggle btn-outline-primary btn btn-outline-dark"
                                data-toggle="dropdown" href="#">
-                                My Account (@dispname)<span class="caret"></span>
+                                My Account (<span id="cur-username">@dispname</span>)<span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-lg-right w-100">
                                 <li><a class='dropdown-item-text' href='/user/@User.Identity.Name'>Profile</a></li>
@@ -119,6 +121,10 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/owl/owl.carousel.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/signalr/signalr.js"></script>
+    <script src="~/lib/notyf/notyf.min.js"></script>
+    <script src="~/js/notifications.js"></script>
+    <script src="~/js/messages.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 </body>

@@ -2,16 +2,24 @@
 using System.Linq;
 using System.Collections.Generic;
 using Estore.Models;
+using Microsoft.AspNetCore.Hosting;
 
 namespace Estore.Data
 {
     public class MessageData : IDisposable
     {
         private readonly EstoreDbContext dbc;
+        private readonly IWebHostEnvironment env;
 
         public MessageData(EstoreDbContext context)
         {
             dbc = context;
+        }
+
+        public MessageData(EstoreDbContext context, IWebHostEnvironment envr)
+        {
+            dbc = context;
+            env = envr;
         }
 
         public void AddMessage(string body, User sender, User recipient, Item item)
@@ -44,7 +52,9 @@ namespace Estore.Data
         public Message GetMessage(int id)
         {
             Message msg = dbc.Messages.FirstOrDefault(m => m.Id == id);
-            msg.SubjectItem = dbc.Items.First(i => i.Id == msg.SubjectItemId);
+            msg.SubjectItem = new ItemData(dbc, env).GetItem(
+                dbc.Items.First(i => i.Id == msg.SubjectItemId).FindCode
+            );
             msg.Sender = dbc.Users.First(u => u.Id == msg.SenderId);
             msg.Recipient = dbc.Users.First(u => u.Id == msg.RecipientId);
             return msg;

@@ -25,19 +25,6 @@ namespace Estore.Controllers
             return View();
         }
 
-        public async void AllowAccess(SignIn svm)
-        {
-            User user = _context.Users.First(u => u.Email == svm.Email);
-            var usrclaims = new List<Claim>() 
-            {
-                new Claim(ClaimTypes.Name, user.Username),
-                new Claim(ClaimTypes.Email, user.Email),
-            };
-            var usridentity = new ClaimsIdentity(usrclaims, CookieAuthenticationDefaults.AuthenticationScheme);
-            var principal = new ClaimsPrincipal(usridentity);
-            await HttpContext.SignInAsync(principal);
-        }
-
         [HttpPost]
         public IActionResult Index(SignIn svm, string returnUrl)
         {
@@ -55,6 +42,19 @@ namespace Estore.Controllers
                 }
             }
             return View(svm);
+        }
+
+        private async void AllowAccess(SignIn svm)
+        {
+            User user = _context.Users.First(u => u.Email == svm.Email);
+            var usrclaims = new List<Claim>()
+            {
+                new Claim(ClaimTypes.Name, user.Username),
+                new Claim(ClaimTypes.Email, user.Email),
+            };
+            var usridentity = new ClaimsIdentity(usrclaims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var principal = new ClaimsPrincipal(usridentity);
+            await HttpContext.SignInAsync(principal);
         }
     }
 }

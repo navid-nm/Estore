@@ -80,7 +80,7 @@ namespace Estore.Controllers
         [HttpGet]
         public IActionResult ShowMessage(int id)
         {
-            Message msg = new MessageData(_context).GetMessage(id);
+            Message msg = new MessageData(_context, _env).GetMessage(id);
             if (msg.RecipientId == _context.Users.First(u => u.Username == User.Identity.Name).Id)
             {
                 ViewBag.ThisMessage = msg;

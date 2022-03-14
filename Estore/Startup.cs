@@ -1,4 +1,5 @@
 using Estore.Data;
+using Estore.Hubs;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -30,6 +31,7 @@ namespace Estore
             });
             services.AddDbContext<EstoreDbContext>(options
                 => options.UseSqlServer(Configuration.GetConnectionString("Default")));
+            services.AddSignalR();
             services.AddControllersWithViews();
             services.AddSingleton<Views.ViewFunctions>();
             services.AddSession();
@@ -59,6 +61,7 @@ namespace Estore
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHub<MessageTransmission>("/msgs");
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}"
