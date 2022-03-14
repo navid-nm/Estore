@@ -43,7 +43,11 @@ namespace Estore.Data
 
         public Message GetMessage(int id)
         {
-            return new Message();
+            Message msg = dbc.Messages.FirstOrDefault(m => m.Id == id);
+            msg.SubjectItem = dbc.Items.First(i => i.Id == msg.SubjectItemId);
+            msg.Sender = dbc.Users.First(u => u.Id == msg.SenderId);
+            msg.Recipient = dbc.Users.First(u => u.Id == msg.RecipientId);
+            return msg;
         }
 
         public void Dispose()

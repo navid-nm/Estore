@@ -35,7 +35,7 @@ if (location.pathname == "/") {
 $("#message-form").on("submit",
     function (e) {
         e.preventDefault();
-        $("#hidden").val($("#message-editor").html());
+        $("#hidden").val($("#message-editor").text());
         document.getElementById("message-form").submit();
     }
 )    

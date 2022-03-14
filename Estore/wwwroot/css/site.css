@@ -94,6 +94,11 @@ a.navbar-brand {
     font-size:large;
 }
 
+.m-element {
+    min-height: 12em;
+    height: 12em;
+}
+
 /* Registration button in _Layout */
 .btn-reg {
     color: #fff;
