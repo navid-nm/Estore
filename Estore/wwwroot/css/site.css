@@ -73,6 +73,22 @@ a.navbar-brand {
     left: 10%;
 }
 
+.user-item-preview {
+    position: relative;
+    height: 125px;
+    background-size: cover;
+    cursor: pointer;
+}
+
+.user-item-preview span {
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    padding-left: 0.4rem;
+    padding-right: 0.4rem;
+    padding-bottom: 0.18rem;
+    display: inline;
+}
+
 .user-image {
     width: 125px;
     height: auto;

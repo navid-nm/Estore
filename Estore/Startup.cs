@@ -61,7 +61,7 @@ namespace Estore
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapHub<MessageTransmission>("/msgs");
+                endpoints.MapHub<Notifications>("/notifications");
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}"

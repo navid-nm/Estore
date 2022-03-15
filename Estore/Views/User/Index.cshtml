@@ -45,9 +45,9 @@
                     {
                         var img = ViewFunc.GetImageUrls(item)[0];
                         var boxstyle = "background-image: url('" + img + "') !important";
-                        <div class="col-sm-2 item-preview" style="@boxstyle" onclick="location.href = '/item/@item.FindCode'">
+                        <div class="col-sm-2 pt-1 user-item-preview" style="@boxstyle" onclick="location.href = '/item/@item.FindCode'">
                             <font color="white">
-                                @ViewFunc.NormaliseName(item.Name, 19)
+                                <span>@ViewFunc.NormaliseName(item.Name, 19)</span><br />
                                 <span><i>£@item.Price</i></span>
                             </font>
                         </div>

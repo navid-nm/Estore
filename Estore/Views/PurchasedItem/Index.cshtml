@@ -11,11 +11,24 @@
             <img src="@img" class="search-result-image" />
         </div>
         <div class="col-9">
-            <h5 class="text-success">Purchase successful</h5>
+            <h5>Purchase successful</h5>
             <h6>@item.Name</h6>
             <span class="text-secondary">
                 @item.GetConditionDisplayName(item.Quality)
             </span>
+        </div>
+    </div>
+    <div class="pt-5">
+        <div id="options-container">
+            <button type="button" class="btn btn-outline-primary btn-lg btn-block">
+                Leave feedback for the seller
+            </button><br />
+            <button type="button" class="btn btn-outline-primary btn-lg btn-block">
+                Write a review for this item
+            </button><br />
+            <button type="button" class="btn btn-outline-info btn-lg btn-block">
+                Report a problem with your order
+            </button>
         </div>
     </div>
     <hr />

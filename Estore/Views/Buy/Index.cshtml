@@ -5,6 +5,7 @@
     User buyer = (User)ViewBag.Buyer;
     ViewData["Title"] = item.Name;
     var img = ViewFunc.GetImageUrls(item)[0];
+    var sellerName = ((User)ViewBag.Seller).Username;
 }
 
 <hr />
@@ -14,15 +15,21 @@
         </div>
         <div class="col-9">
             <h5>Purchasing:</h5>
-            <h6>@item.Name</h6>
+            <h6 id="this-item">@item.Name</h6>
             <span class="text-secondary">
                 @item.GetConditionDisplayName(item.Quality)
             </span>
+            <div class="pt-3">
+                Seller: 
+                <a href="/user/@sellerName" id="this-seller">
+                    @ViewFunc.NormaliseName(sellerName, 20)
+                </a>
+            </div>
         </div>
     </div>
 <hr />
 
-<form class="form-row" method="post" asp-controller="Buy">
+<form class="form-row" id="buy-form" method="post" asp-controller="Buy">
     <div class="form-group col-md-9">
         <div id="payment-select-section" class="border-bottom border-right pt-1 w-75">
             <label for="method">Payment method:</label>
@@ -61,4 +68,5 @@
             </button>
         </div>
     </div>
+    <span id="this-item-findcode" style="display:none;">@item.FindCode</span>
 </form>
