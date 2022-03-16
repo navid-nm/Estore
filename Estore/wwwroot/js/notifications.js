@@ -13,7 +13,7 @@ let notif = new Notyf({
         {
             icon: false,
             type: 'error',
-            background: 'indianred',
+            background: '#39AEA0',
             dismissible: true
         }
     ]
@@ -50,8 +50,7 @@ $("#message-form").on("submit",
                 document.getElementById("cur-username").innerText
             );
         }
-        setTimeout(function () { }, 1000);
-        document.getElementById("message-form").submit();
+        timedSubmit("message-form")
     }
 )
 
@@ -64,7 +63,11 @@ $("#buy-form").on("submit",
             document.getElementById("this-item").innerText,
             document.getElementById("this-item-findcode").innerText
         );
-        setTimeout(function () { }, 1000);
-        document.getElementById("buy-form").submit();
+        timedSubmit("buy-form")
     }
 )
+
+function timedSubmit(form) {
+    setTimeout(function () { }, 1000);
+    document.getElementById(form).submit();
+}
