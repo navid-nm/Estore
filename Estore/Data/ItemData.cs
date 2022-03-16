@@ -25,10 +25,6 @@ namespace Estore.Data
 
         public void AddItem(Item item, string uname)
         {
-            /*
-             * Username is passed as a string because User object should be created in AddItem
-             * (for EF).
-             */
             var user = dbc.Users.First(u => u.Username == uname);
             item.UserId = user.Id;
             if (user.Items == null)

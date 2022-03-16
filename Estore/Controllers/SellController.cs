@@ -56,11 +56,7 @@ namespace Estore.Controllers
         {
             var path = _env.ContentRootPath + "\\wwwroot\\img\\items\\" + User.Identity.Name + "\\"
                        + HttpContext.Session.GetString("ifc");
-            void Setup()
-            {
-                if (!Directory.Exists(path)) Directory.CreateDirectory(path);
-            }
-            await Task.Run(Setup);
+            if (!Directory.Exists(path)) Directory.CreateDirectory(path);
             foreach (IFormFile file in Request.Form.Files)
             {
                 if (file.Length > 5 * Math.Pow(10, 6)) { throw new Exception("Max filesize reached."); }
