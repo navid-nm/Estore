@@ -1,0 +1,14 @@
+﻿@model Estore.Models.Storefront;
+
+@{
+    ViewData["Title"] = "Success";
+}
+
+<center>
+    <h3 class="pt-3 pb-4">@ViewData["Title"]</h3>
+    Success, your storefront 
+    <a href="/storefront/show/@Model.Id">
+        @Model.Name
+    </a>
+    has been added.
+</center>

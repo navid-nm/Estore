@@ -44,7 +44,7 @@ namespace Estore.Controllers
             {
                 string fc = HttpContext.Session.GetString("LastPurchase");
                 new ItemData(_context).ConcludeItem(
-                    _context.Items.First(i => i.FindCode == fc), 
+                    _context.Items.First(i => i.FindCode == fc),
                     User.Identity.Name
                 );
                 return Redirect("/purchased/" + fc);

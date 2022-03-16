@@ -1,0 +1,24 @@
+﻿@model Estore.Models.Storefront;
+
+@{
+    ViewData["Title"] = "Create a Storefront";
+}
+
+<center>
+    <h3 class="pt-3">@ViewData["Title"]</h3>
+    <form class="w-50 align-content-center" method="post" asp-controller="Storefront">
+        <div class="form-group">
+            <label>Storefront name:</label>
+            <input type="text" class="form-control" id="name" name="Name"
+                   asp-for="Name" placeholder="The name of the storefront">
+            <span asp-validation-for="Name"></span>
+        </div>
+        <div class="form-group">
+            <label>Description:</label>
+            <input type="text" class="form-control" id="name" asp-for="SummaryText"
+                   placeholder="Business details, location, etc...">
+            <span asp-validation-for="SummaryText"></span>
+        </div>
+        <input type="submit" class="btn btn-outline-primary" value="Done" />
+    </form>
+</center>

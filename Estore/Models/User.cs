@@ -31,5 +31,7 @@ namespace Estore.Models
         public DateTime DateOfRegistration { get; set; }
 
         public List<Item> Items { get; set; }
+
+        public List<Storefront> Storefronts { get; set; }
     }
 }

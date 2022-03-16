@@ -1,0 +1,25 @@
+﻿@{ 
+    ViewData["Title"] = "Storefronts";
+    List<Storefront> storefronts = (List<Storefront>)ViewBag.Storefronts; 
+}
+
+<center>
+    <h3 class="pt-3">Your Storefronts</h3>
+    @if (storefronts.Count != 0)
+    {
+        <div id="storefronts-display" class="pt-4">
+            @foreach (Storefront sf in storefronts)
+            {
+                <a href="/storefront/show/@sf.Id">@sf.Name</a><br />
+            }
+        </div>
+    }
+    else
+    {
+        <div class="dz-error animate__animated animate__fadeInUp pt-5">
+            <h5>You have not created any storefronts</h5>
+        </div>
+    }
+    <hr />
+    <a href="/storefront/create" class="pt-3">Create a storefront</a>
+</center>

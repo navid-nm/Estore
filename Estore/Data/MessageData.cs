@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
-using Estore.Models;
 using Microsoft.AspNetCore.Hosting;
+using Estore.Models;
 
 namespace Estore.Data
 {

@@ -1,0 +1,47 @@
+﻿@model Estore.Models.Item;
+
+@{
+    Storefront storefront = (Storefront)ViewBag.StorefrontToEdit;
+    ViewData["Title"] = "Adding an item to " + storefront.Name;
+    Model.Quality = Condition.NEW;
+    Model.ShippingCost = 0;
+}
+
+<center>
+    <h2 class="display-5 pt-5">&nbsp;@ViewData["Title"]</h2>
+</center>
+
+<div class="row justify-content-center align-items-center pt-5">
+    <form class="w-50 align-content-center" method="post" asp-controller="Sell">
+        <div class="form-group">
+            <label for="username">Item name:</label>
+            <input type="text" class="form-control" id="name" name="Name"
+                   asp-for="Name" placeholder="The name of the item you are selling">
+            <span asp-validation-for="Name"></span>
+        </div>
+        <div class="form-group">
+            <label for="username">Price:</label>
+            <input type="text" class="form-control" id="price" name="Price"
+                   asp-for="Price" placeholder="The price of the item">
+            <span asp-validation-for="Price"></span>
+        </div>
+        <div>
+            <label>Item pictures:</label>
+            <div class="dropzone" action="/sell/uploadimage" id="my-dropzone"></div>
+        </div>
+        <div class="form-group pt-3">
+            <label for="email">Description:</label>
+            <textarea class="form-control" rows="7" placeholder="A description of the item"
+                      asp-for="Description" name="Description" id="description" style="resize:none"></textarea>
+            <span asp-validation-for="Description"></span>
+        </div>
+        <input type="submit" class="btn btn-outline-primary" value="Done" />
+    </form>
+</div>
+
+<script src="~/lib/dropzone/dist/dropzone.min.js"></script>
+<script>
+    Dropzone.options.myDropzone = {
+        acceptedFiles: 'image/*'
+    };
+</script>

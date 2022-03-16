@@ -9,6 +9,7 @@ namespace Estore.Data
         public DbSet<Item> Items { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<Location> Locations { get; set; }
+        public DbSet<Storefront> Storefronts { get; set; }
         public DbSet<ViewLogEntry> ViewLogEntries { get; set; }
 
         public EstoreDbContext(DbContextOptions<EstoreDbContext> options) : base(options) { }

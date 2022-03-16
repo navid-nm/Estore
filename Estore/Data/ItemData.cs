@@ -52,7 +52,7 @@ namespace Estore.Data
             User owner = dbc.Users.Where(u => u.Id == item.UserId).FirstOrDefault();
             string username = owner.Username;
             string path = env.ContentRootPath + "\\wwwroot\\img\\items\\"
-                + username + "\\" + item.FindCode;
+                        + username + "\\" + item.FindCode;
             if (Directory.Exists(path))
             {
                 result = Directory.GetFiles(path).ToList();

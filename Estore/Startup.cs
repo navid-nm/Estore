@@ -112,9 +112,24 @@ namespace Estore
                     defaults: new { controller = "Dashboard", action = "Index" }
                 );
                 endpoints.MapControllerRoute(
+                    name: "preferences",
+                    pattern: "my/account",
+                    defaults: new { controller = "Preference", action = "Index" }
+                );
+                endpoints.MapControllerRoute(
                     name: "search",
                     pattern: "search/{term}",
                     defaults: new { controller = "Search", action = "Index" }
+                );
+                endpoints.MapControllerRoute(
+                    name: "storefront",
+                    pattern: "storefront/show/{id}",
+                    defaults: new { controller = "Storefront", action = "Show" }
+                );
+                endpoints.MapControllerRoute(
+                    name: "appendtostorefront",
+                    pattern: "storefront/{id}/include",
+                    defaults: new { controller = "Storefront", action = "Add" }
                 );
                 endpoints.MapControllerRoute(
                     name: "signout",

@@ -1,0 +1,50 @@
+﻿@{
+    Storefront sf = (Storefront)ViewBag.Storefront;
+    User thisUser = (User)ViewBag.ThisUser;
+}
+
+@if (sf == null)
+{
+    ViewData["Title"] = "Not found";
+    <center>
+        <div class="dz-error animate__animated animate__fadeInUp pt-5">
+            <h2>Not found</h2>
+            <h5 class="text-muted">No such storefront exists.</h5>
+        </div>
+    </center>
+}
+else
+{
+    ViewData["Title"] = sf.Name;
+    <center>
+        <h2 class="pt-5">@sf.Name</h2>
+        <h6 class="pt-4">
+            @sf.SummaryText
+        </h6>
+    </center>
+    <div class="row justify-content-center align-items-center pt-5">
+        @foreach (Item item in sf.Items)
+        {
+            <div id="storefront-item">
+                <img class="search-result-image" src="@ViewFunc.GetImageUrls(item)[0]"/>
+                <b>@item.Name</b>
+                <hr />
+                @item.Price
+            </div>
+        }
+        @if (sf.Items.Count == 0)
+        {
+            <div class="dz-error animate__animated animate__fadeInUp pt-5">
+                <h3>No items</h3>
+                <h5 class="text-muted">This storefront has no items</h5>
+                @if (thisUser != null)
+                {
+                    if (sf.UserId == thisUser.Id)
+                    {
+                        <a href="/storefront/@sf.Id/add/">Add items</a>
+                    }
+                }
+            </div>
+        }
+    </div>
+}

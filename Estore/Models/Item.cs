@@ -40,6 +40,7 @@ namespace Estore.Models
         public string Description { get; set; }
 
         public bool Concluded { get; set; }
+        public bool StorefrontItem { get; set; }
 
         [NotMapped]
         public List<string> ImageUrls { get; set; }
