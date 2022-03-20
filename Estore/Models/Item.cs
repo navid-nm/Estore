@@ -10,6 +10,8 @@ namespace Estore.Models
     {
         public int Id { get; set; }
         public int? BuyerId { get; set; }
+        public bool Concluded { get; set; }
+        public bool StorefrontItem { get; set; }
 
         [ForeignKey("User")]
         public int UserId { get; set; }
@@ -38,9 +40,6 @@ namespace Estore.Models
 
         [Required, MinLength(5), MaxLength(1400)]
         public string Description { get; set; }
-
-        public bool Concluded { get; set; }
-        public bool StorefrontItem { get; set; }
 
         [NotMapped]
         public List<string> ImageUrls { get; set; }

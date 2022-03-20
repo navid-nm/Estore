@@ -4,11 +4,11 @@ namespace Estore.Models
 {
     public class Payment
     {
-        [Required]
-        public PaymentMethod Method { get; set; }
-
         public User Seller { get; set; }
         public User Buyer { get; set; }
+
+        [Required]
+        public PaymentMethod Method { get; set; }
     }
 
     public enum PaymentMethod

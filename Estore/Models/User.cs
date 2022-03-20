@@ -7,6 +7,10 @@ namespace Estore.Models
     public class User
     {
         public int Id { get; set; }
+        public Location ShippingLocation { get; set; }
+        public DateTime DateOfRegistration { get; set; }
+        public List<Item> Items { get; set; }
+        public List<Storefront> Storefronts { get; set; }
 
         [Required]
         [StringLength(40, MinimumLength = 3, ErrorMessage = "Username should be between 3 and 40 characters")]
@@ -25,13 +29,5 @@ namespace Estore.Models
 
         [Required, EmailAddress, Display(Name = "email"), StringLength(254)]
         public string Email { get; set; }
-
-        public Location ShippingLocation { get; set; }
-
-        public DateTime DateOfRegistration { get; set; }
-
-        public List<Item> Items { get; set; }
-
-        public List<Storefront> Storefronts { get; set; }
     }
 }
