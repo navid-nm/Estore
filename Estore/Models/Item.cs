@@ -45,12 +45,12 @@ namespace Estore.Models
         [NotMapped]
         public List<string> ImageUrls { get; set; }
 
-        public string GetConditionDisplayName(Condition cond)
+        public string GetConditionDisplayName()
         {
-            return cond.GetType().GetMember(cond.ToString())
-                                 .First()
-                                 .GetCustomAttribute<DisplayAttribute>()
-                                 .GetName();
+            return Quality.GetType().GetMember(Quality.ToString())
+                          .First()
+                          .GetCustomAttribute<DisplayAttribute>()
+                          .GetName();
         }
     }
 

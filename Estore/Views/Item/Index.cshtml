@@ -82,7 +82,7 @@
                                 }
                             }
                             @ptext: <font size="5"><b>£@item.Price</b></font>
-                            <br />Condition: @item.GetConditionDisplayName(item.Quality)
+                            <br />Condition: @item.GetConditionDisplayName()
                             <br />
                             @if (seller.Username != User.Identity.Name && !item.Concluded)
                             {

@@ -30,7 +30,8 @@ namespace Estore
                 config.LoginPath = "/signin";
             });
             services.AddDbContext<EstoreDbContext>(options
-                => options.UseSqlServer(Configuration.GetConnectionString("Default")));
+                => options.UseSqlServer(Configuration.GetConnectionString("Default"))
+            );
             services.AddSignalR();
             services.AddControllersWithViews();
             services.AddSingleton<Views.ViewFunctions>();
