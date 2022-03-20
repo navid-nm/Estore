@@ -5,12 +5,10 @@
 }
 
 <center>
-    <br /><br />
-    <h2 class="display-5">&nbsp;List an item</h2>
+    <h2 class="display-5 pt-5 pl-2">List an item</h2>
 </center>
-<br /><br />
 
-<div class="row justify-content-center align-items-center">
+<div class="row justify-content-center align-items-center pt-5">
     <form class="w-50 align-content-center" method="post" asp-controller="Sell">
         <div class="form-group">
             <label for="username">Listing title:</label>
@@ -18,19 +16,19 @@
                    asp-for="Name" placeholder="The name of the item you are selling">
             <span asp-validation-for="Name"></span>
         </div>
-        <div class="form-group">
+        <div class="form-group pt-1">
             <label for="username">Price:</label>
             <input type="text" class="form-control" id="price" name="Price"
                    asp-for="Price" placeholder="The price of the item">
             <span asp-validation-for="Price"></span>
         </div>
-        <div class="form-group">
-            <label for="username">Shipping Cost:</label>
+        <div class="form-group pt-1">
+            <label for="username">Shipping cost:</label>
             <input type="text" class="form-control" id="shippingcost" name="ShippingCost"
                    asp-for="ShippingCost" placeholder="The cost of shipping the item">
             <span asp-validation-for="ShippingCost"></span>
         </div>
-        <div>
+        <div class="pt-3 pb-3">
             <label>Item pictures:</label>
             <div class="dropzone" action="/sell/uploadimage" id="my-dropzone"></div>
         </div>
