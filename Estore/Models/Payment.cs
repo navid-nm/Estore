@@ -2,6 +2,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Estore.Models
 {
+    /// <summary>
+    /// Represents a payment to be made for an item.
+    /// </summary>
     public class Payment
     {
         public User Seller { get; set; }

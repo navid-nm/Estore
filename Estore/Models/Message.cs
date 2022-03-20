@@ -4,6 +4,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Estore.Models
 {
+    /// <summary>
+    /// Represents a message sent between users regarding a specific item.
+    /// </summary>
     public class Message
     {
         public int Id { get; set; }

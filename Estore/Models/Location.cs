@@ -2,6 +2,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Estore.Models
 {
+    /// <summary>
+    /// Represents the location information belonging to a user.
+    /// </summary>
     public class Location
     {
         public int Id { get; set; }

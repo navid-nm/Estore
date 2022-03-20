@@ -1,9 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
 using System.Collections.Generic;
-using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Estore.Models
 {
+    /// <summary>
+    /// Represents a user of the system.
+    /// </summary>
     public class User
     {
         public int Id { get; set; }

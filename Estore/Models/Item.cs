@@ -1,11 +1,14 @@
+using System.Linq;
+using System.Reflection;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Reflection;
 
 namespace Estore.Models
 {
+    /// <summary>
+    /// Represents an item listed for sale by a user.
+    /// </summary>
     public class Item
     {
         public int Id { get; set; }
@@ -27,7 +30,7 @@ namespace Estore.Models
         [Required, MinLength(3), MaxLength(100)]
         public string Name { get; set; }
 
-        [Required, Range(0.01, 7000000000, ErrorMessage = "Minimum price is 0.01")]
+        [Required, Range(0.01, 70000000, ErrorMessage = "Minimum price is 0.01")]
         [Column(TypeName = "decimal(18, 2)")]
         public decimal Price { get; set; }
 
