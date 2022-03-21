@@ -96,6 +96,14 @@ a.navbar-brand {
     border-radius: 500px;
 }
 
+.dash-tab {
+    height: 500px;
+    overflow-y: inherit;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    border-radius: 10px;
+}
+
 .s-edge {
     border-radius: 25px;
 }
