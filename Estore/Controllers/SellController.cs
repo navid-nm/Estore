@@ -54,20 +54,17 @@ namespace Estore.Controllers
         [HttpPost]
         public async Task<IActionResult> UploadImage()
         {
-            var path = _env.ContentRootPath + "\\wwwroot\\img\\items\\" + User.Identity.Name + "\\"
-                       + HttpContext.Session.GetString("ifc");
+            var path = _env.ContentRootPath + "\\wwwroot\\img\\items\\" 
+                     + User.Identity.Name + "\\"
+                     + HttpContext.Session.GetString("ifc");
             if (!Directory.Exists(path)) Directory.CreateDirectory(path);
             foreach (IFormFile file in Request.Form.Files)
             {
-                if (file.Length > 5 * Math.Pow(10, 6)) { throw new Exception("Max filesize reached."); }
-                char[] avoid = Path.GetInvalidFileNameChars();
-                var safe = string.Join("-", file.FileName.Split(avoid, StringSplitOptions.RemoveEmptyEntries))
-                                 .TrimEnd('.');
-                int sh = safe.LastIndexOf(".");
-                if (sh > -1)
-                {
-                    safe = safe.Substring(0, sh) + Guid.NewGuid().ToString("N")[10..] + safe[sh..];
+                if (file.Length > 2 * Math.Pow(10, 6)) 
+                { 
+                    throw new Exception("Max filesize reached.");
                 }
+                var safe = string.Concat(file.FileName.Split(Path.GetInvalidFileNameChars()));
                 using FileStream fs = new FileStream(Path.Combine(path, safe), FileMode.Create);
                 await file.CopyToAsync(fs);
             }
