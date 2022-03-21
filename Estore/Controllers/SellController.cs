@@ -60,9 +60,9 @@ namespace Estore.Controllers
             if (!Directory.Exists(path)) Directory.CreateDirectory(path);
             foreach (IFormFile file in Request.Form.Files)
             {
-                if (file.Length > 2 * Math.Pow(10, 6)) 
-                { 
-                    throw new Exception("Max filesize reached.");
+                if (file.Length > 2 * Math.Pow(10, 7))
+                {
+                    return Forbid();
                 }
                 var safe = string.Concat(file.FileName.Split(Path.GetInvalidFileNameChars()));
                 using FileStream fs = new FileStream(Path.Combine(path, safe), FileMode.Create);
