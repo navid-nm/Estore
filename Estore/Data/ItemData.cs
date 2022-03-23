@@ -45,7 +45,7 @@ namespace Estore.Data
         public List<string> GetImages(Item item)
         {
             List<string> result = null;
-            User owner = dbc.Users.FirstOrDefault(u => u.Id == item.UserId);
+            User owner = dbc.Users.First(u => u.Id == item.UserId);
             string username = owner.Username;
             string path = env.ContentRootPath + "\\wwwroot\\img\\items\\"
                         + username + "\\" + item.FindCode;
