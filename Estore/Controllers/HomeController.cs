@@ -24,7 +24,7 @@ namespace Estore.Controllers
         {
             if (User.Identity.Name != null)
             {
-                User user = _context.Users.Where(u => u.Username == User.Identity.Name).First();
+                User user = _context.Users.First(u => u.Username == User.Identity.Name);
                 List<Item> items = new UserData(_context).GetViewed(user.Username);
                 foreach (Item item in items)
                 {

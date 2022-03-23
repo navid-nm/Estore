@@ -22,7 +22,7 @@ namespace Estore.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            User user = _context.Users.Where(u => u.Username == User.Identity.Name).First();
+            User user = _context.Users.First(u => u.Username == User.Identity.Name);
             using var idata = new ItemData(_context, _env);
             ViewBag.ItemsSoldByUser = idata.GetItems(i => user.Id == i.UserId);
             ViewBag.PurchasedItems = idata.GetItems(i => i.BuyerId == user.Id);
