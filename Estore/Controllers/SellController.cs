@@ -26,14 +26,11 @@ namespace Estore.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            if (User.Identity.IsAuthenticated)
+            if (!new UserData(_context).UserHasLocation(User.Identity.Name))
             {
-                if (!new UserData(_context).UserHasLocation(User.Identity.Name))
-                {
-                    return Redirect("/location");
-                }
-                HttpContext.Session.SetString("ifc", Guid.NewGuid().ToString("N")[14..]);
+                return Redirect("/location");
             }
+            HttpContext.Session.SetString("ifc", Guid.NewGuid().ToString("N")[14..]);
             return View();
         }
 
