@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -39,7 +38,7 @@ namespace Estore.Controllers
             return JsonConvert.DeserializeObject<T>(TempData.Peek(key).ToString());
         }
 
-        [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
+        [Authorize]
         [HttpGet]
         public IActionResult Index(string username, string findcode)
         {
@@ -68,7 +67,7 @@ namespace Estore.Controllers
             return View();
         }
 
-        [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
+        [Authorize]
         [HttpGet]
         public IActionResult ViewAll()
         {
@@ -76,7 +75,7 @@ namespace Estore.Controllers
             return View("All");
         }
 
-        [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
+        [Authorize]
         [HttpGet]
         public IActionResult ShowMessage(int id)
         {
