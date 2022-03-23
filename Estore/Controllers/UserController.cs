@@ -24,13 +24,16 @@ namespace Estore.Controllers
         {
             User user = _context.Users.Include(u => u.Items)
                                       .FirstOrDefault(u => u.Username == username);
-            List<Item> items = new List<Item>();
-            foreach (Item item in user.Items)
+            if (user != null)
             {
-                items.Add(new ItemData(_context, _env).GetItem(item.FindCode));
+                List<Item> items = new List<Item>();
+                foreach (Item item in user.Items)
+                {
+                    items.Add(new ItemData(_context, _env).GetItem(item.FindCode));
+                }
+                ViewBag.User = user;
+                ViewBag.Items = items;
             }
-            ViewBag.User = user;
-            ViewBag.Items = items;
             return View();
         }
     }
