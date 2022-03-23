@@ -5,8 +5,7 @@ namespace Estore.Controllers
 {
     public class PreferenceController : Controller
     {
-        [Authorize]
-        [HttpGet]
+        [HttpGet, Authorize]
         public IActionResult Index()
         {
             return View();

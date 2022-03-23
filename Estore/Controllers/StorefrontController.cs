@@ -16,8 +16,7 @@ namespace Estore.Controllers
             _context = context;
         }
 
-        [Authorize]
-        [HttpGet]
+        [HttpGet, Authorize]
         public IActionResult Add(int id)
         {
             User user = _context.Users.First(u => u.Username == User.Identity.Name);
@@ -51,8 +50,7 @@ namespace Estore.Controllers
             return View("SingleStorefront");
         }
 
-        [Authorize]
-        [HttpGet]
+        [HttpGet, Authorize]
         public IActionResult Index()
         {
             User user = _context.Users.First(u => u.Username == User.Identity.Name);
@@ -60,14 +58,12 @@ namespace Estore.Controllers
             return View();
         }
 
-        [Authorize]
-        [HttpGet]
+        [HttpGet, Authorize]
         public IActionResult Create()
         {
             return View("Create");
         }
 
-        [Authorize]
         [HttpPost]
         public IActionResult Create(Storefront sf)
         {

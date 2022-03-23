@@ -15,8 +15,7 @@ namespace Estore.Controllers
             _context = context;
         }
 
-        [Authorize]
-        [HttpGet]
+        [HttpGet, Authorize]
         public IActionResult Index(string findcode)
         {
             if (new UserData(_context).UserHasLocation(User.Identity.Name)) 
@@ -33,8 +32,7 @@ namespace Estore.Controllers
             return View();
         }
 
-        [Authorize]
-        [HttpPost]
+        [HttpPost, Authorize]
         public IActionResult Index(Location location)
         {
             if (ModelState.IsValid)

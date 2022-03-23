@@ -18,8 +18,7 @@ namespace Estore.Controllers
             _env = env;
         }
 
-        [Authorize]
-        [HttpGet]
+        [HttpGet, Authorize]
         public IActionResult Index()
         {
             User user = _context.Users.First(u => u.Username == User.Identity.Name);

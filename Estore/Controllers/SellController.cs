@@ -21,8 +21,7 @@ namespace Estore.Controllers
             _context = context;
         }
 
-        [Authorize]
-        [HttpGet]
+        [HttpGet, Authorize]
         public IActionResult Index()
         {
             if (!new UserData(_context).UserHasLocation(User.Identity.Name))

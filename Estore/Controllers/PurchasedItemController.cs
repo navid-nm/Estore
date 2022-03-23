@@ -18,8 +18,7 @@ namespace Estore.Controllers
             _context = context;
         }
 
-        [Authorize]
-        [HttpGet]
+        [HttpGet, Authorize]
         public IActionResult Index(string findcode)
         {
             User user = _context.Users.First(u => u.Username == User.Identity.Name);

@@ -38,8 +38,7 @@ namespace Estore.Controllers
             return JsonConvert.DeserializeObject<T>(TempData.Peek(key).ToString());
         }
 
-        [Authorize]
-        [HttpGet]
+        [HttpGet, Authorize]
         public IActionResult Index(string username, string findcode)
         {
             SetMessageObjects(new Dictionary<string, object>
@@ -67,16 +66,14 @@ namespace Estore.Controllers
             return View();
         }
 
-        [Authorize]
-        [HttpGet]
+        [HttpGet, Authorize]
         public IActionResult ViewAll()
         {
             ViewBag.Messages = new MessageData(_context).GetMessages(User.Identity.Name);
             return View("All");
         }
 
-        [Authorize]
-        [HttpGet]
+        [HttpGet, Authorize]
         public IActionResult ShowMessage(int id)
         {
             Message msg = new MessageData(_context, _env).GetMessage(id);
