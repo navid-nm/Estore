@@ -41,7 +41,7 @@ namespace Estore.Data
 
         public void SetLocation(string name, Location location)
         {
-            User user = dbc.Users.Where(u => u.Username == name).First();
+            User user = dbc.Users.First(u => u.Username == name);
             location.PostalCode = location.PostalCode.ToUpper();
             location.Address = ti.ToTitleCase(location.Address);
             user.ShippingLocation = location;
