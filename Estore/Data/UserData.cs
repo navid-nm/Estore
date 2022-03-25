@@ -94,7 +94,7 @@ namespace Estore.Data
         }
 
         /// <summary>
-        /// Add a record of the user having viewed an item
+        /// Add a record of the user having viewed an item.
         /// </summary>
         /// <param name="name">Username of the user</param>
         /// <param name="item">Item that was viewed</param>
