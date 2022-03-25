@@ -13,7 +13,7 @@ namespace Estore.Data
         private readonly EstoreDbContext dbc;
 
         /// <summary>
-        /// Constructs an instance given a context.
+        /// Construct an instance given a context.
         /// </summary>
         public StorefrontData(EstoreDbContext context)
         {

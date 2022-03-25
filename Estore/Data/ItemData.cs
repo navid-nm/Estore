@@ -16,7 +16,7 @@ namespace Estore.Data
         private readonly IWebHostEnvironment env;
 
         /// <summary>
-        /// Constructs a context-only instance.
+        /// Construct a context-only instance.
         /// </summary>
         public ItemData(EstoreDbContext context)
         {
@@ -24,7 +24,7 @@ namespace Estore.Data
         }
 
         /// <summary>
-        /// Constructs an instance including the environment.
+        /// Construct an instance including the environment.
         /// Required for image processing.
         /// </summary>
         public ItemData(EstoreDbContext context, IWebHostEnvironment envr)

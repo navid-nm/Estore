@@ -3,6 +3,9 @@ using Estore.Models;
 
 namespace Estore.Data
 {
+    /// <summary>
+    /// Provides DbSets to abstract data access.
+    /// </summary>
     public class EstoreDbContext : DbContext
     {
         public DbSet<User> Users { get; set; }
