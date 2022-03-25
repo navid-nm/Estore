@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.SignalR;
 
 namespace Estore.Hubs
 {
+    /// <summary>
+    /// Handles transmission of notifications between clients.
+    /// </summary>
     public class Notifications : Hub
     {
         public async Task NotifyOfMessage(string sender, string recipient)
