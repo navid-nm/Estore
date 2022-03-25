@@ -13,7 +13,7 @@ let notif = new Notyf({
         {
             icon: false,
             type: 'error',
-            background: '#39AEA0',
+            background: '#2a2727',
             dismissible: true
         }
     ]

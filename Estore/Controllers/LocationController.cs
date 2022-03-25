@@ -32,7 +32,7 @@ namespace Estore.Controllers
             return View();
         }
 
-        [HttpPost, Authorize]
+        [HttpPost]
         public IActionResult Index(Location location)
         {
             if (ModelState.IsValid)

@@ -22,7 +22,7 @@ namespace Estore.Controllers
         [AllowAnonymous]
         public IActionResult Index()
         {
-            if (User.Identity.Name != null)
+            if (User.Identity.Name != null && _context.Users.Count() > 0)
             {
                 User user = _context.Users.First(u => u.Username == User.Identity.Name);
                 List<Item> items = new UserData(_context).GetViewed(user.Username);
