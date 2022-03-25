@@ -15,6 +15,7 @@ namespace Estore.Test
             server = new TestServer(new WebHostHelper().GetWebHostBuilder());
         }
 
+        //For ensuring the correct functioning of item retrieval.
         [Test]
         public async Task TestItemRetrieval()
         {
@@ -25,6 +26,7 @@ namespace Estore.Test
             Assert.That(content, Does.Contain("10.00"));        //Price
         }
 
+        //Test to ensure that the "no such item" error is displayed in the view when applicable.
         [Test]
         public async Task TestNonExistentItem()
         {

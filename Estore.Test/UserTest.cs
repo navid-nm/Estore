@@ -17,6 +17,7 @@ namespace Estore.Test
             server = new TestServer(new WebHostHelper().GetWebHostBuilder());
         }
 
+        //For ensuring the correct functioning of user data retrieval.
         [Test]
         public async Task TestUserProfileRetrieval()
         {

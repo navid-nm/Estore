@@ -15,6 +15,7 @@ namespace Estore.Test
             server = new TestServer(new WebHostHelper().GetWebHostBuilder());
         }
 
+        //Test to ensure that the search feature functions correctly.
         [Test]
         public async Task TestPositiveSearchResult()
         {
@@ -23,6 +24,7 @@ namespace Estore.Test
             Assert.That(content, Does.Contain("TestName"));
         }
 
+        //Test to ensure that the "no such items" error is displayed in the view when applicable.
         [Test]
         public async Task TestNegativeSearchResult()
         {

@@ -17,6 +17,10 @@ namespace Estore.Test
             server = new TestServer(new WebHostHelper().GetWebHostBuilder());
         }
 
+        /*
+         * For testing the correct functioning of authentication and user identity verification
+         * in controllers.
+         */
         [Test]
         public async Task TestAuth()
         {
