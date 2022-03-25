@@ -26,8 +26,10 @@ namespace Estore.Controllers
             {
                 return Redirect("/location/" + findcode);
             }
+
             Item item = new ItemData(_context, _env).GetItem(findcode);
             if (item == null) return Redirect("/item/404");
+
             ViewBag.Buyer = _context.Users.First(u => u.Username == User.Identity.Name);
             ViewBag.Seller = _context.Users.First(u => u.Id == item.UserId);
             ViewBag.ItemToBuy = item;

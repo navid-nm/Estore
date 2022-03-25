@@ -44,6 +44,10 @@ namespace Estore.Controllers
             return View(svm);
         }
 
+        /// <summary>
+        /// Assign an identity to an authenticated user.
+        /// </summary>
+        /// <param name="svm">Successful sign in attempt</param>
         private async void AllowAccess(SignIn svm)
         {
             User user = _context.Users.First(u => u.Email == svm.Email);

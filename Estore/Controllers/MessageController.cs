@@ -33,6 +33,12 @@ namespace Estore.Controllers
             }
         }
 
+        /// <summary>
+        /// Retrieve temporary data set for the current message.
+        /// </summary>
+        /// <typeparam name="T">Type of temporary message data</typeparam>
+        /// <param name="key">Name of stored message data</param>
+        /// <returns>The corresponding message data</returns>
         private T GetMessageObject<T>(string key)
         {
             return JsonConvert.DeserializeObject<T>(TempData.Peek(key).ToString());
